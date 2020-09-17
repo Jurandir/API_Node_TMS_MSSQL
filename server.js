@@ -1,9 +1,13 @@
 const express = require('express')  
 
 const bodyParser = require("body-parser")  
+const morgan = require('morgan')
 const rotas = require('./routes/rotas')  
 
 const app = express()  
+
+// Log
+app.use(morgan('dev'))
 
 app.use(function (req, res, next) {  
     res.header("Access-Control-Allow-Origin", "*")  

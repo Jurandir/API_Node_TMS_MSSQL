@@ -5,30 +5,19 @@ const faturacargas = require('../consultas/faturaCargas')
 const { poolPromise } = require('../connection/db')  
 
 router.get('/', function(req, res) {
-    res.send('API CARGAS - Termaco');
+    res
+    .send(`<h2>API CARGAS - Termaco:</h2>
+           <br>
+           <h6>  URL: /faturacargas</h6>
+           <h6>  Método: GET</h6>
+           <h6>  Descrição: Retorna lista de Faturas</h6>
+           <h6>  Parâmetros: cnpj, quitado, dataini, datafin  </h6>
+           <h6>  </h6>
+        `)
+    .status(200)
 });
 
 router.get('/faturacargas', faturacargas )
-
-
-router.get('/teste', async function(req, res) {
-    try {  
-        const pool = await poolPromise  
-        const result = await pool.request()  
-        .query('select * from AG_EMP',function(err, profileset){  
-            if (err) {  
-                console.log(err)  
-            } else {  
-                var send_data = profileset.recordset; 
-                res.status(200) 
-                res.json(send_data);  
-            }  
-        })  
-        } catch (err) {  
-            res.status(500)  
-            res.send(err.message)  
-        } 
-});
 
 // console.log('Rotas exportadas...')
 

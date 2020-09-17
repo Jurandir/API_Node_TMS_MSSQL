@@ -10,7 +10,7 @@ const { poolPromise } = require('../connection/db')
 // http://localhost:5000/faturacargas?cnpj=61064838011682&dataini=2020-08-01&datafin=2020-08-17
 
 
-async function faturaCargas(req, res) {
+async function faturaCargas(req, res ) {
     
     const { cnpj, quitado, dataini, datafin } = req.query
 
@@ -40,13 +40,13 @@ async function faturaCargas(req, res) {
                 console.log(err)  
             } else {  
                 var send_data = profileset.recordset; 
-                res.status(200) 
-                res.json(send_data);  
+                res.json(send_data).status(200);
+                pool.close  
             }  
         })  
         } catch (err) {  
-            res.status(500)  
-            res.send(err.message)  
+            res.status(500).send(err.message)  
+            next();
         } 
 }
 
