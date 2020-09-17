@@ -1,6 +1,7 @@
 const express      = require('express')
 const router       = express.Router()
 const faturacargas = require('../consultas/faturaCargas')
+const teste = require('../consultas/teste')
 
 const { poolPromise } = require('../connection/db')  
 
@@ -18,6 +19,9 @@ router.get('/', function(req, res) {
 });
 
 router.get('/faturacargas', faturacargas )
+
+router.post('/faturacargas', faturacargas )
+
 
 // console.log('Rotas exportadas...')
 

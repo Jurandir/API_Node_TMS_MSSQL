@@ -1,21 +1,16 @@
 const { poolPromise } = require('../connection/db')
 
-// Teste 1:
-// http://localhost:5000/faturacargas?cnpj=97837181002190&quitado=S&dataini=2020-08-01&datafin=2020-08-17
+async function faturaCargas( req, res ) {
 
-// Teste 2:
-// http://localhost:5000/faturacargas?cnpj=97837181002190&dataini=2020-08-01&datafin=2020-08-17
+    if ( req.method == 'GET' ) {
+       var { cnpj, quitado, dataini, datafin } = req.query
+    }
 
-// Teste 3:
-// http://localhost:5000/faturacargas?cnpj=61064838011682&dataini=2020-08-01&datafin=2020-08-17
-
-
-async function faturaCargas(req, res ) {
-    
-    const { cnpj, quitado, dataini, datafin } = req.query
-
-    // console.log(req.query)
-
+    if ( req.method == 'POST' ) {
+        console.log(req.body)
+        var { cnpj, quitado, dataini, datafin } = req.body
+    }
+ 
     var s_select = `select fat.cli_cgccpf,isnull(fat.quitado,'N') as quitado,codigo, datafat, datavenc, datapag, valor, fat.bloquete as bloquete, agt_codigo 
                     from fat 
                     where ((fat.status is null) or (fat.status <> 'C'))`
@@ -45,9 +40,18 @@ async function faturaCargas(req, res ) {
             }  
         })  
         } catch (err) {  
-            res.status(500).send(err.message)  
-            next();
+            res.send(err.message).status(500)  
         } 
 }
 
 module.exports = faturaCargas
+
+// Teste 1:
+// http://localhost:5000/faturacargas?cnpj=97837181002190&quitado=S&dataini=2020-08-01&datafin=2020-08-17
+
+// Teste 2:
+// http://localhost:5000/faturacargas?cnpj=97837181002190&dataini=2020-08-01&datafin=2020-08-17
+
+// Teste 3:
+// http://localhost:5000/faturacargas?cnpj=61064838011682&dataini=2020-08-01&datafin=2020-08-17
+
