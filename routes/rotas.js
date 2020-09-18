@@ -9,8 +9,8 @@ router.get('/', function(req, res) {
     res
     .send(`<h2>API CARGAS - Termaco:</h2>
            <br>
-           <h6>  URL: /faturacargas</h6>
-           <h6>  Método: GET</h6>
+           <h3>  URL: /faturacargas</h3>
+           <h6>  Método: GET / POST </h6>
            <h6>  Descrição: Retorna lista de Faturas</h6>
            <h6>  Parâmetros: cnpj, quitado, dataini, datafin  </h6>
            <h6>  </h6>
@@ -18,11 +18,6 @@ router.get('/', function(req, res) {
     .status(200)
 });
 
-router.get('/faturacargas', faturacargas )
-
-router.post('/faturacargas', faturacargas )
-
-
-// console.log('Rotas exportadas...')
+router.use('/faturacargas', faturacargas )
 
 module.exports = router

@@ -13,6 +13,12 @@ async function faturaCargas( req, res ) {
     var s_select = `select fat.cli_cgccpf,isnull(fat.quitado,'N') as quitado,codigo, datafat, datavenc, datapag, valor, fat.bloquete as bloquete, agt_codigo 
                     from fat 
                     where ((fat.status is null) or (fat.status <> 'C'))`
+
+
+
+
+
+                    
     var s_cnpj    = ''
     var s_quitado = ''
     var s_dataini = ''
@@ -44,13 +50,3 @@ async function faturaCargas( req, res ) {
 }
 
 module.exports = faturaCargas
-
-// Teste 1:
-// http://localhost:5000/faturacargas?cnpj=97837181002190&quitado=S&dataini=2020-08-01&datafin=2020-08-17
-
-// Teste 2:
-// http://localhost:5000/faturacargas?cnpj=97837181002190&dataini=2020-08-01&datafin=2020-08-17
-
-// Teste 3:
-// http://localhost:5000/faturacargas?cnpj=61064838011682&dataini=2020-08-01&datafin=2020-08-17
-
