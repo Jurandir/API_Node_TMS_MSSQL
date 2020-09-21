@@ -1,7 +1,8 @@
 const express      = require('express')
 const router       = express.Router()
 const faturacargas = require('../consultas/faturaCargas')
-const teste = require('../consultas/teste')
+const dae          = require('../consultas/DAE')
+const teste        = require('../consultas/teste')
 
 const { poolPromise } = require('../connection/db')  
 
@@ -19,5 +20,6 @@ router.get('/', function(req, res) {
 });
 
 router.use('/faturacargas', faturacargas )
+router.use('/dae', dae )
 
 module.exports = router

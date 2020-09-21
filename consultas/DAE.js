@@ -3,34 +3,49 @@ const { poolPromise } = require('../connection/db')
 async function faturaCargas( req, res ) {
 
     if ( req.method == 'GET' ) {
-       var { cnpj, quitado, dataini, datafin } = req.query
+       var { cnpj, baixado, dataini, datafin } = req.query
     }
 
     if ( req.method == 'POST' ) {
-        var { cnpj, quitado, dataini, datafin } = req.body
+        var { cnpj, baixado, dataini, datafin } = req.body
     }
  
-    var s_select = `select fat.cli_cgccpf,isnull(fat.quitado,'N') as quitado,codigo, datafat, datavenc, datapag, valor, fat.bloquete as bloquete, agt_codigo 
-                    from fat 
-                    where ((fat.status is null) or (fat.status <> 'C'))`
-
-
-
-
-
-                    
+    var s_select = ` 
+     SELECT 
+	      dae.emp_codigo  ,dae.emp_codigo_cnh as cnh_emp  ,dae.cnh_serie   ,dae.cnh_ctrc 
+	      ,dae.codigo	  ,dae.cli_cgccpf_clidest         ,cli.nome	       ,dae.valor
+	      ,dae.status	  ,dae.dataemissao                ,dae.databaixa   ,dae.datatu
+          ,dae.serienf    ,dae.banco                      ,dae.codreceita  ,dae.nf
+          ,dae.obs        ,dae.valornf                    ,dae.coddae      ,dae.vencimento
+          ,dae.chavenfe
+     FROM dae
+        LEFT JOIN cnh ON cnh.emp_codigo = dae.emp_codigo_cnh
+	    AND cnh.serie = dae.cnh_serie
+	    AND cnh.ctrc = dae.cnh_ctrc
+        LEFT JOIN cli ON cli.cgccpf = cnh.cli_cgccpf_remet
+     WHERE cli_cgccpf_clidest IS NOT NULL
+    ` 
     var s_cnpj    = ''
-    var s_quitado = ''
+    var s_baixado = ''
     var s_dataini = ''
     var s_datafin = ''
-    var s_orderBy = ' order by fat.datavenc desc'
+    var s_orderBy = ' ORDER BY cli_cgccpf_clidest desc,dae.dataemissao desc;'
 
-    if (cnpj)    { s_cnpj    = ` and fat.cli_cgccpf = '${cnpj}'`}
-    if (quitado) { s_quitado = ` and isnull(fat.quitado,'N') <> '${quitado}'`}
-    if (dataini) { s_dataini = ` and datafat >= '${dataini}'`}
-    if (datafin) { s_datafin = ` and datafat <= '${datafin}'`}
 
-    var s_sql = s_select + s_cnpj + s_quitado + s_dataini + s_datafin + s_orderBy
+    console.log('Baixado: ',baixado)
+
+    if (baixado) { baixado = baixado.toUpperCase() } else { baixado='N' } 
+
+    
+    if (cnpj)         { s_cnpj    = ` and dae.cli_cgccpf_clidest = '${cnpj}'`}
+    if (baixado=='S') { s_baixado = ` and dae.databaixa IS NOT NULL`}
+    if (baixado=='N') { s_baixado = ` and dae.databaixa IS NULL`}
+    if (dataini)      { s_dataini = ` and dae.dataemissao >= '${dataini}'`}
+    if (datafin)      { s_datafin = ` and dae.dataemissao <= '${datafin}'`}
+
+    console.log('Baixado: ',baixado)
+
+    var s_sql = s_select + s_dataini + s_datafin + s_cnpj + s_baixado  + s_orderBy
         
     try {  
         const pool = await poolPromise  
@@ -50,3 +65,6 @@ async function faturaCargas( req, res ) {
 }
 
 module.exports = faturaCargas
+
+// Teste 1:
+// http://localhost:5000/dae?cnpj=73694739000114&baixado=S&dataini=2020-09-01&datafin=2020-09-18
