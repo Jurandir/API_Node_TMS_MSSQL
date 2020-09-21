@@ -12,11 +12,11 @@ async function faturaCargas( req, res ) {
  
     var s_select = ` 
      SELECT 
-	      dae.emp_codigo  ,dae.emp_codigo_cnh as cnh_emp  ,dae.cnh_serie   ,dae.cnh_ctrc 
-	      ,dae.codigo	  ,dae.cli_cgccpf_clidest         ,cli.nome	       ,dae.valor
-	      ,dae.status	  ,dae.dataemissao                ,dae.databaixa   ,dae.datatu
-          ,dae.serienf    ,dae.banco                      ,dae.codreceita  ,dae.nf
-          ,dae.obs        ,dae.valornf                    ,dae.coddae      ,dae.vencimento
+	      dae.emp_codigo ,dae.emp_codigo_cnh as cnh_emp ,dae.cnh_serie  ,dae.cnh_ctrc 
+	      ,dae.codigo	 ,dae.cli_cgccpf_clidest        ,cli.nome	    ,dae.valor
+	      ,dae.status	 ,dae.dataemissao               ,dae.databaixa  ,dae.datatu
+          ,dae.serienf   ,dae.banco                     ,dae.codreceita ,dae.nf
+          ,dae.obs       ,dae.valornf                   ,dae.coddae     ,dae.vencimento
           ,dae.chavenfe
      FROM dae
         LEFT JOIN cnh ON cnh.emp_codigo = dae.emp_codigo_cnh
@@ -31,19 +31,13 @@ async function faturaCargas( req, res ) {
     var s_datafin = ''
     var s_orderBy = ' ORDER BY cli_cgccpf_clidest desc,dae.dataemissao desc;'
 
-
-    console.log('Baixado: ',baixado)
-
     if (baixado) { baixado = baixado.toUpperCase() } else { baixado='N' } 
-
     
     if (cnpj)         { s_cnpj    = ` and dae.cli_cgccpf_clidest = '${cnpj}'`}
     if (baixado=='S') { s_baixado = ` and dae.databaixa IS NOT NULL`}
     if (baixado=='N') { s_baixado = ` and dae.databaixa IS NULL`}
     if (dataini)      { s_dataini = ` and dae.dataemissao >= '${dataini}'`}
     if (datafin)      { s_datafin = ` and dae.dataemissao <= '${datafin}'`}
-
-    console.log('Baixado: ',baixado)
 
     var s_sql = s_select + s_dataini + s_datafin + s_cnpj + s_baixado  + s_orderBy
         
