@@ -1,8 +1,14 @@
-const express      = require('express')
-const router       = express.Router()
-const faturacargas = require('../consultas/faturaCargas')
-const dae          = require('../consultas/DAE')
-const teste        = require('../consultas/teste')
+const express                 = require('express')
+const router                  = express.Router()
+const faturacargas            = require('../consultas/faturaCargas')
+const dae                     = require('../consultas/DAE')
+const tabelaCliente           = require('../consultas/tabelaCliente')
+const tabelaFretePeso         = require('../consultas/tabelaFretePeso')
+const tabelaPercentualProduto = require('../consultas/tabelaPercentualProduto')
+const tabelaFaixaPeso         = require('../consultas/tabelaFaixaPeso')
+const teste                   = require('../consultas/teste')
+
+
 
 const { poolPromise } = require('../connection/db')  
 
@@ -19,7 +25,12 @@ router.get('/', function(req, res) {
     .status(200)
 });
 
-router.use('/faturacargas', faturacargas )
-router.use('/dae', dae )
+router.use('/dae'                    , dae )
+router.use('/faturacargas'           , faturacargas )
+router.use('/tabelacliente'          , tabelaCliente )
+router.use('/tabelafretepeso'        , tabelaFretePeso )
+router.use('/tabelapercentualproduto', tabelaPercentualProduto )
+router.use('/tabelafaixapeso'        , tabelaFaixaPeso )
+
 
 module.exports = router
