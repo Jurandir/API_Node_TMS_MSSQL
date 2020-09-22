@@ -6,7 +6,9 @@ const tabelaCliente           = require('../consultas/tabelaCliente')
 const tabelaFretePeso         = require('../consultas/tabelaFretePeso')
 const tabelaPercentualProduto = require('../consultas/tabelaPercentualProduto')
 const tabelaFaixaPeso         = require('../consultas/tabelaFaixaPeso')
+const tabelaColetaEntrega     = require('../consultas/tabelaColetaEntrega')
 const teste                   = require('../consultas/teste')
+
 
 
 
@@ -31,6 +33,7 @@ router.use('/tabelacliente'          , tabelaCliente )
 router.use('/tabelafretepeso'        , tabelaFretePeso )
 router.use('/tabelapercentualproduto', tabelaPercentualProduto )
 router.use('/tabelafaixapeso'        , tabelaFaixaPeso )
+router.use('/tabelacoletaentrega'    , tabelaColetaEntrega )
 
 
 module.exports = router

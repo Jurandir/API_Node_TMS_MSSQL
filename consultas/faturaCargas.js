@@ -9,7 +9,7 @@ async function faturaCargas( req, res ) {
     if ( req.method == 'POST' ) {
         var { cnpj, quitado, dataini, datafin } = req.body
     }
- 
+    
     var s_select = `select fat.cli_cgccpf,isnull(fat.quitado,'N') as quitado,codigo, datafat, datavenc, datapag, valor, fat.bloquete as bloquete, agt_codigo 
                     from fat 
                     where ((fat.status is null) or (fat.status <> 'C'))`
