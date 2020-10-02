@@ -76,7 +76,7 @@ async function set_nf() {
     `)
 
    let { Erro } = data
-   if (Erro) { 
+   if ((Erro) || (!data[0])) { 
         wsqlerr = Erro 
         retorno.numero              = 0
         retorno.notaFiscal.numero   = wnf
@@ -103,7 +103,11 @@ async function set_nf() {
 async function set_cnh() {
     werror = 'set_cnh'
     if (retorno.numero  === 0) { 
-        wwhere=`CNH.NF='${wnf}' AND CNH.CLI_CGCCPF_REMET=${wcnpj}`
+        wwhere=`
+        ( CNH.CLI_CGCCPF_REMET       = ${wcnpj}
+          OR  CNH.CLI_CGCCPF_DEST    = ${wcnpj}
+          OR  CNH.CLI_CGCCPF_PAG     = ${wcnpj} ) 
+          AND CNH.NF LIKE '%${wnf}%' `
     } else {
         wwhere=`CNH.EMP_CODIGO='${wemp}' AND CNH.SERIE='${wcnhserie}' and CNH.CTRC=${wctrc} ` 
     }   
@@ -120,27 +124,42 @@ async function set_cnh() {
       WHERE  ${wwhere} 
     `)
 
-    if (retorno.numero  === 0) {
-        retorno.notaFiscal.serie           = data[0].NF_SERIE 
-        retorno.notaFiscal.dataEmissao     = data[0].NF_EMISSAO
-        retorno.notaFiscal.valor           = data[0].VALORNF
-        retorno.notaFiscal.chaveNFe        = data[0].NF_CHAVE
-    }
+    // caso tenha erro na consulta ao banco
+    let { Erro } = data
+    if (Erro) { 
+         wsqlerr = Erro 
+    }        
+    
+    // caso a consulta ao banco não volte com dados
+    if (!data[0]) {
+        
+        wsqlerr = 'EOF - Não há dados para os parâmetros informados !!!'
+        werror = 'PesquisaNF'
+        throw new Error('EOF()')
 
-    //------------------------------------
-    retorno.numero           = data[0].CTRC
-    retorno.dataEmissao      = data[0].DATA 
-    retorno.prevEntrega      = data[0].PREVENTREGA 
-    retorno.tipoPesoM3       = data[0].ESP_CODIGO
-    retorno.pesoM3           = data[0].VOLUME
-    retorno.valorMercadoria  = data[0].VALORNF
-    retorno.valorFrete       = data[0].TOTFRETE
-    retorno.chave            = data[0].CHAVECTE
-    //--------------------------------------------
-    wtrecho       = data[0].TRE_CODIGO
-    wcnpjentrega  = data[0].CLI_CGCCPF_DEST
-    //--------------------------------------------
-    wchave = `${wemp}${wcnhserie}${wctrc}` 
+    } else {
+          if (retorno.numero  === 0) {
+              retorno.notaFiscal.serie           = data[0].NF_SERIE 
+              retorno.notaFiscal.dataEmissao     = data[0].NF_EMISSAO
+              retorno.notaFiscal.valor           = data[0].VALORNF
+              retorno.notaFiscal.chaveNFe        = data[0].NF_CHAVE
+          }
+
+          //------------------------------------
+          retorno.numero           = data[0].CTRC
+          retorno.dataEmissao      = data[0].DATA 
+          retorno.prevEntrega      = data[0].PREVENTREGA 
+          retorno.tipoPesoM3       = data[0].ESP_CODIGO
+          retorno.pesoM3           = data[0].VOLUME
+          retorno.valorMercadoria  = data[0].VALORNF
+          retorno.valorFrete       = data[0].TOTFRETE
+          retorno.chave            = data[0].CHAVECTE
+          //--------------------------------------------
+          wtrecho       = data[0].TRE_CODIGO
+          wcnpjentrega  = data[0].CLI_CGCCPF_DEST
+          //--------------------------------------------
+          wchave = `${wemp}${wcnhserie}${wctrc}` 
+    }
 }
 
 async function set_trecho() {
@@ -161,16 +180,27 @@ async function set_trecho() {
     LEFT JOIN CID DESTINO ON DESTINO.CODIGO = SUBSTRING(TRE.CODIGO, 4, 3)
     WHERE TRE.CODIGO = '${wtrecho}'
   `)
-    
-  //------------------------------------
-    retorno.origemPrestacao.nome  = data[0].CIDADE_ORIGEM
-    retorno.origemPrestacao.uf    = data[0].UF_ORIGEM
-    retorno.origemPrestacao.ibge  = data[0].IBGE_ORIGEM
-    retorno.destinoPrestacao.nome = data[0].CIDADE_DESTINO
-    retorno.destinoPrestacao.uf   = data[0].UF_DESTINO
-    retorno.destinoPrestacao.ibge = data[0].IBGE_DESTINO
-    //------------------------------------
-    wunidest = data[0].UNID_DESTINO
+
+  // caso tenha erro na consulta ao banco
+  let { Erro } = data
+  if (Erro) { 
+       wsqlerr = Erro 
+  }        
+
+  // caso a consulta ao banco não volte com dados
+  if (!data[0]) {       
+        wunidest = '*'
+  } else {
+      //------------------------------------
+        retorno.origemPrestacao.nome  = data[0].CIDADE_ORIGEM
+        retorno.origemPrestacao.uf    = data[0].UF_ORIGEM
+        retorno.origemPrestacao.ibge  = data[0].IBGE_ORIGEM
+        retorno.destinoPrestacao.nome = data[0].CIDADE_DESTINO
+        retorno.destinoPrestacao.uf   = data[0].UF_DESTINO
+        retorno.destinoPrestacao.ibge = data[0].IBGE_DESTINO
+        //------------------------------------
+        wunidest = data[0].UNID_DESTINO
+  }  
 }
 
 async function set_unid_destino() {
@@ -188,17 +218,27 @@ async function set_unid_destino() {
         LEFT JOIN CID ON CID.CODIGO = EMP.CID_CODIGO
         WHERE EMP.CODIGO = '${wunidest}'
   `)
-  //------------------------------------
-    retorno.unidadeDestino.sigla        = data[0].CODIGO   
-    retorno.unidadeDestino.nome         = data[0].NOME     
-    retorno.unidadeDestino.endereco     = data[0].ENDERECO 
-    retorno.unidadeDestino.numero       = data[0].NUMERO   
-    retorno.unidadeDestino.bairro       = data[0].BAIRRO   
-    retorno.unidadeDestino.cidade       = {}
-    retorno.unidadeDestino.cidade.ibge  = data[0].IBGE         
-    retorno.unidadeDestino.cidade.nome  = data[0].CIDADE       
-    retorno.unidadeDestino.cidade.uf    = data[0].UF       
-  //------------------------------------
+  
+  // caso tenha erro na consulta ao banco
+  let { Erro } = data
+  if (Erro) { 
+       wsqlerr = Erro 
+  }        
+
+  // Caso retornou dados
+  if (data[0]) {       
+      //------------------------------------
+        retorno.unidadeDestino.sigla        = data[0].CODIGO   
+        retorno.unidadeDestino.nome         = data[0].NOME     
+        retorno.unidadeDestino.endereco     = data[0].ENDERECO 
+        retorno.unidadeDestino.numero       = data[0].NUMERO   
+        retorno.unidadeDestino.bairro       = data[0].BAIRRO   
+        retorno.unidadeDestino.cidade       = {}
+        retorno.unidadeDestino.cidade.ibge  = data[0].IBGE         
+        retorno.unidadeDestino.cidade.nome  = data[0].CIDADE       
+        retorno.unidadeDestino.cidade.uf    = data[0].UF       
+      //------------------------------------
+  }
 }
 
 async function set_local_entrega() {
@@ -210,19 +250,23 @@ async function set_local_entrega() {
         WHERE CGCCPF = '${wcnpjentrega}'
   `)
 
+  // caso tenha erro na consulta ao banco
   let { Erro } = data
   if (Erro) { 
        wsqlerr = Erro 
   } else {
-      //------------------------------------
-        retorno.localEntrega.endereco    = data[0].ENDERECO
-        retorno.localEntrega.numero      = data[0].NUMERO
-        retorno.localEntrega.bairro      = data[0].BAIRRO
-        retorno.localEntrega.cidade      = {}
-        retorno.localEntrega.cidade.nome = data[0].CIDADE
-        retorno.localEntrega.cidade.uf   = data[0].UF
-        retorno.localEntrega.cidade.ibge = data[0].IBGE
-    //------------------------------------
+        // Caso retornou dados
+        if (data[0]) {       
+            //------------------------------------
+                retorno.localEntrega.endereco    = data[0].ENDERECO
+                retorno.localEntrega.numero      = data[0].NUMERO
+                retorno.localEntrega.bairro      = data[0].BAIRRO
+                retorno.localEntrega.cidade      = {}
+                retorno.localEntrega.cidade.nome = data[0].CIDADE
+                retorno.localEntrega.cidade.uf   = data[0].UF
+                retorno.localEntrega.cidade.ibge = data[0].IBGE
+            //------------------------------------
+        }    
   }
 }
 
@@ -237,13 +281,19 @@ async function set_ocorrencias() {
         ORDER BY DATA
   `)
 
+  // caso tenha erro na consulta ao banco
+  let { Erro } = data
+  if (Erro) { 
+       wsqlerr = Erro 
+  }        
+
   //------------------------------------  
   let elem
   data.forEach((item, index)=>{
       elem = {} 
       elem.codigoInterno           = item.OCO_CODIGO 
-      elem.codigoProceda           = item.OCO_CODIGO 
-      elem.descricaoOcorrencia     = item.NOMEOCORRENCIA 
+      elem.codigoProceda           = item.OCO_CODIGO
+      elem.descricaoOcorrencia     = (item.OCO_CODIGO == 99) ? item.DESCRICAO : item.NOMEOCORRENCIA
       elem.dataRegistro            = item.DATAOCO       
       retorno.ocorrencias.push(elem)  
   })
