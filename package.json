@@ -1,5 +1,5 @@
 {
-  "name": "APIcargas",
+  "name": "apicargas",
   "version": "1.0.0",
   "description": "Cargas API - consultas base SQL server",
   "main": "index.js",
