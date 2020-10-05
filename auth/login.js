@@ -1,0 +1,41 @@
+const sqlQuery = require('../connection/sqlQuery')
+const jwt = require('jsonwebtoken')
+
+require("dotenv").config()
+
+//authentication
+const login = async (req, res, next) => {
+    const credenciais = async (user,pwd) => {
+        let retorno = {}
+        let data = await sqlQuery(`
+          SELECT NOME
+          FROM CLI 
+          WHERE CGCCPF='${user}' AND SENHA='${pwd}'
+          `)  
+         let { Erro } = data
+         if ((Erro) || (!data[0])) { 
+              retorno.auth = false
+              retorno.mensagem = 'Credenciais fornecidas não são validas.'  
+              retorno.erro = Erro
+        } else {
+              retorno.user    = user
+              retorno.nome    = data[0].NOME
+              retorno.mensagem = 'Credenciais validas'  
+              retorno.auth = true 
+         }
+         return retorno
+      }
+
+    let dados = await credenciais(req.body.cnpj,req.body.senha)
+
+    console.log(dados)
+
+    if(dados.auth) {
+      let token = jwt.sign({ "cnpj" : req.body.cnpj }, process.env.SECRET, { expiresIn: '24h'})
+      dados.token = token
+      return res.json( dados )
+    }
+    res.status(500).json( dados );
+}
+  
+module.exports = login
