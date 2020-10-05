@@ -36,7 +36,7 @@ const login = async (req, res, next) => {
       dados.token = token
       return res.json( dados )
     }
-    res.status(500).json( dados );
+    res.status(401).json( dados );
 }
  
 module.exports = login
