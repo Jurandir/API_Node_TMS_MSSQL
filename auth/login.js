@@ -6,7 +6,9 @@ require("dotenv").config()
 //authentication
 const login = async (req, res, next) => {
     const credenciais = async (user,pwd) => {
-        let retorno = {}
+        let retorno  = {}
+        retorno.auth = false
+
         let data = await sqlQuery(`
           SELECT NOME
           FROM CLI 
@@ -14,14 +16,13 @@ const login = async (req, res, next) => {
           `)  
          let { Erro } = data
          if ((Erro) || (!data[0])) { 
-              retorno.auth = false
-              retorno.mensagem = 'Credenciais fornecidas não são validas.'  
+              retorno.message = 'Credenciais fornecidas não são validas.'  
               retorno.erro = Erro
         } else {
-              retorno.user    = user
-              retorno.nome    = data[0].NOME
-              retorno.mensagem = 'Credenciais validas'  
-              retorno.auth = true 
+              retorno.auth    = true 
+              retorno.login   = user
+              retorno.name    = data[0].NOME
+              retorno.message = 'Credenciais validas'  
          }
          return retorno
       }
@@ -37,5 +38,5 @@ const login = async (req, res, next) => {
     }
     res.status(500).json( dados );
 }
-  
+ 
 module.exports = login

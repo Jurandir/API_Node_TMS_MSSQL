@@ -26,6 +26,10 @@ app.use(bodyParser.json())
 app.use('/', rotas )  
 
 // Serviço
-app.listen(5000, function () {  
-    console.log('Servidor rodando em 5000')  
-}) 
+
+const port = process.env.PORT || '5000'
+const modo = process.env.NODE_ENV || 'Test'
+
+app.listen(port, function () {
+    console.log(`Servidor rodando na porta ${port} : Modo ${modo}`)
+})
