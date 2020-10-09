@@ -75,8 +75,10 @@ async function set_nf() {
     SERIE='${wnfserie}' AND NF=${wnf} AND CLI_CGCCPF_REMET=${wcnpj}
     `)
 
+
    let { Erro } = data
    if ((Erro) || (!data[0])) { 
+        console.log('set_nf',data,Erro)
         wsqlerr = Erro 
         retorno.numero              = 0
         retorno.notaFiscal.numero   = wnf
@@ -104,9 +106,9 @@ async function set_cnh() {
     werror = 'set_cnh'
     if (retorno.numero  === 0) { 
         wwhere=`
-        ( CNH.CLI_CGCCPF_REMET       = ${wcnpj}
-          OR  CNH.CLI_CGCCPF_DEST    = ${wcnpj}
-          OR  CNH.CLI_CGCCPF_PAG     = ${wcnpj} ) 
+        ( CNH.CLI_CGCCPF_REMET       = '${wcnpj}'
+          OR  CNH.CLI_CGCCPF_DEST    = '${wcnpj}'
+          OR  CNH.CLI_CGCCPF_PAG     = '${wcnpj}' ) 
           AND CNH.NF LIKE '%${wnf}%' `
     } else {
         wwhere=`CNH.EMP_CODIGO='${wemp}' AND CNH.SERIE='${wcnhserie}' and CNH.CTRC=${wctrc} ` 
@@ -121,6 +123,7 @@ async function set_cnh() {
       LEFT JOIN NFR ON NFR.EMP_CODIGO = CNH.EMP_CODIGO 
                    AND NFR.CNH_SERIE  = CNH.SERIE 
                    AND NFR.CNH_CTRC   = CNH.CTRC
+                   AND NFR.NF         = '%${wnf}%'
       WHERE  ${wwhere} 
     `)
 
@@ -128,6 +131,7 @@ async function set_cnh() {
     let { Erro } = data
     if (Erro) { 
          wsqlerr = Erro 
+         console.log('set_cnh',data,Erro)
     }        
     
     // caso a consulta ao banco não volte com dados
@@ -135,7 +139,7 @@ async function set_cnh() {
         
         wsqlerr = 'EOF - Não há dados para os parâmetros informados !!!'
         werror = 'PesquisaNF'
-        throw new Error('EOF()')
+        throw new Error(`EOF() - ${Erro} `)
 
     } else {
           if (retorno.numero  === 0) {
