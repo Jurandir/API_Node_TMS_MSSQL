@@ -1,6 +1,6 @@
 const { poolPromise } = require('./db')
 
-async function sqlQuery( sSQL, fn1 ) {      
+async function sqlQuery( sSQL ) {      
     try {  
         let pool = await poolPromise 
         let result = await pool.request().query( sSQL )

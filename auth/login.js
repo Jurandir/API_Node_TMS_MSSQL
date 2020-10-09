@@ -29,8 +29,6 @@ const login = async (req, res, next) => {
 
     let dados = await credenciais(req.body.cnpj,req.body.senha)
 
-    console.log(dados)
-
     if(dados.auth) {
       let token = jwt.sign({ "cnpj" : req.body.cnpj }, process.env.SECRET, { expiresIn: '24h'})
       dados.token = token
