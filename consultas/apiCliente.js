@@ -1,4 +1,5 @@
-const sqlQuery = require('../connection/sqlQuery')
+const sqlQuery     = require('../connection/sqlQuery')
+const validaAcesso = require('../auth/validaAcesso')
 
 //  TESTE : parametros = ["16851732000206","43673","2"]
 //  http://localhost:5000/apicliente?cnpj=16851732000206&documento=43673&serie=2
@@ -6,8 +7,10 @@ const sqlQuery = require('../connection/sqlQuery')
 var retorno = {}
 var wemp, wctrc, wcnhserie, wwhere, wtrecho, wunidest, wcnpjentrega, wchave
 var wcnpj, wnf, wnfserie, werror, wsqlerr
+var userId_Token
  
 async function apiCliente( req, res ) {
+
   retorno.numero           = 0
   retorno.dataEmissao      = null 
   retorno.prevEntrega      = null
@@ -49,8 +52,13 @@ async function apiCliente( req, res ) {
       }    
   }
   
-  //------------------------------------ 
+ //------------------------------------ 
+ // CNPJ extraido do Token
+  userId_Token = req.userId
+
   try {
+
+      validaAcesso(userId_Token, wcnpj )
 
       await set_nf()
       await set_cnh() 
