@@ -56,9 +56,10 @@ async function apiCliente( req, res ) {
  // CNPJ extraido do Token
   userId_Token = req.userId
 
+
   try {
 
-      validaAcesso(userId_Token, wcnpj )
+      // validaAcesso(userId_Token, wcnpj )
 
       await set_nf()
       await set_cnh() 
@@ -77,10 +78,14 @@ async function apiCliente( req, res ) {
 async function set_nf() {
   werror = 'set_nf'
   let data = await sqlQuery(`
-    SELECT EMP_CODIGO AS CNH_EMPRESA,CNH_SERIE,CNH_CTRC,NF,SERIE,DATA,VALOR,CHAVENFE  
+    SELECT NFR.EMP_CODIGO AS CNH_EMPRESA,NFR.CNH_SERIE,NFR.CNH_CTRC,
+           NFR.NF,NFR.SERIE,NFR.DATA,NFR.VALOR,NFR.CHAVENFE,
+           CNH.CLI_CGCCPF_DEST  
     FROM NFR
+    LEFT JOIN CNH ON CNH.EMP_CODIGO = NFR.EMP_CODIGO AND CNH.SERIE = NFR.CNH_SERIE AND CNH.CTRC = NFR.CNH_CTRC
     WHERE
-    SERIE='${wnfserie}' AND NF=${wnf} AND CLI_CGCCPF_REMET=${wcnpj}
+    NFR.SERIE='${wnfserie}' AND NFR.NF=${wnf} AND 
+    ( NFR.CLI_CGCCPF_REMET='${wcnpj}' OR ( NFR.CLI_CGCCPF_REMET='${userId_Token}' AND CNH.CLI_CGCCPF_DEST='${wcnpj}'))
     `)
 
 
@@ -171,6 +176,25 @@ async function set_cnh() {
           wcnpjentrega  = data[0].CLI_CGCCPF_DEST
           //--------------------------------------------
           wchave = `${wemp}${wcnhserie}${wctrc}` 
+          //----------
+          // valida raiz do usuario com dados
+          let raiz_dest    = (data[0].CLI_CGCCPF_DEST    || '').substring(0,8)   
+          let raiz_remet   = (data[0].CLI_CGCCPF_REMET   || '').substring(0,8)  
+          let raiz_receb   = (data[0].CLI_CGCCPF_RECEB   || '').substring(0,8)  
+          let raiz_pag     = (data[0].CLI_CGCCPF_PAG     || '').substring(0,8)    
+          let raiz_cns     = (data[0].CLI_CGCCPF_CNS     || '').substring(0,8)    
+          let raiz_exped   = (data[0].CLI_CGCCPF_EXPED   || '').substring(0,8)  
+          let raiz_rds     = (data[0].CLI_CGCCPF_RDS     || '').substring(0,8)    
+          let raiz_tomador = (data[0].CLI_CGCCPF_TOMADOR || '').substring(0,8)
+          let raiz_user    = userId_Token.substring(0,8)
+          let ok_raiz =  (( raiz_user == raiz_dest ) || ( raiz_user == raiz_remet ) || ( raiz_user == raiz_receb ) || 
+              ( raiz_user == raiz_pag ) || ( raiz_user == raiz_cns ) || ( raiz_user == raiz_exped ) || 
+              ( raiz_user == raiz_rds ) || ( raiz_user == raiz_tomador ))
+
+          if (!ok_raiz) {
+             throw new Error(`Access ERRO - RAIZ do CNPJ pesquisado não pertence ao usuário de Login`)
+          }
+
     }
 }
 
@@ -256,7 +280,7 @@ async function set_unid_destino() {
 async function set_local_entrega() {
   werror = 'set_local_entrega'
   data = await sqlQuery(`
-        SELECT ENDERECO,NUMERO,BAIRRO,CID.NOME AS CIDADE,CID.UF,CID.CODMUN AS IBGE
+        SELECT CLI.NOME,ENDERECO,NUMERO,BAIRRO,CID.NOME AS CIDADE,CID.UF,CID.CODMUN AS IBGE
         FROM CLI 
         LEFT JOIN CID ON CID.CODIGO = CLI.CID_CODIGO
         WHERE CGCCPF = '${wcnpjentrega}'
@@ -270,6 +294,7 @@ async function set_local_entrega() {
         // Caso retornou dados
         if (data[0]) {       
             //------------------------------------
+                retorno.localEntrega.nome        = data[0].NOME
                 retorno.localEntrega.endereco    = data[0].ENDERECO
                 retorno.localEntrega.numero      = data[0].NUMERO
                 retorno.localEntrega.bairro      = data[0].BAIRRO
@@ -289,7 +314,8 @@ async function set_ocorrencias() {
         FROM OUN  
         LEFT JOIN OCO ON OCO.CODIGO=OUN.OCO_CODIGO  
         LEFT JOIN MOT ON MOT.PRONTUARIO = OUN.MOT_PRONTUARIO  
-        WHERE TABELA='CNH' AND CHAVE='${wchave}' 
+        WHERE TABELA='CNH' AND CHAVE='${wchave}'
+        AND OCO.NAOENVIAEDI=0 
         ORDER BY DATA
   `)
 
