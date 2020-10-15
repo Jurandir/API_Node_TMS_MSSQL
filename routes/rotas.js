@@ -8,6 +8,7 @@ const tabelaPercentualProduto = require('../consultas/tabelaPercentualProduto')
 const tabelaFaixaPeso         = require('../consultas/tabelaFaixaPeso')
 const tabelaColetaEntrega     = require('../consultas/tabelaColetaEntrega')
 const apiCliente              = require('../consultas/apiCliente')
+const posicaoCarga            = require('../controllers/posicaoCarga')
 const login                   = require('../auth/login')
 const logout                  = require('../auth/logout')
 const validaToken             = require('../auth/verifyToken')
@@ -49,7 +50,10 @@ const validaToken             = require('../auth/verifyToken')
  *       401:
  *         description: Credenciais invalidas
  */
-router.post('/login'                 , login )
+router.post('/login' , login )
+
+
+router.post('/posicaocarga' , validaToken ,posicaoCarga)
 
 /**
  * @swagger
