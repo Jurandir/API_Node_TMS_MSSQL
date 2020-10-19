@@ -9,6 +9,7 @@ const tabelaFaixaPeso         = require('../consultas/tabelaFaixaPeso')
 const tabelaColetaEntrega     = require('../consultas/tabelaColetaEntrega')
 const apiCliente              = require('../consultas/apiCliente')
 const posicaoCarga            = require('../controllers/posicaoCarga')
+const cteXML                  =require('../controllers/cteXML')
 const login                   = require('../auth/login')
 const logout                  = require('../auth/logout')
 const validaToken             = require('../auth/verifyToken')
@@ -54,6 +55,8 @@ router.post('/login' , login )
 
 
 router.post('/posicaocarga' , validaToken ,posicaoCarga)
+router.use('/ctexml'        , validaToken, cteXML )
+
 
 /**
  * @swagger
