@@ -40,7 +40,7 @@ const setupOptions = {
 const swaggerSpec = swaggerJSDoc(options)
 
 // Log
-app.use(morgan('dev'))
+app.use(morgan('short'))
 
 app.use(function (req, res, next) {  
     res.header("Access-Control-Allow-Origin", "*")  
