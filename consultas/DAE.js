@@ -1,4 +1,4 @@
-const { poolPromise } = require('../connection/db')
+const { poolPromise } = require('../connection/dbTMS')
 
 async function faturaCargas( req, res ) {
 

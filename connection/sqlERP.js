@@ -1,4 +1,4 @@
-const { poolPromise } = require('./dbTMS')
+const { poolPromise } = require('./dbERP')
 
 async function sqlQuery( sSQL ) {      
     try {  
