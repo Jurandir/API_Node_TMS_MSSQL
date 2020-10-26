@@ -1,6 +1,7 @@
 const express                 = require('express')
 const router                  = express.Router()
 const faturacargas            = require('../consultas/faturaCargas')
+const faturaERP               = require('../consultas/faturaERP')
 const dae                     = require('../consultas/DAE')
 const tabelaCliente           = require('../consultas/tabelaCliente')
 const tabelaFretePeso         = require('../consultas/tabelaFretePeso')
@@ -75,7 +76,7 @@ router.use('/ctexml'        , validaToken, cteXML )
 router.get('/logout'                , logout )
 
 router.use('/apicliente'             , validaToken, apiCliente )
-
+router.use('/faturaerp'              , validaToken, faturaERP )
 
 router.use('/dae'                    , dae )
 router.use('/faturacargas'           , faturacargas )
