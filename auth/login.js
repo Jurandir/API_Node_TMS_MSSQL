@@ -23,6 +23,7 @@ const login = async (req, res, next) => {
               retorno.login   = user
               retorno.name    = data[0].NOME
               retorno.message = 'Credenciais validas'  
+              console.log(`Login : ${user} - ${Date()} - ${req.connection.remoteAddress} - ${data[0].NOME}`)
          }
          return retorno
       }
