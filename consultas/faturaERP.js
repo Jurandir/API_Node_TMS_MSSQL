@@ -62,7 +62,7 @@ async function faturaERP( req, res ) {
     }
 
     var s_sql = s_select + s_quitado + s_dataini + s_datafin + s_orderBy
-       
+      
     try {  
 
         if  ( !(cnpj.substring(0,8) == userId.substring(0,8)) ) {
