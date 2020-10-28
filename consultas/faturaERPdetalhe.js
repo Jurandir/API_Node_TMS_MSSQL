@@ -24,7 +24,7 @@ async function faturaERPdetalhe( req, res ) {
                     WHERE 
                       SE1010.D_E_L_E_T_  <> '*' AND  DT6010.D_E_L_E_T_  <> '*' `
     var s_select = `SELECT 
-                      SUBSTRING(DT6010.DT6_FILDCO,5,3) as EMPCODIGO, 
+                      DT6010.DT6_YFILCO                as EMPCODIGO, 
                       DT6010.DT6_SERIE                 as SERIE, 
                       DT6010.DT6_DOC                   as CTRC, 
                       DT6010.DT6_DATEMI                as DATADOC, 
