@@ -67,5 +67,5 @@ const port = process.env.PORT || '5000'
 const modo = process.env.NODE_ENV || 'Test'
 
 app.listen(port, function () {
-    console.log(`Servidor rodando na porta ${port} : Modo ${modo}`)
+    console.log(`Servidor API - rodando na porta ${port} : Modo ${modo}`)
 })
