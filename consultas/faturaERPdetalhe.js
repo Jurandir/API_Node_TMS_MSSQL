@@ -53,7 +53,7 @@ async function faturaERPdetalhe( req, res ) {
             .query( s_sql2 ,function(err, profileset){  
                 if (err) {                
                     console.log('ERRO (module.exports = faturaERPdetalhe.js - Resumo)')
-                    res.send({ err: err.message, Local: "faturaERPdetalhe.js - Resumo", sql: s_sql }).status(500)  
+                    res.json({ err: err.message, Local: "faturaERPdetalhe.js - Resumo", sql: s_sql }).status(500)  
                 } else {  
                     var resumo = profileset.recordset[0]; 
 
@@ -61,7 +61,7 @@ async function faturaERPdetalhe( req, res ) {
                     .query( s_sql ,function(err, profileset){  
                         if (err) {                
                             console.log('ERRO (module.exports = faturaERPdetalhe.js - profileset)')
-                            res.send({ err: err.message, Local: "faturaERPdetalhe.js - profileset", sql: s_sql }).status(500)  
+                            res.json({ err: err.message, Local: "faturaERPdetalhe.js - profileset", sql: s_sql }).status(500)  
                         } else {  
                             var send_data = profileset.recordset; 
                             res.json({"data": send_data, "resumo": resumo }).status(200);

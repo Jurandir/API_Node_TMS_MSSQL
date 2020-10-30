@@ -66,7 +66,7 @@ async function faturaERP( req, res ) {
     try {  
 
         if  ( !(cnpj.substring(0,8) == userId.substring(0,8)) ) {
-          res.send({ err: "Raiz do CNPJ não confere com login", Local: "faturaERP.js", sql: '' }).status(401)       
+          res.json({ err: "Raiz do CNPJ não confere com login", Local: "faturaERP.js", sql: '' }).status(401)       
         } else {
     
             const pool = await poolPromise  
@@ -74,7 +74,7 @@ async function faturaERP( req, res ) {
             .query( s_sql ,function(err, profileset){  
                 if (err) {                
                     console.log('ERRO (faturaERP.js - profileset)')
-                    res.send({ err: err.message, Local: "faturaERP.js - profileset", sql: s_sql }).status(500)  
+                    res.json({ err: err.message, Local: "faturaERP.js - profileset", sql: s_sql }).status(500)  
                 } else {  
                     var send_data = profileset.recordset; 
                     res.json(send_data).status(200);
@@ -84,7 +84,7 @@ async function faturaERP( req, res ) {
         }
 
     } catch (err) {  
-            res.send(err.message).status(500)  
+            res.json({err: err.message}).status(500)  
     } 
 }
 
