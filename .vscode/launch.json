@@ -1,24 +1,14 @@
 {
-	"version": "0.2.0",
 	"configurations": [
-		{
-			"name": "Attach",
-			"port": 9228,
-			"request": "attach",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"type": "pwa-node"
-		},
-		{
-			"type": "totvs_language_debug",
-			"request": "launch",
-			"name": "TOTVS Language Debug",
-			"program": "${command:AskForProgramName}",
-			"cwb": "${workspaceFolder}",
-			"smartclientBin": "C:/totvs/bin/smartclient/smartclient.exe",
-			"isMultiSession": true,
-			"enableTableSync": true
-		}
+		
+	{
+		"name": "Attach by Process ID",
+		"processId": "${command:PickProcess}",
+		"request": "attach",
+		"skipFiles": [
+			"<node_internals>/**"
+		],
+		"type": "pwa-node"
+	}
 	]
 }
