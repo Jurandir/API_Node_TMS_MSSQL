@@ -12,6 +12,7 @@ const tabelaColetaEntrega     = require('../consultas/tabelaColetaEntrega')
 const apiCliente              = require('../consultas/apiCliente')
 const apiTracking             = require('../consultas/apiTracking')
 const posicaoCarga            = require('../controllers/posicaoCarga')
+const dadosCTRC               = require('../controllers/dadosCTRC')
 const cteXML                  =require('../controllers/cteXML')
 const login                   = require('../auth/login')
 const logout                  = require('../auth/logout')
@@ -58,6 +59,7 @@ router.post('/login' , login )
 
 
 router.post('/posicaocarga' , validaToken ,posicaoCarga)
+router.post('/dadosctrc'    , validaToken , dadosCTRC)
 router.use('/ctexml'        , validaToken, cteXML )
 
 
