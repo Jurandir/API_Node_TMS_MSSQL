@@ -13,7 +13,7 @@ async function dadosLoteNF( req, res ) {
 
     var wsql = `SELECT DISTINCT 
                     CONCAT (NFR.EMP_CODIGO,'-',NFR.CNH_SERIE,'-',NFR.CNH_CTRC) AS DOCUMENTO,
-                    NFR.DATA, NFR.NF, NFR.VALOR, NFR.VOLUME, NFR.CHAVENFE
+                    NFR.DATA, NFR.NF, NFR.VALOR, NFR.VOLUME, NFR.CHAVENFE, NFR.CLI_CGCCPF_REMET AS EMITENTE_NFE
                 FROM NFR
                 WHERE 
                     NFR.CLI_CGCCPF_REMET = '${cnpj}'
