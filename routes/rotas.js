@@ -14,7 +14,8 @@ const apiTracking             = require('../consultas/apiTracking')
 const posicaoCarga            = require('../controllers/posicaoCarga')
 const dadosCTRC               = require('../controllers/dadosCTRC')
 const dadosNF                 = require('../controllers/dadosNF')
-const dadosLoteNF              = require('../controllers/dadosLoteNF')
+const dadosLoteNF             = require('../controllers/dadosLoteNF')
+const listaNFctrc             = require('../controllers/listaNFctrc')
 
 const cteXML                  =require('../controllers/cteXML')
 const login                   = require('../auth/login')
@@ -65,6 +66,7 @@ router.post('/posicaocarga' , validaToken ,posicaoCarga)
 router.post('/dadosctrc'    , validaToken , dadosCTRC)
 router.post('/dadosnf'      , validaToken , dadosNF)
 router.post('/dadoslotenf'  , validaToken , dadosLoteNF)
+router.post('/listanfctrc'  , validaToken , listaNFctrc)
 
 router.use('/ctexml'        , validaToken, cteXML )
 

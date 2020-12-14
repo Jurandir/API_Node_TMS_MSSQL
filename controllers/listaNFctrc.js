@@ -1,14 +1,17 @@
 const sqlQuery     = require('../connection/sqlQuery')
 
-async function dadosLoteNF( req, res ) {
+async function listaNFctrc( req, res ) {
     var userId_Token = req.userId
 
-    var { cnpj, list_nfs } = req.body 
-    if ( (cnpj) && (list_nfs) ) {
-        cnpj     = cnpj
-        list_nfs = list_nfs
-    } else {
-        res.send({ "erro" : "body sem parâmetros", "rotina" : "dadosLoteNF", "sql" : "Sem todos os Parâmetros" }).status(500) 
+    var { cod_ctrc } = req.body 
+
+    // XXX-X-99999999
+    let empresa   = `${cod_ctrc}`.substr(0,3)
+    let serie     = `${cod_ctrc}`.substr(4,1)
+    let numero    = `${cod_ctrc}`.substr(6,10)    
+
+    if ( (!empresa) || (!serie) || (!serie) ) {
+        res.send({ "erro" : "body sem parâmetros", "rotina" : "listaNFctrc", "sql" : "Sem todos os Parâmetros" }).status(500) 
     }    
 
     var wsql = `SELECT DISTINCT 
@@ -16,8 +19,7 @@ async function dadosLoteNF( req, res ) {
                     NFR.DATA, NFR.NF, NFR.VALOR, NFR.VOLUME, NFR.CHAVENFE
                 FROM NFR
                 WHERE 
-                    NFR.CLI_CGCCPF_REMET = '${cnpj}'
-	                AND NFR.NF IN (${list_nfs})
+                EMP_CODIGO='${empresa}' AND CNH_SERIE='${serie}' AND CNH_CTRC=${numero}
                 `				
     try {
 				
@@ -35,4 +37,4 @@ async function dadosLoteNF( req, res ) {
     }    
 }
 
-module.exports = dadosLoteNF
+module.exports = listaNFctrc
