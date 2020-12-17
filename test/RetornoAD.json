@@ -1,0 +1,78 @@
+{
+  "success": true,
+  "isErr": false,
+  "message": 'Success OK',
+  "user": User {
+    dn: 'CN=Jurandir Brito Ferreira Junior,OU=T.I,OU=ADM,OU=Usuarios,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+    userPrincipalName: 'jurandir.junior@termaco.com.br',
+    sAMAccountName: 'jurandir.junior',
+    mail: 'jurandir.junior@termaco.com.br',
+    whenCreated: '20200817180746.0Z',
+    pwdLastSet: '132518311858962488',
+    userAccountControl: '512',
+    sn: 'Brito Ferreira Junior',
+    givenName: 'Jurandir',
+    cn: 'Jurandir Brito Ferreira Junior',
+    displayName: 'Jurandir Brito Ferreira Junior',
+    description: '5814'
+  },
+  "groups": [
+    Group {
+      dn: 'CN=ATI,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'ATI',
+      description: 'TEC. INFORMAÇÃO'
+    },
+    Group {
+      dn: 'CN=ATI-Tecnicos,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'ATI-Tecnicos',
+      description: 'Tecnicos Tec.Informação'
+    },
+    Group {
+      dn: 'CN=CARGAS_LEGADO,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'CARGAS_LEGADO'
+    },
+    Group {
+      dn: 'CN=CARGAS_MARITIMO,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'CARGAS_MARITIMO',
+      description: 'Usuarios Cargas Maritimo'
+    },
+    Group {
+      dn: 'CN=CARGAS_TESTE,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'CARGAS_TESTE'
+    },
+    Group {
+      dn: 'CN=CARGAS_TESTE_MAR,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'CARGAS_TESTE_MAR'
+    },
+    Group {
+      dn: 'CN=FG_INTERNETLIBERADA,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'FG_INTERNETLIBERADA'
+    },
+    Group {
+      dn: 'CN=GRP_TS,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'GRP_TS'
+    },
+    Group {
+      dn: 'CN=INTRANET_EXTERNO,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'INTRANET_EXTERNO',
+      description: 'Disponibiliza a intranet no Go-Global'
+    },
+    Group {
+      dn: 'CN=MATRIZ,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'MATRIZ'
+    },
+    Group {
+      dn: 'CN=QLK_PONTES,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'QLK_PONTES'
+    },
+    Group {
+      dn: 'CN=TOTVS_REMOTO,OU=Grupos,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'TOTVS_REMOTO',
+      description: 'Acesso ao Totvs Remoto'
+    },
+    Group {
+      dn: 'CN=tableau,OU=T.I,OU=ADM,OU=Usuarios,OU=BR,OU=FOR,OU=TERMACO,DC=TERMACOLOG',
+      cn: 'tableau'
+    }
+  ]
+}

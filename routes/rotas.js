@@ -19,6 +19,7 @@ const listaNFctrc             = require('../controllers/listaNFctrc')
 
 const cteXML                  =require('../controllers/cteXML')
 const login                   = require('../auth/login')
+const loginAD                 = require('../auth/loginAD')
 const logout                  = require('../auth/logout')
 const validaToken             = require('../auth/verifyToken')
 
@@ -59,7 +60,8 @@ const validaToken             = require('../auth/verifyToken')
  *       401:
  *         description: Credenciais invalidas
  */
-router.post('/login' , login )
+router.post('/login'   , login  )
+router.post('/loginAD' , loginAD )
 
 
 router.post('/posicaocarga' , validaToken ,posicaoCarga)
