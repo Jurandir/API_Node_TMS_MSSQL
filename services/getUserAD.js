@@ -9,12 +9,14 @@ let logon         = {}
 
 let membroUser = (ad,user) => new Promise(function(resolve, reject) {
     ad.getGroupMembershipForUser(user, function(err, groups) {
-    logon.groups = groups || []
+    logon.groups = []
     if (err) {
         logon.isErr=true
         logon.err = err
         reject( logon )
     } else {
+        let strjson  = JSON.stringify(groups).replace('Group','Group:')
+        logon.groups = JSON.parse( strjson ) 
         resolve( logon )
     }
 })
@@ -33,7 +35,8 @@ let userDet = (ad,conta) => {
 
         } else {
             if (user) {
-                logon            = JSON.parse( JSON.stringify(user).replace('User','User:') )
+                let strjson      = JSON.stringify(user).replace('User','User:')               
+                logon            = JSON.parse( strjson )
                 logon.success    = true
                 logon.isErr      = false
                 membroUser(ad,conta).then(()=>{

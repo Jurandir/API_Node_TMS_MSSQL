@@ -47,3 +47,8 @@ pm2 sendSignal SIGUSR2 my-app # Send system signal to script
 pm2 start app.js --no-daemon
 pm2 start app.js --no-vizion
 pm2 start app.js --no-autorestart
+
+$ pm2 restart app_name
+$ pm2 reload app_name
+$ pm2 stop app_name
+$ pm2 delete app_name

@@ -5,9 +5,16 @@ require("dotenv").config()
 
 //authentication
 const loginAD = async (req, res, next) => {
-    const credenciais = async (user,pwd) => {
+    const credenciais = async (user,base64) => {
+        let xpto = Buffer.from(base64, "base64").toString("ascii").substr(1)
+        let len  = xpto.length
+        let pwd  = xpto.substr(0,len-1)
+
         let retorno  = {}
         retorno.auth = false
+
+        console.log('pwd:',pwd,xpto,len)
+
 
         let data = await getUserAD(user,pwd)
 
@@ -33,20 +40,26 @@ const loginAD = async (req, res, next) => {
 
       let response = {}
       response.auth      = true
-      response.isErr     = false
-      response.nome      = dados.data.displayName
       response.matricula = dados.data.description
+      response.nome      = dados.data.displayName
+      response.grupos    = []
       response.mail      = dados.data.mail
-      response.grupos    = ['ATI']
+
+      for await (grp of dados.data.groups) {
+        response.grupos.push(grp.cn)
+      }
+
+      let cnpj = req.body.cnpj || '00000000000000'
 
       let token = jwt.sign({ 
-        "cnpj" : '00000000000000',
+        "cnpj" : cnpj,
         "nome": response.nome, 
         "matricula": response.matricula,
         "mail": response.mail,
         "grupos": response.grupos
       }, process.env.SECRET, { expiresIn: '24h'})
       response.token = token
+      response.isErr = false
 
       return res.json( response )
     }
