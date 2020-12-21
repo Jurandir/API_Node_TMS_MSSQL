@@ -4,8 +4,12 @@ const jwt = require('jsonwebtoken')
 require("dotenv").config()
 
 //authentication
-const loginAD = async (req, res, next) => {
+const loginAD = async (req, res) => {
     const credenciais = async (user,base64) => {
+
+       console.log('credenciais:',user,base64)
+
+
         let xpto = Buffer.from(base64, "base64").toString("ascii").substr(1)
         let len  = xpto.length
         let pwd  = xpto.substr(0,len-1)
@@ -13,7 +17,7 @@ const loginAD = async (req, res, next) => {
         let retorno  = {}
         retorno.auth = false
 
-        console.log('pwd:',pwd,xpto,len)
+        console.log('credenciais-pwd:',user,pwd)
 
 
         let data = await getUserAD(user,pwd)
@@ -35,6 +39,9 @@ const loginAD = async (req, res, next) => {
       }
 
     let dados = await credenciais(req.body.usuario,req.body.senha)
+
+
+    console.log('credenciais-dados:',dados)
 
     if(dados.auth) {
 
@@ -61,7 +68,7 @@ const loginAD = async (req, res, next) => {
       response.token = token
       response.isErr = false
 
-      return res.json( response )
+      res.json( response )
     }
     res.status(401).json( dados );
 }

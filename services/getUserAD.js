@@ -25,7 +25,14 @@ let membroUser = (ad,user) => new Promise(function(resolve, reject) {
 let userDet = (ad,conta) => { 
     
     return new Promise(function(resolve, reject) {
-    ad.findUser(conta, function(err, user) {        
+    ad.findUser(conta, function(err, user) {      
+
+
+        console.log('findUser:',err,user)
+
+
+
+  
         if (err) {
           logon.success  = false
           logon.isErr    = true
@@ -47,7 +54,7 @@ let userDet = (ad,conta) => {
             } else {
                 logon.success = false
                 logon.message = `Conta (${conta}) não encontada !!!`          
-                reject( logon )
+                resolve( logon )
             }
         }                
     })    
@@ -60,16 +67,20 @@ let getUserAD = ((conta,password) => {
         logon.isErr   = false
         logon.message = ''
 
+
+        console.log('getUserAD:',conta,password)
+
         let config = { url: AD_URL,
             baseDN: AD_BASE_DN,
             username: conta+'@'+AD_DOMINIO,
             password: password }
         let ad = new ActiveDirectory(config)
 
+
         userDet(ad,conta).then((ret)=>{
             resolve(ret)
         }).catch((err)=>{
-            reject(err)
+            resolve(err)
         })    
 
     })
