@@ -53,7 +53,7 @@ async function apiCliente( req, res ) {
           var { cnpj, documento, serie } = req.query
           wcnpj    = cnpj
           wnf      = documento
-          wnfserie = serie ? serie : ''  
+          wnfserie = serie ? serie : '1' 
       }    
   }
   
@@ -101,7 +101,7 @@ async function set_nf() {
 
    let { Erro } = data
    if ((Erro) || (!data[0])) { 
-        console.log('set_nf',data,Erro)
+        console.log(`Nota fiscal: (${wnf}-${wnfserie}) - CNPJ (${wcnpj}), não encontrada !!! - `,data,Erro)
         wsqlerr = Erro 
         retorno.numero              = 0
         retorno.notaFiscal.numero   = wnf
