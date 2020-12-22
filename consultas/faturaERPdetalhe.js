@@ -23,7 +23,8 @@ async function faturaERPdetalhe( req, res ) {
                     LEFT JOIN SE1010 ON E1_NUM = DT6_NUM AND E1_PREFIXO = DT6_PREFIX AND E1_TIPO = DT6_TIPO
                     WHERE 
                       SE1010.D_E_L_E_T_  <> '*' AND  DT6010.D_E_L_E_T_  <> '*' `
-    var s_select = `SELECT 
+    var s_select = `SELECT
+                      TRIM(CONCAT(DT6010.DT6_YFILCO,'-E-',DT6010.DT6_DOC)) as CONHECIMENTO, 
                       DT6010.DT6_YFILCO                as EMPCODIGO, 
                       DT6010.DT6_SERIE                 as SERIE, 
                       DT6010.DT6_DOC                   as CTRC, 
