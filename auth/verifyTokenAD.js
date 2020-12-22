@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-const verifyToken = (req, res, next) => {
+const verifyTokenAD = (req, res, next) => {
     let bearer, token
     try {
         bearer = req.headers.authorization.split(" ")[1]
@@ -16,6 +16,7 @@ const verifyToken = (req, res, next) => {
           return res.status(500).json({ auth: false, message: 'Falha na validação do token.' })
       }     
       req.userId = decoded.cnpj
+	    
 	  if (decoded.grupos) {
 		  req.loginAD = true
 	  } else {
@@ -25,4 +26,4 @@ const verifyToken = (req, res, next) => {
     })
 }
 
-module.exports = verifyToken
+module.exports = verifyTokenAD

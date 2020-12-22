@@ -23,6 +23,8 @@ const login                   = require('../auth/login')
 const loginAD                 = require('../auth/loginAD')
 const logout                  = require('../auth/logout')
 const validaToken             = require('../auth/verifyToken')
+const verifyTokenAD           = require('../auth/verifyTokenAD')
+const dadosCliente            = require('../consultas/dadosCliente')
 
 
 /**
@@ -95,6 +97,8 @@ router.use('/apicliente'             , validaToken, apiCliente )
 router.use('/apitracking'            , validaToken, apiTracking )
 router.use('/faturaerp'              , validaToken, faturaERP )
 router.use('/faturaerpdetalhe'       , validaToken, faturaERPdetalhe )
+
+router.use('/dadoscliente'           , verifyTokenAD, dadosCliente )
 
 router.use('/dae'                    , dae )
 router.use('/faturacargas'           , faturacargas )
