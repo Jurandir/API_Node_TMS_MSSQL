@@ -33,7 +33,7 @@ const login = async (req, res, next) => {
     if(dados.auth) {
       let token = jwt.sign({ "cnpj" : req.body.cnpj }, process.env.SECRET, { expiresIn: '24h'})
       dados.token = token
-      return res.json( dados )
+      res.json( dados )   // tinha um return
     }
     res.status(401).json( dados );
 }

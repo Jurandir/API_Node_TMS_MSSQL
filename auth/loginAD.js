@@ -7,18 +7,12 @@ require("dotenv").config()
 const loginAD = async (req, res) => {
     const credenciais = async (user,base64) => {
 
-       console.log('credenciais:',user,base64)
-
-
         let xpto = Buffer.from(base64, "base64").toString("ascii").substr(1)
         let len  = xpto.length
         let pwd  = xpto.substr(0,len-1)
 
         let retorno  = {}
         retorno.auth = false
-
-        console.log('credenciais-pwd:',user,pwd)
-
 
         let data = await getUserAD(user,pwd)
 
@@ -40,8 +34,6 @@ const loginAD = async (req, res) => {
 
     let dados = await credenciais(req.body.usuario,req.body.senha)
 
-
-    console.log('credenciais-dados:',dados)
 
     if(dados.auth) {
 
@@ -68,9 +60,10 @@ const loginAD = async (req, res) => {
       response.token = token
       response.isErr = false
 
-      res.json( response )
-    }
-    res.status(401).json( dados );
+      res.status(200).json( response )
+    } else {
+      res.status(401).json( dados );
+    }  
 }
  
 module.exports = loginAD

@@ -1,0 +1,1 @@
+pm2 logs API-Termaco --lines 150
