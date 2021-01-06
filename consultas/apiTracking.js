@@ -87,17 +87,19 @@ async function apiCliente( req, res ) {
 
 async function set_nf() {
   werror = 'set_nf'
-  let data = await sqlQuery(`
+    let data = await sqlQuery(`
     SELECT NFR.EMP_CODIGO AS CNH_EMPRESA,NFR.CNH_SERIE,NFR.CNH_CTRC,
            NFR.NF,NFR.SERIE,NFR.DATA,NFR.VALOR,NFR.CHAVENFE,
-           CNH.CLI_CGCCPF_DEST  
+           CNH.CLI_CGCCPF_DEST   
     FROM NFR
-    LEFT JOIN CNH ON CNH.EMP_CODIGO = NFR.EMP_CODIGO AND CNH.SERIE = NFR.CNH_SERIE AND CNH.CTRC = NFR.CNH_CTRC
-    WHERE
-    NFR.SERIE='${wnfserie}' AND NFR.NF=${wnf} AND 
-    ( NFR.CLI_CGCCPF_REMET='${wcnpj}' OR ( NFR.CLI_CGCCPF_REMET='${userId_Token}' AND CNH.CLI_CGCCPF_DEST='${wcnpj}'))
-    `)
-
+    JOIN CNH ON CNH.EMP_CODIGO = NFR.EMP_CODIGO AND CNH.SERIE = NFR.CNH_SERIE AND CNH.CTRC = NFR.CNH_CTRC
+    WHERE (CNH.CLI_CGCCPF_REMET='${wcnpj}' 
+       OR  CNH.CLI_CGCCPF_REMET='${userId_Token}' 
+       OR  CNH.CLI_CGCCPF_PAG  ='${wcnpj}'
+       OR  NFR.CLI_CGCCPF_REMET='${wcnpj}')
+      AND  NFR.NF = ${wnf}
+      AND  NFR.SERIE = '${wnfserie}'
+  `)
 
    let { Erro } = data
    if ((Erro) || (!data[0])) { 
