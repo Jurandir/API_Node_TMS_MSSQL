@@ -148,7 +148,7 @@ async function set_cnh() {
       LEFT JOIN NFR ON NFR.EMP_CODIGO = CNH.EMP_CODIGO 
                    AND NFR.CNH_SERIE  = CNH.SERIE 
                    AND NFR.CNH_CTRC   = CNH.CTRC
-                   AND NFR.NF         = '%${wnf}%'
+                   AND NFR.NF         = '${wnf}'
       WHERE  ${wwhere} 
     `)
 
@@ -172,7 +172,7 @@ async function set_cnh() {
               retorno.notaFiscal.dataEmissao     = data[0].NF_EMISSAO
               retorno.notaFiscal.valor           = data[0].VALORNF
               retorno.notaFiscal.chaveNFe        = data[0].NF_CHAVE
-          }
+          } 
 
           //------------------------------------
           retorno.numero           = data[0].CTRC

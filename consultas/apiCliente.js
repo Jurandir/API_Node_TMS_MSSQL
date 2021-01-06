@@ -138,7 +138,7 @@ async function set_cnh() {
       LEFT JOIN NFR ON NFR.EMP_CODIGO = CNH.EMP_CODIGO 
                    AND NFR.CNH_SERIE  = CNH.SERIE 
                    AND NFR.CNH_CTRC   = CNH.CTRC
-                   AND NFR.NF         = '%${wnf}%'
+                   AND NFR.NF         = '${wnf}'
       WHERE  ${wwhere} 
     `)
 
