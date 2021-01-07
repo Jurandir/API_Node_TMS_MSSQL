@@ -13,16 +13,17 @@ const verifyTokenAD = (req, res, next) => {
     }    
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
       if (err) {
-          res.status(500).json({ auth: false, message: 'Falha na validação do token.' })
-      }     
-      req.userId = decoded.cnpj
-	    
-	  if (decoded.grupos) {
-		  req.loginAD = true
-	  } else {
-		  req.loginAD = false		  
-	  }	  
-      next()
+          res.status(500).json({ auth: false, message: 'Falha na validação do token.' }).end()
+      } else {    
+		  req.userId = decoded.cnpj || '00000000000000'
+			
+		  if (decoded.grupos) {
+			  req.loginAD = true
+		  } else {
+			  req.loginAD = false		  
+		  }	  
+          next()
+	  }
     })
 }
 
