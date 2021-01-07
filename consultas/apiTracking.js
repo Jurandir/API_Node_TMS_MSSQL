@@ -359,7 +359,7 @@ async function set_comprovantes(doc) {
   try {
     let documento =  doc
     let evidencia = await easydocs(documento)
-    
+
     if (evidencia.ok==false){
         evidencia = await agileprocess(documento)
       } 
