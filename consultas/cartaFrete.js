@@ -27,8 +27,18 @@ async function cartaFrete( req, res ) {
             if (err) {  
                 console.log(err)  
             } else {  
-                var send_data = profileset.recordset; 
-                res.json(send_data[0]).status(200);
+                let send_data = profileset.recordset;
+                let retorno = {}				
+				if (send_data[0]) {
+     				retorno = send_data[0]
+					retorno.success = true
+					retorno.message = 'OK'
+				} else {
+					retorno.success = false
+					retorno.message = 'Dados não encontrados !!!'
+				}					
+				
+                res.json(retorno).status(200);
                 pool.close  
             }  
         })  
