@@ -33,7 +33,7 @@ async function posicaoCarga( req, res ) {
                     CONCAT(DAE.EMP_CODIGO,DAE.CODIGO) as DAE_IMPRESSO
                     FROM CNH
                     LEFT JOIN CLI REME ON REME.CGCCPF    = CNH.CLI_CGCCPF_REMET
-                    LEFT JOIN CLI DEST ON DEST.CGCCPF    = CNH.CLI_CGCCPF_REMET
+                    LEFT JOIN CLI DEST ON DEST.CGCCPF    = CNH.CLI_CGCCPF_DEST
                     LEFT JOIN EMP      ON EMP.CODIGO     = CNH.EMP_CODIGO
                     LEFT JOIN DAE      ON EMP_CODIGO_CNH = CNH.EMP_CODIGO AND CNH_CTRC = CNH.CTRC
                 WHERE  
