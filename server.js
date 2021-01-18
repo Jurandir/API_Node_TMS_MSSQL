@@ -6,7 +6,35 @@ const swaggerUi    = require('swagger-ui-express')
 
 const rotas = require('./routes/rotas')  
 
-const app = express()  
+const app    = express()  
+const multer = require('multer')
+const path   = require('path')
+
+const postSCCD                = require('./controllers/postSCCD')
+const verifyTokenAD           = require('./auth/verifyTokenAD')
+
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+
+        // error first callback
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+
+        // error first callback
+        console.log('FILE:',file)
+        //cb(null, `${file.fieldname}-${Date.now()}.${path.extname(file.originalname)}`);
+        cb(null, file.originalname);
+    }
+});
+const upload = multer({ storage })
+
+
+app.use(express.static('public'))
+
+///========================================================================
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -61,6 +89,10 @@ app.use('/api', rotas )
 // Servidor de documentação ( SWAGGER )
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec,setupOptions))
 
+
+
+// Uploads
+app.post('/file/upload',verifyTokenAD , upload.single('file'), postSCCD )
 
 // Serviço
 const port = process.env.PORT || '5000'

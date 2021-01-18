@@ -18,7 +18,8 @@ const verifyTokenAD = (req, res, next) => {
 		  req.userId = decoded.cnpj || '00000000000000'
 			
 		  if (decoded.grupos) {
-			  req.loginAD = true
+              req.loginAD = true
+              req.decoded = decoded
 		  } else {
 			  req.loginAD = false		  
 		  }	  

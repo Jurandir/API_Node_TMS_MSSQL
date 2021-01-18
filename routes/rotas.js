@@ -1,5 +1,6 @@
 const express                 = require('express')
 const router                  = express.Router()
+
 const faturacargas            = require('../consultas/faturaCargas')
 const faturaERP               = require('../consultas/faturaERP')
 const faturaERPdetalhe        = require('../consultas/faturaERPdetalhe')
@@ -76,6 +77,7 @@ router.post('/dadoslotenf'  , validaToken , dadosLoteNF)
 router.post('/listanfctrc'  , validaToken , listaNFctrc)
 
 router.use('/ctexml'        , validaToken, cteXML )
+
 
 
 /**
