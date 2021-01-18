@@ -11,6 +11,11 @@ var   sqlFile       = fs.readFileSync(sqlFileName, "utf8")
 const postSCCD = async (req, res) => {
 
     let dados = {}
+	
+	console.log('REQ1: Body:',req.body)
+	console.log('REQ1: File:',req.file)
+	console.log('REQ1: Data:',req.data)
+	
 
     let v_mobile = await sccd_mobile(req)
     let v_db     = await sccd_db(v_mobile)
