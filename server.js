@@ -14,7 +14,6 @@ const postSCCD                = require('./controllers/postSCCD')
 const verifyTokenAD           = require('./auth/verifyTokenAD')
 
 
-
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
 

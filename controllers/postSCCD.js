@@ -8,23 +8,14 @@ const sqlExec       = require('../connection/sqlExec')
 const sqlFileName   = path.join(__dirname, '../sql/rotinas/INSERT_SCCD.sql')
 var   sqlFile       = fs.readFileSync(sqlFileName, "utf8")
 
-const postSCCD = async (req, res) => {
-
-    let dados = {}
-	
-	console.log('REQ1: Body:',req.body)
-	console.log('REQ1: File:',req.file)
-	console.log('REQ1: Data:',req.data)
-	
-
-    let v_mobile = await sccd_mobile(req)
-    let v_db     = await sccd_db(v_mobile)
-    let s_sql    = eval('`'+sqlFile+'`');
-
-    console.log('REQ: MOBILE =',v_mobile)
-    console.log('REQ: SQL =',s_sql)
+const postSCCD = async (req, res) => { 
 
     try {
+
+        let v_mobile = await sccd_mobile(req)
+        let v_db     = await sccd_db(v_mobile)
+        let s_sql    = eval('`'+sqlFile+'`');
+    
         result = await sqlExec(s_sql)    
         
         if (result.rowsAffected==-1){
@@ -34,10 +25,8 @@ const postSCCD = async (req, res) => {
         res.json(v_mobile).status(200) 
   
     } catch (err) {
-        dados = { "erro" : err.message, "rotina" : "postSCCD", "sql" : s_sql, rowsAffected: -1 }
-        res.send({ "success":false, "message" : err.message, "rotina" : "posicaoCarga", "sql" : s_sql }).status(500) 
+        res.send({ "success":false, "message" : err.message, "rotina" : "postSCCD", rowsAffected: -1, "sql" : s_sql }).status(500) 
     } 
-
 
 }
 

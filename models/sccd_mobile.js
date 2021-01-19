@@ -1,5 +1,8 @@
 const sccd_mobile = async ( req ) => {
     const { body , file , decoded } = req
+
+    const dados = JSON.parse(body.data)
+
     return { 
         success: true,
         message: 'Success. OK.',
@@ -7,16 +10,16 @@ const sccd_mobile = async ( req ) => {
         matricula: decoded.matricula,
         user: decoded.nome,
         email: decoded.email,
-        type: body.tipoDocumento,
+        type: dados.tipoDocumento,
         data: {
-            id: body.id,
-            cartaFrete: body.cartaFrete,
-            date: body.data,
-            motorista: body.motorista,
-            placas: body.placas,
-            observacao: body.observacao,
-            operacao: body.operacao,
-            tipoVeiculo: body.tipoVeiculo,
+            id: dados.id,
+            cartaFrete: dados.cartaFrete,
+            date: dados.date,
+            motorista: dados.motorista,
+            placas: dados.placas,
+            observacao: dados.observacao,
+            operacao: dados.operacao,
+            tipoVeiculo: dados.tipoVeiculo,
             fileName: file.originalname,
             mimetype: file.mimetype,
             encoding: file.encoding

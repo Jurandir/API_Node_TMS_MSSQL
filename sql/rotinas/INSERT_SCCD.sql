@@ -13,4 +13,4 @@ INSERT INTO SIC.dbo.SCCD_APP (TIPO, DOCUMENTO, DT_UPLOAD, MOTORISTA, PLACAS, OBS
            '${v_db.IMAGEM_ID}',
            '${v_db.USUARIO}',
            '${v_db.MATRICULA}'
-		   )
+	)
