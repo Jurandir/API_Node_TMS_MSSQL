@@ -3,17 +3,20 @@
 //  TESTE : parametros = ["16851732000206","43673","2"]
 //  http://localhost:5000/apitracking?cnpj=16851732000206&documento=43673&serie=2
 
+"use strict";
 
 const easydocs                = require('../controllers/checkImagemEasyDocs')
 const agileprocess            = require('../controllers/checkImagemAgileProcess')
 const sqlQuery                = require('../connection/sqlQuery')
 
-var retorno = {}
-var wemp, wctrc, wcnhserie, wwhere, wtrecho, wunidest, wcnpjentrega, wchave
-var wcnpj, wnf, wnfserie, werror, wsqlerr
-var userId_Token
  
 async function apiCliente( req, res ) {
+
+  let retorno = {}
+  let wemp, wctrc, wcnhserie, wwhere, wtrecho, wunidest, wcnpjentrega, wchave
+  let wcnpj, wnf, wnfserie, werror, wsqlerr
+  let userId_Token
+
 
   retorno.numero           = 0
   retorno.dataEmissao      = null 
@@ -36,7 +39,7 @@ async function apiCliente( req, res ) {
 
   //------------------------------------ 
   if ( req.method == 'GET' ) {
-     var { cnpj, documento, serie } = req.query
+     let { cnpj, documento, serie } = req.query
      wcnpj    = cnpj
      wnf      = documento
      wnfserie = serie ? serie : ''
@@ -44,13 +47,13 @@ async function apiCliente( req, res ) {
   
   //------------------------------------ 
   if ( req.method == 'POST' ) {
-      var { valoresParametros } = req.body
+      let { valoresParametros } = req.body
       if (valoresParametros) {
           wcnpj    = valoresParametros[0]
           wnf      = valoresParametros[1]
           wnfserie = valoresParametros[2]
       } else {
-          var { cnpj, documento, serie } = req.query
+          let { cnpj, documento, serie } = req.query
           wcnpj    = cnpj
           wnf      = documento
           wnfserie = serie ? serie : '1' 
@@ -62,28 +65,6 @@ async function apiCliente( req, res ) {
   userId_Token = req.userId
 
 
-  try {
-
-      // validaAcesso(userId_Token, wcnpj )
-
-      await set_nf()
-      await set_cnh() 
-      await set_trecho() 
-      await set_unid_destino() 
-      await set_local_entrega() 
-      await set_ocorrencias()
-      
-      let doc = wemp + wcnhserie + wctrc
-      console.log('DOC:',doc)
-      
-      await set_comprovantes(doc)
-      
-      res.json(retorno).status(200) 
-
-  } catch (err) { 
-      res.send({ "erro" : err.message, "rotina" : werror, "sql" : wsqlerr }).status(500) 
-  }  
-}
 
 async function set_nf() {
   werror = 'set_nf'
@@ -128,6 +109,7 @@ async function set_nf() {
 }
 
 async function set_cnh() {
+    let data
     werror = 'set_cnh'
     if (retorno.numero  === 0) { 
         wwhere=`
@@ -214,6 +196,7 @@ async function set_cnh() {
 }
 
 async function set_trecho() {
+  let data
   werror = 'set_trecho'
   data = await sqlQuery(`
     SELECT TRE.CODIGO   AS TRECHO
@@ -255,6 +238,7 @@ async function set_trecho() {
 }
 
 async function set_unid_destino() {
+  let data
   werror = 'set_unid_destino'
   data = await sqlQuery(`
         SELECT EMP.CODIGO,  
@@ -293,6 +277,7 @@ async function set_unid_destino() {
 }
 
 async function set_local_entrega() {
+  let data
   werror = 'set_local_entrega'
   data = await sqlQuery(`
         SELECT CLI.NOME,ENDERECO,NUMERO,BAIRRO,CID.NOME AS CIDADE,CID.UF,CID.CODMUN AS IBGE
@@ -323,6 +308,7 @@ async function set_local_entrega() {
 }
 
 async function set_ocorrencias() {
+  let data
   werror = 'set_ocorrencias'
   data = await sqlQuery(`
         SELECT OUN.*, OCO.NOME AS NOMEOCORRENCIA, MOT.NOME AS MOTORISTA  
@@ -373,6 +359,29 @@ async function set_comprovantes(doc) {
     console.log(err)
      wsqlerr = err
   }
+}
+
+try {
+
+    // validaAcesso(userId_Token, wcnpj )
+
+    await set_nf()
+    await set_cnh() 
+    await set_trecho() 
+    await set_unid_destino() 
+    await set_local_entrega() 
+    await set_ocorrencias()
+    
+    let doc = wemp + wcnhserie + wctrc
+    console.log('DOC:',doc)
+    
+    await set_comprovantes(doc)
+    
+    res.json(retorno).status(200) 
+
+} catch (err) { 
+    res.send({ "erro" : err.message, "rotina" : werror, "sql" : wsqlerr }).status(500) 
+}  
 }
 
 module.exports = apiCliente
