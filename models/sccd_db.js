@@ -12,7 +12,7 @@ const sccd_db = async ( mobile ) => {
         TIPOVEICULO: mobile.data.tipoVeiculo,
         ARQUIVO: mobile.data.fileName,
         IMAGEM_ID: mobile.data.id,
-        USUARIO: mobile.user,
+        USUARIO: mobile.login,
         MATRICULA: mobile.matricula
     }
 }

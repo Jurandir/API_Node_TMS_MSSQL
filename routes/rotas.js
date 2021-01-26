@@ -19,6 +19,8 @@ const documentoCTRC           = require('../controllers/documentoCTRC')
 const dadosNF                 = require('../controllers/dadosNF')
 const dadosLoteNF             = require('../controllers/dadosLoteNF')
 const listaNFctrc             = require('../controllers/listaNFctrc')
+const novosSCCD               = require('../controllers/novosSCCD')
+const baixaSCCD               = require('../controllers/baixaSCCD')
 
 const cteXML                  =require('../controllers/cteXML')
 const login                   = require('../auth/login')
@@ -79,6 +81,9 @@ router.post('/listanfctrc'  , validaToken , listaNFctrc)
 router.use('/ctexml'        , validaToken, cteXML )
 
 
+router.get('/novossccd'     , novosSCCD )
+router.post('/baixasccd'    , baixaSCCD )
+
 
 /**
  * @swagger
@@ -103,6 +108,7 @@ router.use('/faturaerpdetalhe'       , validaToken, faturaERPdetalhe )
 
 router.use('/dadoscliente'           , verifyTokenAD, dadosCliente )
 router.use('/cartafrete'             , verifyTokenAD, cartaFrete )
+
 
 router.use('/dae'                    , dae )
 router.use('/faturacargas'           , faturacargas )

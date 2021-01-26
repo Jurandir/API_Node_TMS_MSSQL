@@ -1,3 +1,5 @@
+const { decode } = require("jsonwebtoken")
+
 const sccd_mobile = async ( req ) => {
     const { body , file , decoded } = req
 
@@ -9,6 +11,7 @@ const sccd_mobile = async ( req ) => {
         auth: true,
         matricula: decoded.matricula,
         user: decoded.nome,
+        login: decoded.login,
         email: decoded.email,
         type: dados.tipoDocumento,
         data: {

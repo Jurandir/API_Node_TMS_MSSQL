@@ -16,6 +16,7 @@ let membroUser = (ad,user) => new Promise(function(resolve, reject) {
         reject( logon )
     } else {
         let strjson  = JSON.stringify(groups).replace('Group','Group:')
+		logon.user = user
         logon.groups = JSON.parse( strjson ) 
         resolve( logon )
     }
@@ -36,8 +37,9 @@ let userDet = (ad,conta) => {
 
         } else {
             if (user) {
-                let strjson      = JSON.stringify(user).replace('User','User:')               
+                let strjson      = JSON.stringify(user).replace('User','User:')
                 logon            = JSON.parse( strjson )
+                logon.login      = conta				
                 logon.success    = true
                 logon.isErr      = false
                 membroUser(ad,conta).then(()=>{

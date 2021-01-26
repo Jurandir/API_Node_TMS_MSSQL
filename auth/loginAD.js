@@ -32,18 +32,19 @@ const loginAD = async (req, res) => {
          return retorno
       }
 
-    let dados = await credenciais(req.body.usuario,req.body.senha)
-
+    let login = req.body.usuario
+    let dados = await credenciais(login,req.body.senha)
 
     if(dados.auth) {
 
       let response = {}
       response.auth      = true
       response.matricula = dados.data.description
+	    response.login     = login
       response.nome      = dados.data.displayName
       response.grupos    = []
       response.mail      = dados.data.mail
-
+	  
       for await (grp of dados.data.groups) {
         response.grupos.push(grp.cn)
       }
@@ -53,6 +54,7 @@ const loginAD = async (req, res) => {
       let token = jwt.sign({ 
         "cnpj" : cnpj,
         "nome": response.nome, 
+        "login": login, 
         "matricula": response.matricula,
         "mail": response.mail,
         "grupos": response.grupos

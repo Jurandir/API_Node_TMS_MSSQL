@@ -23,7 +23,6 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
 
         // error first callback
-        console.log('FILE:',file)
         //cb(null, `${file.fieldname}-${Date.now()}.${path.extname(file.originalname)}`);
         cb(null, file.originalname);
     }
@@ -32,6 +31,7 @@ const upload = multer({ storage })
 
 
 app.use(express.static('public'))
+app.use('/sccd/uploads',express.static('uploads'))
 
 ///========================================================================
 
