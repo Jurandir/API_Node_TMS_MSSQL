@@ -2,10 +2,17 @@ const sqlExec       = require('../connection/sqlExec')
 
 const baixaSCCD = async (req, res) => { 
     const par_ID = req.body.id
-    let s_sql    = `UPDATE SIC.dbo.SCCD_APP SET DT_SCCD = CURRENT_TIMESTAMP WHERE ID = ${par_ID}`
+    const par_DESTINO = req.body.destino
+	const par_FILIAL_APP = req.body.filial_app
+
+    let s_sql    = `UPDATE SIC.dbo.SCCD_APP 
+                    SET DT_SCCD = CURRENT_TIMESTAMP,
+					    FILIAL_APP = '${par_FILIAL_APP}',
+                        DESTINO = '${par_DESTINO}' 
+                    WHERE ID = ${par_ID}`
     let result   = {}
 
-    console.log(req.body,par_ID)
+    console.log(req.body,par_ID,par_DESTINO)
 
     try {
 
