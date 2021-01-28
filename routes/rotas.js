@@ -21,6 +21,7 @@ const dadosLoteNF             = require('../controllers/dadosLoteNF')
 const listaNFctrc             = require('../controllers/listaNFctrc')
 const novosSCCD               = require('../controllers/novosSCCD')
 const baixaSCCD               = require('../controllers/baixaSCCD')
+const SCCDsuccess             = require('../controllers/SCCDsuccess')
 const listaSCCD_ALB           = require('../controllers/listaSCCD_ALB')
 
 const cteXML                  =require('../controllers/cteXML')
@@ -85,6 +86,8 @@ router.use('/ctexml'        , validaToken, cteXML )
 router.get('/novossccd'     , novosSCCD )
 router.post('/baixasccd'    , baixaSCCD )
 router.post('/listasccdalb' , listaSCCD_ALB )
+router.post('/sccdsuccess'  , SCCDsuccess )
+
 
 listaSCCD_ALB
 
