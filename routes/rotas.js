@@ -31,6 +31,8 @@ const logout                  = require('../auth/logout')
 const validaToken             = require('../auth/verifyToken')
 const verifyTokenAD           = require('../auth/verifyTokenAD')
 const dadosCliente            = require('../consultas/dadosCliente')
+const dadosFiliais            = require('../consultas/dadosFiliais')
+const dadosCidadesAtendidas   = require('../consultas/dadosCidadesAtendidas')
 
 
 /**
@@ -89,7 +91,13 @@ router.post('/listasccdalb' , listaSCCD_ALB )
 router.post('/sccdsuccess'  , SCCDsuccess )
 
 
-listaSCCD_ALB
+// APP Portfolio
+router.get('/filiais'          , validaToken, dadosFiliais )
+router.get('/cidadesatentidas' , validaToken, dadosCidadesAtendidas )
+
+
+
+// listaSCCD_ALB
 
 
 /**
