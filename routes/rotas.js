@@ -33,6 +33,7 @@ const verifyTokenAD           = require('../auth/verifyTokenAD')
 const dadosCliente            = require('../consultas/dadosCliente')
 const dadosFiliais            = require('../consultas/dadosFiliais')
 const dadosCidadesAtendidas   = require('../consultas/dadosCidadesAtendidas')
+const stepTracker = require('../consultas/stepTracker')
 
 
 /**
@@ -92,6 +93,7 @@ router.post('/sccdsuccess'  , SCCDsuccess )
 
 
 // APP Portfolio
+router.get('/steptracker'      , stepTracker )
 router.get('/filiais'          , validaToken, dadosFiliais )
 router.get('/cidadesatentidas' , validaToken, dadosCidadesAtendidas )
 
