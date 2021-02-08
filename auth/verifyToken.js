@@ -5,8 +5,8 @@ const verifyToken = (req, res, next) => {
     try {
         bearer = req.headers.authorization.split(" ")[1]
         token  = bearer.replace('"','').replace('"','')
-    } catch {
-        res.status(401).json({ auth: false, message: 'Headers Authorization - Não OK.' })
+    } catch (err) {
+        res.status(401).json({ auth: false, message: 'Headers Authorization - Não OK.', err: err })
     }
     if (!token) {
         res.status(401).json({ auth: false, message: 'Token não informado.' })

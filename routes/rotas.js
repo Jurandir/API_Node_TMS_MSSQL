@@ -33,7 +33,9 @@ const verifyTokenAD           = require('../auth/verifyTokenAD')
 const dadosCliente            = require('../consultas/dadosCliente')
 const dadosFiliais            = require('../consultas/dadosFiliais')
 const dadosCidadesAtendidas   = require('../consultas/dadosCidadesAtendidas')
-const stepTracker = require('../consultas/stepTracker')
+const stepTracker             = require('../consultas/stepTracker')
+const posicaoCargaAPP         = require('../consultas/posicaoCargaAPP')
+const listaDAE                = require('../consultas/listaDAE')
 
 
 /**
@@ -96,10 +98,8 @@ router.post('/sccdsuccess'  , SCCDsuccess )
 router.get('/steptracker'      , stepTracker )
 router.get('/filiais'          , validaToken, dadosFiliais )
 router.get('/cidadesatentidas' , validaToken, dadosCidadesAtendidas )
-
-
-
-// listaSCCD_ALB
+router.get('/posicaocargaapp'  , validaToken, posicaoCargaAPP )
+router.get('/listadae'         , validaToken, listaDAE )
 
 
 /**
