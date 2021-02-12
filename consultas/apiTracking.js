@@ -80,6 +80,7 @@ async function set_nf() {
        OR  NFR.CLI_CGCCPF_REMET='${wcnpj}')
       AND  NFR.NF = ${wnf}
       AND  NFR.SERIE = '${wnfserie}'
+    ORDER BY (CASE WHEN NFR.CNH_SERIE='E' THEN 0 ELSE 1 END )
   `)
 
    let { Erro } = data
@@ -169,10 +170,10 @@ async function set_cnh() {
           wtrecho       = data[0].TRE_CODIGO
           wcnpjentrega  = data[0].CLI_CGCCPF_DEST
           //--------------------------------------------
-          wemp       = data[0].EMP_CODIGO
-          wcnhserie  = data[0].SERIE
-          wctrc      = data[0].CTRC
-          wchave     = `${wemp}${wcnhserie}${wctrc}` 
+          wemp      = wemp      ? wemp      : data[0].EMP_CODIGO
+          wcnhserie = wcnhserie ? wcnhserie : data[0].SERIE
+          wctrc     = wctrc     ? wctrc     : data[0].CTRC
+          wchave    = `${wemp}${wcnhserie}${wctrc}` 
           //----------
           // valida raiz do usuario com dados
           let raiz_dest    = (data[0].CLI_CGCCPF_DEST    || '').substring(0,8)   

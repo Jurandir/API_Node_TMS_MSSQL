@@ -74,6 +74,7 @@ async function set_nf() {
       OR  NFR.CLI_CGCCPF_REMET='${wcnpj}')
       AND  NFR.NF = ${wnf}
       AND  NFR.SERIE = '${wnfserie}'
+    ORDER BY (CASE WHEN NFR.CNH_SERIE='E' THEN 0 ELSE 1 END )
   `)
 
    let { Erro } = data
@@ -163,6 +164,10 @@ async function set_cnh() {
           wtrecho       = data[0].TRE_CODIGO
           wcnpjentrega  = data[0].CLI_CGCCPF_DEST
           //--------------------------------------------
+          wemp      = wemp      ? wemp      : data[0].EMP_CODIGO
+          wcnhserie = wcnhserie ? wcnhserie : data[0].SERIE
+          wctrc     = wctrc     ? wctrc     : data[0].CTRC
+
           wchave = `${wemp}${wcnhserie}${wctrc}` 
           //----------
           // valida raiz do usuario com dados
@@ -178,7 +183,7 @@ async function set_cnh() {
           let ok_raiz =  (( raiz_user == raiz_dest ) || ( raiz_user == raiz_remet ) || ( raiz_user == raiz_receb ) || 
               ( raiz_user == raiz_pag ) || ( raiz_user == raiz_cns ) || ( raiz_user == raiz_exped ) || 
               ( raiz_user == raiz_rds ) || ( raiz_user == raiz_tomador ))
-
+             
           if (!ok_raiz) {
              throw new Error(`Access ERRO - RAIZ do CNPJ pesquisado não pertence ao usuário de Login`)
           }
@@ -310,6 +315,8 @@ async function set_ocorrencias() {
         AND OCO.NAOENVIAEDI=0 
         ORDER BY DATA
   `)
+
+  console.log('wchave',wchave)
 
   // caso tenha erro na consulta ao banco
   let { Erro } = data
