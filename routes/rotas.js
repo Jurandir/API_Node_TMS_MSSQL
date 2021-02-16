@@ -6,6 +6,7 @@ const faturaERP               = require('../consultas/faturaERP')
 const faturaERPdetalhe        = require('../consultas/faturaERPdetalhe')
 const dae                     = require('../consultas/DAE')
 const cartaFrete              = require('../consultas/cartaFrete')
+const cartaFretePlacas        = require('../consultas/cartaFretePlacas')
 const placasVeiculo           = require('../consultas/placasVeiculo')
 const tabelaCliente           = require('../consultas/tabelaCliente')
 const tabelaFretePeso         = require('../consultas/tabelaFretePeso')
@@ -126,6 +127,7 @@ router.use('/faturaerpdetalhe'       , validaToken, faturaERPdetalhe )
 
 router.use('/dadoscliente'           , verifyTokenAD, dadosCliente )
 router.use('/cartafrete'             , verifyTokenAD, cartaFrete )
+router.use('/cartafreteplacas'       , verifyTokenAD, cartaFretePlacas )
 router.use('/placasveiculo'          , verifyTokenAD, placasVeiculo )
 
 
