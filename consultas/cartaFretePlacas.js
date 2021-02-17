@@ -10,13 +10,16 @@ async function cartaFrete( req, res ) {
         var { placas } = req.body
     }
  
-    var s_sql = `SELECT CONCAT(OPG.EMP_CODIGO,'-',OPG.CODIGO) CARTAFRETE,
+    var s_sql = `SELECT OPG.EMP_CODIGO EMPRESA,OPG.CODIGO,CONCAT(OPG.EMP_CODIGO,'-',OPG.CODIGO) CARTAFRETE,
 					  TRIM(CONCAT(VEI_PLACA,' ',CARRETA,' ',VEI_PLACA_SEMIREBOQUE)) PLACAS,
+					  TRIM(CONCAT(CID.NOME,' / ',CID.UF)) CIDADE,
 					  MOT.NOME MOTORISTA,
 					  TRE_CODIGO TRECHO,
 					  DATA
-				FROM OPG
-				JOIN MOT ON MOT.PRONTUARIO = OPG.MOT_PRONTUARIO
+				FROM CARGASSQL.dbo.OPG
+				JOIN CARGASSQL.dbo.MOT ON MOT.PRONTUARIO = OPG.MOT_PRONTUARIO
+				JOIN CARGASSQL.dbo.VEI ON PLACA = '${placas}'
+				JOIN CARGASSQL.dbo.CID ON CID.CODIGO = VEI.CID_CODIGO				
 				WHERE (VEI_PLACA='${placas}' OR CARRETA='${placas}' OR VEI_PLACA_SEMIREBOQUE='${placas}')
 				and CAST(DATA as date) = (SELECT MAX(CAST(DATA as date)) FROM OPG 
 										  WHERE VEI_PLACA='${placas}' OR 
@@ -25,29 +28,37 @@ async function cartaFrete( req, res ) {
 				ORDER BY OPG.DATATU DESC `
 
     try {  
+		let retorno = {
+			success: false,
+			message: 'Dados não localizados !!!',
+			data: []
+		}
+
         const pool = await poolPromise  
         const result = await pool.request()  
         .query( s_sql ,function(err, profileset){  
             if (err) {  
-                console.log(err)  
+					retorno.success = false
+					retorno.message = 'ERRO: '+err
+                    console.log(err)  
             } else {  
                 let send_data = profileset.recordset;
-                let retorno = {}				
 				if (send_data[0]) {
-     				retorno = send_data
+     				retorno.data = send_data
 					retorno.success = true
-					retorno.message = 'OK'
+					retorno.message = 'Success. OK.'
 				} else {
 					retorno.success = false
-					retorno.message = 'Dados não encontrados !!!'
+					retorno.message = 'Dados não localizados !!!'
 				}					
 				
                 res.json(retorno).status(200);
                 pool.close  
             }  
         })  
-        } catch (err) {  
-            res.send(err.message).status(500)  
+        } catch (err) {
+            retorno.message = err.message			
+            res.send(retorno).status(500)  
         } 
 }
 
