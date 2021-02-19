@@ -12,7 +12,7 @@ async function novosSCCD( req, res ) {
           throw new Error(`DB ERRO - ${Erro} `)
         }  
                
-        res.json(data).status(200) 
+        res.json(data).status(200).end() 
   
     } catch (err) { 
         res.send({ "erro" : err.message, "rotina" : "dadosSCCD", "sql" : wsql }).status(500) 
