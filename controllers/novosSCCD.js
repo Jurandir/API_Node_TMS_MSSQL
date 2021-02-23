@@ -2,7 +2,7 @@ const sqlQuery     = require('../connection/sqlQuery')
 
 async function novosSCCD( req, res ) {
 
-    var wsql = `SELECT * FROM SIC.dbo.SCCD_APP WHERE DT_SCCD IS NULL`
+    var wsql = `SELECT TOP 10 * FROM SIC.dbo.SCCD_APP WHERE DT_SCCD IS NULL`
 				
     try {
         data = await sqlQuery(wsql)

@@ -34,8 +34,9 @@ const login = async (req, res, next) => {
       let token = jwt.sign({ "cnpj" : req.body.cnpj }, process.env.SECRET, { expiresIn: '24h'})
       dados.token = token
       res.json( dados )   // tinha um return
-    }
-    res.status(401).json( dados );
+    } else {
+		res.status(401).json( dados )
+	}
 }
  
 module.exports = login
