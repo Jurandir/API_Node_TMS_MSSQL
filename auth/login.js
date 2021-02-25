@@ -29,10 +29,15 @@ const login = async (req, res, next) => {
       }
 
     let dados = await credenciais(req.body.cnpj,req.body.senha)
+    let expiration = new Date()
+    let addTime = expiration.getHours() + 24
+
+    expiration.setHours(addTime)
 
     if(dados.auth) {
       let token = jwt.sign({ "cnpj" : req.body.cnpj }, process.env.SECRET, { expiresIn: '24h'})
       dados.token = token
+      dados.expiresIn = expiration
       res.json( dados )   // tinha um return
     } else {
 		res.status(401).json( dados )

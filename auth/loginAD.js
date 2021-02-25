@@ -14,18 +14,27 @@ const loginAD = async (req, res) => {
         let retorno  = {}
         retorno.auth = false
 
+        let expiration = new Date()
+        let addTime = expiration.getHours() + 24
+    
+        expiration.setHours(addTime)
+    
+
         let data = await getUserAD(user,pwd)
 
         let { success } = data
          if ( success === false ) { 
-            retorno.auth     = false 
-            retorno.isErr    = true
+            retorno.auth       = false 
+            retorno.isErr      = true
+            retorno.expiresIn  = null
+
             retorno.message = 'Credenciais fornecidas não são validas.'  
         } else {
 
-              retorno.data     = data
-              retorno.auth     = true 
-              retorno.isErr    = false
+              retorno.data       = data
+              retorno.auth       = true 
+              retorno.isErr      = false
+              retorno.expiresIn  = expiration
               retorno.message  = 'Credenciais validas'  
               console.log(`Login : (${user}) => ${Date()} - ${req.connection.remoteAddress}`)
          }
@@ -60,6 +69,7 @@ const loginAD = async (req, res) => {
         "grupos": response.grupos
       }, process.env.SECRET, { expiresIn: '24h'})
       response.token = token
+      response.expiresIn = dados.expiresIn
       response.isErr = false
 
       res.status(200).json( response )

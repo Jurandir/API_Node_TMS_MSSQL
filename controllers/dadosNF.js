@@ -11,7 +11,8 @@ async function dadosNF( req, res ) {
         res.send({ "erro" : "body sem parâmetros", "rotina" : "dadosNF", "sql" : "Sem Parâmetros" }).status(500) 
     }    
 
-    var wsql = `SELECT 
+    let raiz = `${cnpj}`.substring(0,8)
+    let wsql = `SELECT 
                     CNH.DATA,
                     CONCAT(CNH.EMP_CODIGO,'-',CNH.SERIE,'-',CNH.CTRC) as CONHECIMENTO,
                     REME.NOME              as REMETENTE,
@@ -30,19 +31,21 @@ async function dadosNF( req, res ) {
                     DAE.DATABAIXA          as DAE_BAIXA,
                     DAE.VALOR              as DAE_VALOR,
                     CONCAT(DAE.EMP_CODIGO,DAE.CODIGO) as DAE_IMPRESSO
-                    FROM CNH
-                    LEFT JOIN CLI REME ON REME.CGCCPF    = CNH.CLI_CGCCPF_REMET
-                    LEFT JOIN CLI DEST ON DEST.CGCCPF    = CNH.CLI_CGCCPF_REMET
-                    LEFT JOIN EMP      ON EMP.CODIGO     = CNH.EMP_CODIGO
-                    LEFT JOIN DAE      ON EMP_CODIGO_CNH = CNH.EMP_CODIGO AND CNH_CTRC = CNH.CTRC
-                WHERE  
-				  ( CNH.CLI_CGCCPF_REMET       = '${cnpj}'
-                    OR  CNH.CLI_CGCCPF_DEST    = '${cnpj}'
-                    OR  CNH.CLI_CGCCPF_PAG     = '${cnpj}' ) AND 				
-				    ','+CNH.NF+',' LIKE '%,${numero},%'
-				ORDER BY 
-				    CNH.DATA DESC
-                `
+                FROM NFR 
+                JOIN CNH      ON CNH.EMP_CODIGO = NFR.EMP_CODIGO AND CNH.SERIE = NFR.CNH_SERIE AND CNH.CTRC = NFR.CNH_CTRC
+                LEFT JOIN CLI REME ON REME.CGCCPF    = CNH.CLI_CGCCPF_REMET
+                LEFT JOIN CLI DEST ON DEST.CGCCPF    = CNH.CLI_CGCCPF_DEST
+                LEFT JOIN EMP      ON EMP.CODIGO     = CNH.EMP_CODIGO
+                LEFT JOIN DAE      ON EMP_CODIGO_CNH = CNH.EMP_CODIGO AND DAE.CNH_CTRC = CNH.CTRC
+                WHERE NFR.NF = ${numero}
+                    AND ( SUBSTRING( CNH.CLI_CGCCPF_DEST   ,1 ,8 ) = '${raiz}'
+                       OR SUBSTRING( CNH.CLI_CGCCPF_REMET  ,1 ,8 ) = '${raiz}'
+                       OR SUBSTRING( CNH.CLI_CGCCPF_RECEB  ,1 ,8 ) = '${raiz}'
+                       OR SUBSTRING( CNH.CLI_CGCCPF_PAG    ,1 ,8 ) = '${raiz}'
+                       OR SUBSTRING( CNH.CLI_CGCCPF_TOMADOR,1 ,8 ) = '${raiz}'
+                       OR SUBSTRING( CNH.CLI_CGCCPF_CNS    ,1 ,8 ) = '${raiz}'
+                       OR SUBSTRING( CNH.CLI_CGCCPF_EXPED  ,1 ,8 ) = '${raiz}'
+                       OR SUBSTRING( CNH.CLI_CGCCPF_RDS    ,1 ,8 ) = '${raiz}' ) `
 				
     try {
         data = await sqlQuery(wsql)
