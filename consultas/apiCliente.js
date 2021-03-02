@@ -35,10 +35,16 @@ async function apiCliente( req, res ) {
 
   //------------------------------------ 
   if ( req.method == 'GET' ) {
-     let { cnpj, documento, serie } = req.query
-     wcnpj    = cnpj
-     wnf      = documento
-     wnfserie = serie ? serie : '1'
+     let { cnpj, documento, serie , chaveNFe } = req.query
+     wcnpj     = cnpj
+     wnf       = documento
+     wnfserie  = serie ? serie : '1'
+	 let wchaveNFe = chaveNFe
+	 if(wchaveNFe) {
+		 if ( !chave_NFe(wchaveNFe) ) {
+			 res.send({ "erro" : "CHAVE NÃO LOCALIZADA", "rotina" : "APICLIENTE", "sql" : "" }).status(500)			 
+		 }
+	 }
   }
   
   //------------------------------------ 
@@ -59,6 +65,40 @@ async function apiCliente( req, res ) {
  //------------------------------------ 
  // CNPJ extraido do Token
   userId_Token = req.userId
+  
+async function chave_NFe(chave) {
+    werror = 'chave_NFe'
+	try {
+		let data = await sqlQuery(`
+		SELECT NFR.EMP_CODIGO,
+			   NFR.CNH_SERIE,
+			   NFR.CNH_CTRC,
+			   NFR.NF,
+			   NFR.SERIE,
+			   CLI_CGCCPF_REMET
+		FROM NFR
+		WHERE CHAVENFE = '${chave}' 
+	   `)
+	    
+		if(data.length==0) {
+			return false
+		}	
+		
+        wemp      = data[0].EMP_CODIGO
+        wcnhserie = data[0].CNH_SERIE
+        wctrc     = data[0].CNH_CTRC
+        wcnpj     = data[0].CLI_CGCCPF_REMET
+        wnf       = data[0].NF
+        wnfserie  = data[0].SERIE
+		retorno.conhecimento    = wemp+wcnhserie+wctrc
+		retorno.cnpj_remetente  = wcnpj
+		return true
+	} catch ( err )	{
+		console.log('Erro: (chave_NFe - (apiCliente))',err)
+		return false
+    }
+}
+  
 
 async function set_nf() {
     werror = 'set_nf'
