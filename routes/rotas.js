@@ -98,8 +98,8 @@ router.post('/sccdsuccess'  , SCCDsuccess )
 
 // APP Portfolio
 router.get('/steptracker'      , stepTracker )
-router.get('/filiais'          , validaToken, dadosFiliais )
-router.get('/cidadesatentidas' , validaToken, dadosCidadesAtendidas )
+router.get('/filiais'          , dadosFiliais )
+router.get('/cidadesatentidas' , dadosCidadesAtendidas )
 router.get('/posicaocargaapp'  , validaToken, posicaoCargaAPP )
 router.get('/listadae'         , validaToken, listaDAE )
 

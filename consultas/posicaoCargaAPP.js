@@ -69,19 +69,21 @@ async function posicaoCargaAPP( req, res ) {
                     FROM CNH
                     JOIN NFR ON NFR.EMP_CODIGO = CNH.EMP_CODIGO AND NFR.CNH_CTRC = CNH.CTRC AND NFR.CNH_SERIE = CNH.SERIE
                     JOIN CLI REME ON REME.CGCCPF = CNH.CLI_CGCCPF_REMET
-                    JOIN CLI DEST ON DEST.CGCCPF = CNH.CLI_CGCCPF_REMET
-                    WHERE 
-                        (CNH.CLI_CGCCPF_DEST      = '${cnpj}'
+                    JOIN CLI DEST ON DEST.CGCCPF = CNH.CLI_CGCCPF_DEST
+                    WHERE 1=1
+                        ${s_where}
+                        AND (CNH.CLI_CGCCPF_DEST      = '${cnpj}'
                         OR CNH.CLI_CGCCPF_REMET   = '${cnpj}'
                         OR CNH.CLI_CGCCPF_TOMADOR = '${cnpj}'
                         OR CNH.CLI_CGCCPF_PAG     = '${cnpj}'
                         OR CNH.CLI_CGCCPF_RECEB   = '${cnpj}')
-                        ${s_where}
-                    ORDER BY NFR.NF
+                    ORDER BY CNH.DATA
                     OFFSET (${pagina_nro} - 1) * ${pagina_tam} ROWS
                     FETCH NEXT ${pagina_tam} ROWS ONLY `                
 
     let s_select = sql_base
+
+    // console.log('SQL:',s_select)
         
     try {  
         const pool   = await poolPromise  

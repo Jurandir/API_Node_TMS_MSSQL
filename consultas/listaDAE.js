@@ -1,5 +1,7 @@
 const { poolPromise } = require('../connection/dbTMS')
 
+const url_dae = 'http://www2.termaco.com.br/sicnovo/DAE/PDF/' // FOR337833.pdf'
+
 async function listaDAE( req, res ) {
     let resposta = {
         success: false,
@@ -51,6 +53,7 @@ async function listaDAE( req, res ) {
                         ,DAE.BANCO     
                         ,DAE.VALORNF VALOR_NF
                         ,DAE.CHAVENFE
+						,CONCAT('${url_dae}',DAE.EMP_CODIGO,DAE.CODIGO,'.pdf') URL_DOWNLOAD
                     FROM DAE
                     LEFT JOIN CNH ON CNH.EMP_CODIGO = DAE.EMP_CODIGO_CNH
                         AND CNH.SERIE = DAE.CNH_SERIE
@@ -74,8 +77,8 @@ async function listaDAE( req, res ) {
     
     if (baixado=='S') { s_baixado  = ` AND DAE.DATABAIXA IS NOT NULL`}
     if (baixado=='N') { s_baixado  = ` AND DAE.DATABAIXA IS NULL`}
-    if (dt_inicial)   { dt_inicial = ` AND DAE.DATAEMISSAO >= '${dt_inicial}'`}
-    if (dt_final)     { dt_final   = ` AND DAE.DATAEMISSAO <= '${dt_final}'`}
+    if (dt_inicial)   { s_dataini  = ` AND DAE.DATAEMISSAO >= '${dt_inicial}'`}
+    if (dt_final)     { s_datafin  = ` AND DAE.DATAEMISSAO <= '${dt_final}'`}
 
       
     let s_select = sql_base + s_dataini + s_datafin + s_baixado  + s_orderBy
