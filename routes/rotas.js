@@ -2,6 +2,7 @@ const express                 = require('express')
 const router                  = express.Router()
 
 const faturacargas            = require('../consultas/faturaCargas')
+const faturasTOTVS            = require('../controllers/faturasTOTVS')
 const faturaERP               = require('../consultas/faturaERP')
 const faturaERPdetalhe        = require('../consultas/faturaERPdetalhe')
 const dae                     = require('../consultas/DAE')
@@ -102,6 +103,8 @@ router.get('/filiais'          , dadosFiliais )
 router.get('/cidadesatentidas' , dadosCidadesAtendidas )
 router.get('/posicaocargaapp'  , validaToken, posicaoCargaAPP )
 router.get('/listadae'         , validaToken, listaDAE )
+router.get('/faturastotvs'     , validaToken, faturasTOTVS )
+
 
 
 /**
