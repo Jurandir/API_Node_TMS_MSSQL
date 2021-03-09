@@ -1,28 +1,11 @@
 {
-    "success": true,
-    "message": "Sucesso. OK.",
-    "data": [
-        {
-            "QUITADO": "NÃO",
-            "E1_PREFIXO": "FOR",
-            "E1_NUM": "000828877",
-            "E1_EMISSAO": "20210222",
-            "E1_VENCTO": "20210308",
-            "E1_BAIXA": "        ",
-            "E1_VALOR": 268.99,
-            "E1_NUMBCO": "028962380-3      ",
-            "EA_PORTADO": "422",
-            "EA_AGEDEP": "0370 ",
-            "EA_NUMCON": "00200981  ",
-            "E1_FILIAL": "0101   ",
-            "E1_PARCELA": "01",
-            "E1_TIPO": "CTE",
-            "A1_COD": "677393",
-            "A1_CGC": "16851732000206",
-            "URL_DOWNLOAD": "http://201.49.34.13:9094/BOLETO/h_yindex.apw?cNum=000828877&cSerie=FOR&Banco=422&Agen=0370%20&Conta=00200981%20%20&cToken=cd94484be139f8fe0148c5583b853ccc&cXDados=0101%20%20%20FOR00082887701CTE&cIP=201.49.34.13"
-        }
+    "sucesso": false,
+    "message": "Serviço indisponivel no momento, tente mais tarde !!!",
+    "emails": [
+        "naomi@villageportodegalinhas.com.br",
+        "contasapagar@villageportodegalinhas.com.br",
+        "faturamento@villageportodegalinhas.com.br",
+        "naomi@villageportodegalinhas.com.br"
     ],
-    "rows": 1,
-    "page": "1",
-    "length": "20"
+    "sendTo": "naomi@villageportodegalinhas.com.br"
 }
