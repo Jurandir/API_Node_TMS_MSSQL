@@ -12,6 +12,9 @@ const verifyToken = (req, res, next) => {
         res.status(401).json({ auth: false, message: 'Token não informado.' })
     }    
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
+	  if(decoded==undefined){
+          res.status(401).json({ auth: false, message: 'Falha na validação do token.' })		  
+	  }		  
       if (err) {
           res.status(500).json({ auth: false, message: 'Falha na validação do token.' })
       }     

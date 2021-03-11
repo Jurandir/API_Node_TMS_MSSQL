@@ -36,13 +36,15 @@ async function apiCliente( req, res ) {
   //------------------------------------ 
   if ( req.method == 'GET' ) {
      let { cnpj, documento, serie , chaveNFe } = req.query
-     wcnpj     = cnpj
-     wnf       = documento
+	 
+     wcnpj     = cnpj ? cnpj : req.userId
+     wnf       = documento ? documento : '0000000'
      wnfserie  = serie ? serie : '1'
 	 let wchaveNFe = chaveNFe
 	 if(wchaveNFe) {
 		 if ( !chave_NFe(wchaveNFe) ) {
-			 res.send({ "erro" : "CHAVE NÃO LOCALIZADA", "rotina" : "APICLIENTE", "sql" : "" }).status(500)			 
+			 res.send({ "erro" : "CHAVE NÃO LOCALIZADA", "rotina" : "APICLIENTE", "sql" : "" }).status(500)
+			return false
 		 }
 	 }
   }
@@ -75,22 +77,33 @@ async function chave_NFe(chave) {
 			   NFR.CNH_CTRC,
 			   NFR.NF,
 			   NFR.SERIE,
-			   CLI_CGCCPF_REMET
+			   NFR.CLI_CGCCPF_REMET,
+			   CNH.CLI_CGCCPF_REMET CNH_REMET
+			   
 		FROM NFR
-		WHERE CHAVENFE = '${chave}' 
+		LEFT JOIN CNH ON CNH.EMP_CODIGO = NFR.EMP_CODIGO AND CNH.SERIE = NFR.CNH_SERIE AND CNH.CTRC = NFR.CNH_CTRC
+		WHERE CHAVENFE = '${chave}'
 	   `)
+	   
+	    let xLen = data.length
 	    
-		if(data.length==0) {
+		if(xLen==0) {
 			return false
-		}	
+		}
+        
+		--xLen		
+				
+        wemp      = data[xLen].EMP_CODIGO
+        wcnhserie = data[xLen].CNH_SERIE
+        wctrc     = data[xLen].CNH_CTRC
+        wcnpj     = data[xLen].CLI_CGCCPF_REMET
+        wnf       = data[xLen].NF
+        wnfserie  = data[xLen].SERIE
 		
-        wemp      = data[0].EMP_CODIGO
-        wcnhserie = data[0].CNH_SERIE
-        wctrc     = data[0].CNH_CTRC
-        wcnpj     = data[0].CLI_CGCCPF_REMET
-        wnf       = data[0].NF
-        wnfserie  = data[0].SERIE
-		retorno.conhecimento    = wemp+wcnhserie+wctrc
+		if(wcnpj.length<11) {wcnpj     = data[xLen].CNH_REMET}
+		
+		retorno.documento       = wemp+wcnhserie+wctrc
+		retorno.conhecimento    = wemp+'-'+wcnhserie+'-'+wctrc
 		retorno.cnpj_remetente  = wcnpj
 		return true
 	} catch ( err )	{
@@ -355,8 +368,6 @@ async function set_ocorrencias() {
         AND OCO.NAOENVIAEDI=0 
         ORDER BY DATA
   `)
-
-  console.log('wchave',wchave)
 
   // caso tenha erro na consulta ao banco
   let { Erro } = data
