@@ -2,7 +2,14 @@ const sqlQuery     = require('../connection/sqlQuery')
 
 async function novosSCCD( req, res ) {
 
-    var wsql = `SELECT TOP 10 * FROM SIC.dbo.SCCD_APP WHERE DT_SCCD IS NULL`
+    var wsql = `
+    SELECT TOP 20 * FROM SIC.dbo.SCCD_APP APP 
+    WHERE APP.DT_SCCD IS NULL
+    AND APP.ID IN (SELECT MIN(OK.ID) FROM SCCD_APP OK 
+                                     WHERE OK.DOCUMENTO=APP.DOCUMENTO 
+                                     GROUP BY OK.FILIAL_APP,OK.IMAGEM_ID )
+    ORDER BY APP.ID        
+    `
 				
     try {
         data = await sqlQuery(wsql)
