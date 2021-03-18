@@ -8,7 +8,8 @@ async function dadosNF( req, res ) {
         cnpj     = cnpj
         numero   = numero
     } else {
-        res.send({ "erro" : "body sem parâmetros", "rotina" : "dadosNF", "sql" : "Sem Parâmetros" }).status(500) 
+        res.send({ "erro" : "body sem parâmetros", "rotina" : "dadosNF", "sql" : "Sem Parâmetros" }).status(500)
+		return 0
     }    
 
     let raiz = `${cnpj}`.substring(0,8)

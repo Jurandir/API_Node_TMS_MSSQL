@@ -10,10 +10,14 @@ async function posicaoCargaAPP( req, res ) {
         length: 0,
     }
     
-    let {dt_inicial,dt_final,notafiscal,pagina_nro,pagina_tam} = req.query
-    let cnpj     = req.userId
-    let s_where  = ''
-    let i_numero = 0
+    let {dt_inicial,dt_final,notafiscal,ctrc,pagina_nro,pagina_tam} = req.query
+    let cnpj         = req.userId
+    let s_where      = ''
+    let i_numero     = 0
+	let	i_ctrc       = 0
+	let	s_emp        = ''
+	let	s_ctrc_serie = ''
+    let s_where2     = ''
 
     if(!cnpj || cnpj==undefined ) {
         resposta.message = 'Problemas com a autenticação !!!'
@@ -34,6 +38,15 @@ async function posicaoCargaAPP( req, res ) {
         i_numero   = Number.parseInt(notafiscal)
         s_where    = ` AND NFR.NF = ${i_numero} `
     } 
+	
+	if(ctrc) {
+        pagina_nro = 1
+		i_ctrc       = `${ctrc}`.substr(4,10)
+		s_emp        = `${ctrc}`.substr(0,3)
+		s_ctrc_serie = `${ctrc}`.substr(3,1)
+        s_where2     = ` AND NFR.CNH_CTRC = ${i_ctrc} AND NFR.EMP_CODIGO='${s_emp}' AND NFR.CNH_SERIE='${s_ctrc_serie}' `
+    } 
+
 
     if(dt_inicial) {
             s_where = s_where + ` AND CNH.DATA  >= '${dt_inicial}' `
@@ -43,8 +56,8 @@ async function posicaoCargaAPP( req, res ) {
             s_where = s_where + ` AND CNH.DATA  <= '${dt_final}' `
     }
 
-    resposta.page   = pagina_nro
-    resposta.length = pagina_tam
+    resposta.page   = Number.parseInt(pagina_nro)
+    resposta.length = Number.parseInt(pagina_tam)
 
     let sql_base =`SELECT 
                         CNH.DATA,
@@ -71,7 +84,7 @@ async function posicaoCargaAPP( req, res ) {
                     JOIN CLI REME ON REME.CGCCPF = CNH.CLI_CGCCPF_REMET
                     JOIN CLI DEST ON DEST.CGCCPF = CNH.CLI_CGCCPF_DEST
                     WHERE 1=1
-                        ${s_where}
+                        ${s_where} ${s_where2}
                         AND (CNH.CLI_CGCCPF_DEST      = '${cnpj}'
                         OR CNH.CLI_CGCCPF_REMET   = '${cnpj}'
                         OR CNH.CLI_CGCCPF_TOMADOR = '${cnpj}'

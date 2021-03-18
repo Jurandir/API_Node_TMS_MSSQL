@@ -13,6 +13,8 @@ async function apiCliente( req, res ) {
   let wemp, wctrc, wcnhserie, wwhere, wtrecho, wunidest, wcnpjentrega, wchave
   let wcnpj, wnf, wnfserie, werror, wsqlerr
   let userId_Token
+  let wchaveNFe
+  let Status_Erro = 500	
 
 
   retorno.numero           = 0
@@ -40,13 +42,7 @@ async function apiCliente( req, res ) {
      wcnpj     = cnpj ? cnpj : req.userId
      wnf       = documento ? documento : '0000000'
      wnfserie  = serie ? serie : '1'
-	 let wchaveNFe = chaveNFe
-	 if(wchaveNFe) {
-		 if ( !chave_NFe(wchaveNFe) ) {
-			 res.send({ "erro" : "CHAVE NÃO LOCALIZADA", "rotina" : "APICLIENTE", "sql" : "" }).status(500)
-			return false
-		 }
-	 }
+	 wchaveNFe = chaveNFe
   }
   
   //------------------------------------ 
@@ -70,6 +66,9 @@ async function apiCliente( req, res ) {
   
 async function chave_NFe(chave) {
     werror = 'chave_NFe'
+	
+	if(!chave) {return}
+	
 	try {
 		let data = await sqlQuery(`
 		SELECT NFR.EMP_CODIGO,
@@ -78,10 +77,20 @@ async function chave_NFe(chave) {
 			   NFR.NF,
 			   NFR.SERIE,
 			   NFR.CLI_CGCCPF_REMET,
-			   CNH.CLI_CGCCPF_REMET CNH_REMET
+			   CNH.CLI_CGCCPF_REMET CNH_REMET,
+			   CONCAT(IME.EMP_CODIGO,'-',IME.MEG_CODIGO) MAPA,
+			   FORMAT(MEG.DATA, 'yyyy-MM-dd') DATAMAPA,
+			   IME.TIPOENTREGA,
+			   IME.ENTREGUE,
+			   IME.RECEBEDOR,
+			   MEG.VEI_PLACA VEICULO,
+			   MEG.MOT_PRONTUARIO MOTORISTA,			   
+			   CONCAT( FORMAT(IME.DATAENTREGA, 'yyyy-MM-dd'),'T', FORMAT(IME.HORACHEGADA, 'HH:mm:ss') ) DATAENTREGA
 			   
 		FROM NFR
 		LEFT JOIN CNH ON CNH.EMP_CODIGO = NFR.EMP_CODIGO AND CNH.SERIE = NFR.CNH_SERIE AND CNH.CTRC = NFR.CNH_CTRC
+		LEFT JOIN IME ON CNH.EMP_CODIGO = IME.EMP_CODIGO_CNH AND CNH.SERIE = IME.CNH_SERIE AND CNH.CTRC = IME.CNH_CTRC
+		LEFT JOIN MEG ON IME.MEG_CODIGO = MEG.CODIGO and IME.EMP_CODIGO = MEG.EMP_CODIGO
 		WHERE CHAVENFE = '${chave}'
 	   `)
 	   
@@ -99,13 +108,24 @@ async function chave_NFe(chave) {
         wcnpj     = data[xLen].CLI_CGCCPF_REMET
         wnf       = data[xLen].NF
         wnfserie  = data[xLen].SERIE
+				
+		retorno.mapa = {
+			codigo: data[xLen].MAPA,
+			data: data[xLen].DATAMAPA,
+			tipo: data[xLen].TIPOENTREGA,
+			veiculo: data[xLen].VEICULO,
+			motorista: data[xLen].MOTORISTA,
+			entrega: data[xLen].DATAENTREGA
+		}
 		
 		if(wcnpj.length<11) {wcnpj     = data[xLen].CNH_REMET}
 		
 		retorno.documento       = wemp+wcnhserie+wctrc
 		retorno.conhecimento    = wemp+'-'+wcnhserie+'-'+wctrc
 		retorno.cnpj_remetente  = wcnpj
+
 		return true
+		
 	} catch ( err )	{
 		console.log('Erro: (chave_NFe - (apiCliente))',err)
 		return false
@@ -113,9 +133,9 @@ async function chave_NFe(chave) {
 }
   
 
-async function set_nf() {
+async function set_nf() {	
     werror = 'set_nf'
-    let data = await sqlQuery(`
+    let sql = `
     SELECT NFR.EMP_CODIGO AS CNH_EMPRESA,NFR.CNH_SERIE,NFR.CNH_CTRC,
           NFR.NF,NFR.SERIE,NFR.DATA,NFR.VALOR,NFR.CHAVENFE,
           CNH.CLI_CGCCPF_DEST   
@@ -128,10 +148,14 @@ async function set_nf() {
       AND  NFR.NF = ${wnf}
       AND  NFR.SERIE = '${wnfserie}'
     ORDER BY (CASE WHEN NFR.CNH_SERIE='E' THEN 0 ELSE 1 END )
-  `)
+  `
+  
+   let data = await sqlQuery(sql)
 
    let { Erro } = data
+    
    if ((Erro) || (!data[0])) { 
+        Erro = Erro ? Erro : 'eof()'
         console.log(`Nota fiscal: (${wnf}-${wnfserie}) - CNPJ (${wcnpj}), não encontrada !!! - `,data,Erro)
         wsqlerr = Erro 
         retorno.numero              = 0
@@ -194,7 +218,8 @@ async function set_cnh() {
         
         wsqlerr = 'EOF - Não há dados para os parâmetros informados !!!'
         werror = 'PesquisaNF'
-        throw new Error(`EOF() - ${Erro} `)
+		Erro = Erro ? Erro : `CNPJ: ${wcnpj}, NF: ${wnf}`
+        throw new Error(`Eof() - ${Erro} `)
 
     } else {
           if (retorno.numero  === 0) {
@@ -388,10 +413,24 @@ async function set_ocorrencias() {
   //------------------------------------
 }
 
+async function set_check_NFe() {
+	let found = wchaveNFe ? await chave_NFe(wchaveNFe) : false
+	if ( !found && wchaveNFe ) {
+	   throw new Error(`Chave não localizada: ${wchaveNFe}`)
+	   return found
+	}
+	return found
+}
+  
+  
   try {
 
-    // validaAcesso(userId_Token, wcnpj )
 
+    // validaAcesso(userId_Token, wcnpj )
+    Status_Erro = 401
+    await set_check_NFe()
+
+    Status_Erro = 500	
     await set_nf()
     await set_cnh() 
     await set_trecho() 
@@ -402,7 +441,7 @@ async function set_ocorrencias() {
     res.json(retorno).status(200) 
 
   } catch (err) { 
-    res.send({ "erro" : err.message, "rotina" : werror, "sql" : wsqlerr }).status(500) 
+    res.send({ "erro" : err.message, "rotina" : werror, "sql" : wsqlerr }).status(Status_Erro) 
   }  
 
 }

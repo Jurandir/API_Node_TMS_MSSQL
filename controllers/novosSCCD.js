@@ -5,7 +5,7 @@ async function novosSCCD( req, res ) {
     var wsql = `
     SELECT TOP 20 * FROM SIC.dbo.SCCD_APP APP 
     WHERE APP.DT_SCCD IS NULL
-    AND APP.ID IN (SELECT MIN(OK.ID) FROM SCCD_APP OK 
+    AND APP.ID IN (SELECT MIN(OK.ID) FROM SIC.dbo.SCCD_APP OK 
                                      WHERE OK.DOCUMENTO=APP.DOCUMENTO 
                                      GROUP BY OK.FILIAL_APP,OK.IMAGEM_ID )
     ORDER BY APP.ID        
