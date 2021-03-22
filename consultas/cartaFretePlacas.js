@@ -21,7 +21,7 @@ async function cartaFrete( req, res ) {
 				JOIN CARGASSQL.dbo.VEI ON PLACA = '${placas}'
 				JOIN CARGASSQL.dbo.CID ON CID.CODIGO = VEI.CID_CODIGO				
 				WHERE (VEI_PLACA='${placas}' OR CARRETA='${placas}' OR VEI_PLACA_SEMIREBOQUE='${placas}')
-				and CAST(DATA as date) >= (SELECT DATEADD(DAY, -10, MAX(CAST(DATA as date)) ) FROM OPG 
+				and CAST(DATA as date) >= (SELECT DATEADD(DAY, -5, MAX(CAST(DATA as date)) ) FROM OPG 
 										  WHERE VEI_PLACA='${placas}' OR 
 												CARRETA='${placas}' OR 
 												VEI_PLACA_SEMIREBOQUE='${placas}' )

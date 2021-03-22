@@ -40,6 +40,7 @@ const stepTracker             = require('../consultas/stepTracker')
 const posicaoCargaAPP         = require('../consultas/posicaoCargaAPP')
 const listaDAE                = require('../consultas/listaDAE')
 const senhaClienteEmail       = require('../consultas/senhaClienteEmail')
+const posicaoCargaXLS = require('../controllers/posicaoCargaXLS')
 
 
 /**
@@ -81,6 +82,7 @@ const senhaClienteEmail       = require('../consultas/senhaClienteEmail')
 router.post('/login'   , login  )
 router.post('/loginAD' , loginAD )
 
+router.post('/posicaocargaxls' , validaToken, posicaoCargaXLS)
 
 router.post('/posicaocarga' , validaToken ,posicaoCarga)
 router.post('/dadosctrc'    , validaToken , dadosCTRC)
