@@ -41,8 +41,8 @@ const stepTracker             = require('../consultas/stepTracker')
 const posicaoCargaAPP         = require('../consultas/posicaoCargaAPP')
 const listaDAE                = require('../consultas/listaDAE')
 const senhaClienteEmail       = require('../consultas/senhaClienteEmail')
-const posicaoCargaXLS = require('../controllers/posicaoCargaXLS')
-
+const posicaoCargaXLS         = require('../controllers/posicaoCargaXLS')
+const posicaoCargaSTATUS      = require('../controllers/posicaoCargaSTATUS')
 
 /**
  * @swagger
@@ -107,6 +107,7 @@ router.get('/steptracker'            , stepTracker )
 router.get('/filiais'                , dadosFiliais )
 router.get('/cidadesatentidas'       , dadosCidadesAtendidas )
 router.post('/cidadesatentidaspost'  , dadosCidadesAtendidasPOST)
+router.get('/posicaoCargastatus'     , posicaoCargaSTATUS)
 router.get('/posicaocargaapp'        , validaToken, posicaoCargaAPP )
 router.get('/listadae'               , validaToken, listaDAE )
 router.get('/faturastotvs'           , validaToken, faturasTOTVS )
