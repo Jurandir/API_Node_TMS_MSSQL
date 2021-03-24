@@ -36,6 +36,7 @@ const verifyTokenAD           = require('../auth/verifyTokenAD')
 const dadosCliente            = require('../consultas/dadosCliente')
 const dadosFiliais            = require('../consultas/dadosFiliais')
 const dadosCidadesAtendidas   = require('../consultas/dadosCidadesAtendidas')
+const dadosCidadesAtendidasPOST = require('../consultas/dadosCidadesAtendidasPOST')
 const stepTracker             = require('../consultas/stepTracker')
 const posicaoCargaAPP         = require('../consultas/posicaoCargaAPP')
 const listaDAE                = require('../consultas/listaDAE')
@@ -101,13 +102,14 @@ router.post('/sccdsuccess'  , SCCDsuccess )
 
 
 // APP Portfolio
-router.use('/senhaclienteemail'  , senhaClienteEmail )
-router.get('/steptracker'        , stepTracker )
-router.get('/filiais'            , dadosFiliais )
-router.get('/cidadesatentidas'   , dadosCidadesAtendidas )
-router.get('/posicaocargaapp'    , validaToken, posicaoCargaAPP )
-router.get('/listadae'           , validaToken, listaDAE )
-router.get('/faturastotvs'       , validaToken, faturasTOTVS )
+router.use('/senhaclienteemail'      , senhaClienteEmail )
+router.get('/steptracker'            , stepTracker )
+router.get('/filiais'                , dadosFiliais )
+router.get('/cidadesatentidas'       , dadosCidadesAtendidas )
+router.post('/cidadesatentidaspost'  , dadosCidadesAtendidasPOST)
+router.get('/posicaocargaapp'        , validaToken, posicaoCargaAPP )
+router.get('/listadae'               , validaToken, listaDAE )
+router.get('/faturastotvs'           , validaToken, faturasTOTVS )
 
 
 

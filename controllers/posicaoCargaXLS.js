@@ -1,11 +1,12 @@
 const sqlQuery     = require('../connection/sqlQuery')
 const json2xlsx    = require('json2xls')
+const crypto       = require('crypto')
 const fs           = require('fs')
 
 async function posicaoCargaXLS( req, res ) {
     let userId_Token = `${req.userId}`
     let wraiz = userId_Token.substr(0,8)
-    let { EntreguePendenteTodos, dataini, datafim } = req.body
+    let { DadosOuXlsx, dataini, datafim } = req.body
     
     let dados = await dadosPesquisa(wraiz,dataini,datafim)
     let idx   = -1
@@ -28,10 +29,12 @@ async function posicaoCargaXLS( req, res ) {
         let ime = await dadosIME(emp, ser, ctrc)
         if(ime.length>0) {
             dados[idx].CODIGOMEG    = ime[0].CODIGOMEG     
-            dados[idx].EMPCODIGOMEG = ime[0].EMPCODIGOMEG  
+            dados[idx].EMPCODIGOMEG = ime[0].EMPCODIGOMEG
+            dados[idx].RECEBEDOR    = ime[0].RECEBEDOR
         } else {
             dados[idx].CODIGOMEG    = null
             dados[idx].EMPCODIGOMEG = null     
+            dados[idx].RECEBEDOR    = null
         }
 
         if(item.CGCCPFREMET==userId_Token){
@@ -52,30 +55,30 @@ async function posicaoCargaXLS( req, res ) {
 
     }
 
-    let xlsx = json2xlsx(dados);
-    fs.writeFileSync('data.xlsx', xlsx, 'binary');
-   
-    res.send({
-        OK:"OK",
-        EntreguePendenteTodos, dataini, datafim, userId_Token,
-        data: dados
-    }).status(200) 
-
-    return 0
+    let xlsx 
+    let filename 
+    if(DadosOuXlsx!=='D') {
+        xlsx = json2xlsx(dados);
+        filename = crypto.randomBytes(20).toString('hex')+'.xlsx'
+        fs.writeFileSync(`./public/downloads/${filename}`, xlsx, 'binary');
+    }
 
     try {
-        data = await sqlQuery(wsql)
-  
-        let { Erro } = data
-        if (Erro) { 
-          throw new Error(`DB ERRO - ${Erro} - Params = [ ${wcnpj}, ${wdata_ini}, ${wdata_fin} ]`)
-        }  
-               
-        res.json(data).status(200) 
+   
+        res.json({
+            success: true,
+            message: DadosOuXlsx=='D' ? 'Dados' : 'Xlsx',
+            dataini, datafim,
+            user: userId_Token,
+            download: DadosOuXlsx=='D' ? undefined : req.protocol + '://' + req.get('host') + `/downloads/${filename}`,
+            data: DadosOuXlsx=='D' ? dados : undefined
+        }).status(200) 
   
     } catch (err) { 
-        res.send({ "erro" : err.message, "rotina" : "posicaoCarga", "sql" : wsql }).status(500) 
+        res.send({ "erro" : err.message, "rotina" : "posicaoCargaXLS" }).status(500) 
     }    
+
+    return 0
 
     async function dadosPesquisa(wraiz,dataini,datafim) {
         let wsql = `
@@ -133,6 +136,7 @@ async function posicaoCargaXLS( req, res ) {
     }
 
     async function dadosMNF(emp, ser, ctrc) {
+        let ret = [{ EMPRESA: null, MNFCODIGO: null, DATAMNF: null, CHEGADAMNF: null, INICIODESCARGA: null, FINALDESCARGA: null }]
         let wsql = `
             SELECT TOP 1 
                  mnf.emp_codigo       AS EMPRESA
@@ -150,13 +154,17 @@ async function posicaoCargaXLS( req, res ) {
             ORDER BY mnf.chegada`
 
         data = await sqlQuery(wsql)
-        return data  
+        if(data.length>0){
+            ret = data
+        }
+        return ret  
     }
 
     async function dadosIME(emp, ser, ctrc) {
         let wsql = `select 
                          ime.meg_codigo AS CODIGOMEG, 
-                         ime.emp_codigo AS EMPCODIGOMEG
+                         ime.emp_codigo AS EMPCODIGOMEG,
+                         ime.recebedor  AS RECEBEDOR
                     from ime where ime.cnh_ctrc='${ctrc}' 
                      and ime.cnh_serie='${ser}' 
                      and ime.emp_codigo_cnh='${emp}' `

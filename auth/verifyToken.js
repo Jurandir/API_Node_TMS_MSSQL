@@ -16,7 +16,7 @@ const verifyToken = (req, res, next) => {
           res.status(401).json({ auth: false, message: 'Falha na validação do token.' })		  
 	  }		  
       if (err) {
-          res.status(500).json({ auth: false, message: 'Falha na validação do token.' })
+          res.status(500).json({ auth: false, message: 'Falha na validação do token.' , err: err })
       }     
       req.userId = decoded.cnpj
 	  if (decoded.grupos) {
