@@ -15,8 +15,13 @@ async function dadosLoteNF( req, res ) {
                     CONCAT (NFR.EMP_CODIGO,'-',NFR.CNH_SERIE,'-',NFR.CNH_CTRC) AS DOCUMENTO,
                     NFR.DATA, NFR.NF, NFR.VALOR, NFR.VOLUME, NFR.CHAVENFE, NFR.CLI_CGCCPF_REMET AS EMITENTE_NFE
                 FROM NFR
+				JOIN CNH ON CNH.EMP_CODIGO=NFR.EMP_CODIGO AND CNH.SERIE=NFR.CNH_SERIE AND CNH.CTRC=NFR.CNH_CTRC
                 WHERE 
-                    NFR.CLI_CGCCPF_REMET = '${cnpj}'
+                    (CNH.CLI_CGCCPF_REMET = '${cnpj}'
+					OR 
+					CNH.CLI_CGCCPF_DEST = '${cnpj}'
+					OR
+					CNH.CLI_CGCCPF_PAG = '${cnpj}')	
 	                AND NFR.NF IN (${list_nfs})
                 `				
     try {

@@ -14,6 +14,7 @@ async function posicaoCarga( req, res ) {
 
     var wsql = `SELECT 
                     CNH.DATA,
+					CNH.DATAENTREGA,
                     CONCAT(CNH.EMP_CODIGO,'-',CNH.SERIE,'-',CNH.CTRC) as CONHECIMENTO,
                     REME.NOME              as REMETENTE,
                     DEST.NOME              as DESTINATARIO,

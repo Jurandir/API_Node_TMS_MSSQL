@@ -3,6 +3,9 @@ const sqlQuery     = require('../connection/sqlQuery')
 async function posicaoCargaSTATUS( req, res ) {
     let { ctrc } = req.query
     if(!ctrc) { ctrc = req.body || 'XXXO9999999999' }
+	
+	ctrc = `${ctrc}`.split('-').join('')
+	
     let emp    = `${ctrc}`.substr(0,3)
     let serie  = `${ctrc}`.substr(3,1)
     let numero =  `${ctrc}`.substr(4,10)
@@ -12,8 +15,6 @@ async function posicaoCargaSTATUS( req, res ) {
         info: {},
         status: 'Sem Status'
     }
-
-    console.log(emp,serie,numero)
 
     var wsql = `SELECT CNH.DATA AS DATACTRC
                     ,MNF.DATA AS DATAMNF
@@ -95,7 +96,7 @@ async function posicaoCargaSTATUS( req, res ) {
     function format_data_atc (dtParam) {
         let dt_iso =  new Date( Date.parse( dtParam ) ).toISOString() 
         let hs_str = dt_iso.substr(11,8)
-        let dt_str = dt_iso.substr(8,2) +'/'+dt_iso.substr(5,2)+'/'+dt_iso.substr(0,4)+( hs_str=='00:00:00' ? '' : ' '+hs_str )
+        let dt_str = dt_iso.substr(8,2) +'/'+dt_iso.substr(5,2)+'/'+dt_iso.substr(0,4)+( hs_str=='00:00:00' ? '' : ' '+hs_str )		
         return dt_str
     }    
 }
