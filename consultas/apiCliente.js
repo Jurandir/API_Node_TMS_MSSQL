@@ -414,7 +414,10 @@ async function set_ocorrencias() {
 }
 
 async function set_check_NFe() {
-	let found = wchaveNFe ? await chave_NFe(wchaveNFe) : false
+	let found = false
+	if(wchaveNFe){ 
+	   found = wchaveNFe ? await chave_NFe(wchaveNFe) : false
+	}
 	if ( !found && wchaveNFe ) {
 	   throw new Error(`Chave não localizada: ${wchaveNFe}`)
 	   return found

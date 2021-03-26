@@ -2,6 +2,7 @@ const sqlQuery     = require('../connection/sqlQuery')
 const json2xlsx    = require('json2xls')
 const crypto       = require('crypto')
 const fs           = require('fs')
+const { Console } = require('console')
 
 async function posicaoCargaXLS( req, res ) {
     let userId_Token = `${req.userId}`
@@ -53,12 +54,17 @@ async function posicaoCargaXLS( req, res ) {
         
         dados[idx].STATUS =  status(dados[idx])
 
+        let ocorr = await dadosOCORRENCIA(emp, ser, ctrc)
+        dados[idx].OCORRENCIAS = ocorr
+
     }
 
     let xlsx 
     let filename 
+    
     if(DadosOuXlsx!=='D') {
-        xlsx = json2xlsx(dados);
+        let newDados = dadosXLS(dados)        
+        xlsx = json2xlsx(newDados);
         filename = crypto.randomBytes(20).toString('hex')+'.xlsx'
         fs.writeFileSync(`./public/downloads/${filename}`, xlsx, 'binary');
     }
@@ -79,6 +85,19 @@ async function posicaoCargaXLS( req, res ) {
     }    
 
     return 0
+
+    function dadosXLS (dados) {
+        return dados.map((item)=>{
+            for (var i in item) {
+                if (item.hasOwnProperty(i)) {
+                    if( item[i] instanceof Date ){
+                        item[i] = format_data_atc(item[i])
+                    }
+                }
+            }        
+            return item
+        })
+    }
 
     async function dadosPesquisa(wraiz,dataini,datafim) {
         let wsql = `
@@ -158,6 +177,25 @@ async function posicaoCargaXLS( req, res ) {
             ret = data
         }
         return ret  
+    }
+
+    async function dadosOCORRENCIA(emp, ser, ctrc) {
+        let wsql = `select 
+                       CONCAT('[ ',convert(varchar, oun.dataoco ,105),' ',convert(varchar, oun.dataoco ,108),' - ',oco.nome,' ]') OCORRENCIA
+                    from oco
+                    left join oun on oun.oco_codigo=oco.codigo
+                    where
+                       oun.chave='${emp}${ser}${ctrc}' and oco.codigo <> '99'
+                    order by oun.dataoco `
+        let data = await sqlQuery(wsql)
+
+        let ocorr = data.map((i)=>{
+            return i.OCORRENCIA
+        }) 
+
+        let ocorrencias = ocorr.join(',')
+
+        return ocorrencias  
     }
 
     async function dadosIME(emp, ser, ctrc) {
