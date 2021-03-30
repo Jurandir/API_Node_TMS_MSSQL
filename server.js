@@ -31,6 +31,8 @@ const upload = multer({ storage })
 
 
 app.use(express.static('public'))
+app.use('/downloads',express.static('public'))
+
 app.use('/sccd/uploads',express.static('uploads'))
 
 ///========================================================================

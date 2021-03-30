@@ -1,4 +1,5 @@
 const { poolPromise } = require('../connection/dbTMS')
+const jwt = require('jsonwebtoken')
 
 async function senhaClienteEmail( req, res ) {
     let cnpj
@@ -40,6 +41,11 @@ async function senhaClienteEmail( req, res ) {
                     retorno.sendTo = email
                     if(retorno.emails.includes(email)){
                         retorno.message = 'Serviço indisponível no momento, tente mais tarde !!!'
+
+                        let token = jwt.sign({ "cnpj" : cnpj, "sendTo": email }, process.env.SECRET, { expiresIn: '24h'})
+                        console.log('token:',token,cnpj,email)
+
+
                         // (envia email com senha)
                     } else {
                         retorno.message = 'Email informado não está cadastrado para o cliente !!!'

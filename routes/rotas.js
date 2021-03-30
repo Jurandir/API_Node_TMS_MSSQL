@@ -44,6 +44,8 @@ const senhaClienteEmail       = require('../consultas/senhaClienteEmail')
 const posicaoCargaXLS         = require('../controllers/posicaoCargaXLS')
 const posicaoCargaSTATUS      = require('../controllers/posicaoCargaSTATUS')
 
+const getFotoID               = require('../controllers/getFotoID')
+
 /**
  * @swagger
  *
@@ -94,6 +96,7 @@ router.post('/listanfctrc'  , validaToken , listaNFctrc)
 
 router.use('/ctexml'        , validaToken, cteXML )
 
+router.get('/sccdfoto'      , getFotoID )
 
 router.get('/novossccd'     , novosSCCD )
 router.post('/baixasccd'    , baixaSCCD )

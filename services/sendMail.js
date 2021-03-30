@@ -1,6 +1,6 @@
-require('dotenv').config({path: "../.env"})
+// require('dotenv').config({path: "../.env"})
 
-const pwd        = process.env.PASS_EMAIL
+const pwd        = process.env.PASS_EMAIL || '@$C@rg@s785'
 const nodemailer = require("nodemailer")
 const remetente  = nodemailer.createTransport({
     host: 'smtp.office365.com',
@@ -26,13 +26,15 @@ const sendMail = (email) => {
             email.from = 'cargas@termaco.com.br'
         }
 
-        if(!email.from || !email.to || !email.subject || !email.text){
+        if(!email.from || !email.to || !email.subject ){
+            retorno.cod = '000'
             retorno.err = email
             reject(retorno)
         }
     
         remetente.sendMail(email, function (error) {
             if (error) {
+                retorno.cod = '001'
                 retorno.err = error
                 reject(retorno)
             } else {

@@ -27,3 +27,13 @@ async function novosSCCD( req, res ) {
 }
 
 module.exports = novosSCCD
+
+
+/*
+
+select A.* from SCCD_APP A
+where A.DOCUMENTO='SPO-56940'
+AND ID = (SELECT MIN(ID) FROM SCCD_APP B WHERE B.IMAGEM_ID=A.IMAGEM_ID AND B.DOCUMENTO=A.DOCUMENTO) 
+ORDER BY A.ID 
+
+*/

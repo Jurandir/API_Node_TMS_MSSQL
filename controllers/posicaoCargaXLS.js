@@ -70,13 +70,16 @@ async function posicaoCargaXLS( req, res ) {
     }
 
     try {
+
+        //let url = req.protocol + '://(' + req.get('host') + `)/downloads/${filename}`
+        let url = `http://siconline.termaco.com.br:5000/downloads/${filename}`
    
         res.json({
             success: true,
             message: DadosOuXlsx=='D' ? 'Dados' : 'Xlsx',
             dataini, datafim,
             user: userId_Token,
-            download: DadosOuXlsx=='D' ? undefined : req.protocol + '://' + req.get('host') + `/downloads/${filename}`,
+            download: DadosOuXlsx=='D' ? undefined : url,
             data: DadosOuXlsx=='D' ? dados : undefined
         }).status(200) 
   
