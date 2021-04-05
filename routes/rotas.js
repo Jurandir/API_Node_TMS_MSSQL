@@ -45,6 +45,9 @@ const posicaoCargaXLS         = require('../controllers/posicaoCargaXLS')
 const posicaoCargaSTATUS      = require('../controllers/posicaoCargaSTATUS')
 
 const getFotoID               = require('../controllers/getFotoID')
+const firebaseToken           = require('../controllers/firebaseToken')
+const produtosTransportados   = require('../consultas/produtosTransportados')
+const listaFiliaisCliente     = require('../consultas/listaFiliaisCliente') 
 
 /**
  * @swagger
@@ -114,7 +117,9 @@ router.get('/posicaoCargastatus'     , posicaoCargaSTATUS)
 router.get('/posicaocargaapp'        , validaToken, posicaoCargaAPP )
 router.get('/listadae'               , validaToken, listaDAE )
 router.get('/faturastotvs'           , validaToken, faturasTOTVS )
-
+router.post('/firebasetoken'         , firebaseToken)
+router.get('/produtostransportados'  , produtosTransportados)
+router.get('/listafiliaiscliente'    , listaFiliaisCliente)
 
 
 /**

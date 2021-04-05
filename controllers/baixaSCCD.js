@@ -12,8 +12,6 @@ const baixaSCCD = async (req, res) => {
                     WHERE ID = ${par_ID}`
     let result   = {}
 
-    console.log(req.body,par_ID,par_DESTINO)
-
     try {
 
         if(!par_ID) {

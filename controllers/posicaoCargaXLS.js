@@ -72,7 +72,8 @@ async function posicaoCargaXLS( req, res ) {
     try {
 
         //let url = req.protocol + '://(' + req.get('host') + `)/downloads/${filename}`
-        let url = `http://siconline.termaco.com.br:5000/downloads/${filename}`
+        //let url = `http://siconline.termaco.com.br:5000/downloads/${filename}`
+        let url = `http://201.49.34.12:5000//downloads/${filename}`
    
         res.json({
             success: true,

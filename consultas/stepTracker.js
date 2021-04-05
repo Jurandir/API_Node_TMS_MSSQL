@@ -23,7 +23,6 @@ async function stepTracker( req, res ) {
         s_serie  = `${documento}`.substr(3,1).toUpperCase()
         s_ctrc   = `${documento}`.substr(4,10)
         i_numero = Number.parseInt(s_ctrc)
-
     } else {
         s_tipo = `NF`
         i_numero = Number.parseInt(documento)
@@ -62,6 +61,8 @@ async function stepTracker( req, res ) {
                     CNH.DATAEMBARQUE         EMBARQUE,
                     CNH.DATACHEGADA          CHEGADA,
                     MEG.DATATU               SAIDA,
+					DAE.DATAEMISSAO          DAE_EMISSAO,
+					DAE.DATABAIXA            DAE_BAIXA,
                     CNH.DATAENTREGA          ENTREGA,
                     CNH.PREVENTREGA          PREVISAO,
                     CNH.PREVENTREGA_ORIGINAL PREVISAO_ORIGINAL,
@@ -71,9 +72,10 @@ async function stepTracker( req, res ) {
                     CNH.ENTREGADO            FLAG_ENTREGADO,
                     MEG.BAIXADO              FLAG_BAIXADO
                 FROM CARGASSQL.dbo.CNH
-                JOIN CARGASSQL.dbo.IME    ON IME.EMP_CODIGO_CNH = CNH.EMP_CODIGO AND IME.CNH_SERIE = CNH.SERIE AND  IME.CNH_CTRC = CNH.CTRC
-                JOIN CARGASSQL.dbo.MEG    ON MEG.EMP_CODIGO     = IME.EMP_CODIGO AND MEG.CODIGO    = IME.MEG_CODIGO
-                JOIN CARGASSQL.dbo.NFR    ON NFR.EMP_CODIGO     = CNH.EMP_CODIGO AND NFR.CNH_SERIE = CNH.SERIE AND  NFR.CNH_CTRC = CNH.CTRC
+                LEFT JOIN CARGASSQL.dbo.DAE  ON DAE.EMP_CODIGO_CNH = CNH.EMP_CODIGO AND DAE.CNH_SERIE = CNH.SERIE AND  DAE.CNH_CTRC = CNH.CTRC
+                LEFT JOIN CARGASSQL.dbo.IME  ON IME.EMP_CODIGO_CNH = CNH.EMP_CODIGO AND IME.CNH_SERIE = CNH.SERIE AND  IME.CNH_CTRC = CNH.CTRC
+                LEFT JOIN CARGASSQL.dbo.MEG  ON MEG.EMP_CODIGO     = IME.EMP_CODIGO AND MEG.CODIGO    = IME.MEG_CODIGO
+                JOIN CARGASSQL.dbo.NFR       ON NFR.EMP_CODIGO     = CNH.EMP_CODIGO AND NFR.CNH_SERIE = CNH.SERIE AND  NFR.CNH_CTRC = CNH.CTRC
                 WHERE 
                     ${s_where} `
         
@@ -82,8 +84,11 @@ async function stepTracker( req, res ) {
         const result = await pool.request()  
         .query( s_select ,function(err, profileset){  
             if (err) {
+                
                 resposta.success = false
-                resposta.message = `ERRO: ${err}`  
+                resposta.message = `ERRO: ${err}`
+                throw new Error(`DB ERRO - ${Erro}`)
+
             } else {  
                 let dados = []
                 dados.push(...profileset.recordset)
