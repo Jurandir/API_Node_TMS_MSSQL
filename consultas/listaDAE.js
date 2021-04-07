@@ -72,7 +72,7 @@ async function listaDAE( req, res ) {
     if (baixado) { 
         baixado = baixado.toUpperCase() 
     } else { 
-        baixado='N' 
+        baixado = null 
     } 
     
     if (baixado=='S') { s_baixado  = ` AND DAE.DATABAIXA IS NOT NULL`}
@@ -82,6 +82,8 @@ async function listaDAE( req, res ) {
 
       
     let s_select = sql_base + s_dataini + s_datafin + s_baixado  + s_orderBy
+	
+	// console.log("s_select",s_select)
         
     try {  
         const pool   = await poolPromise  
