@@ -48,6 +48,7 @@ const getFotoID               = require('../controllers/getFotoID')
 const firebaseToken           = require('../controllers/firebaseToken')
 const produtosTransportados   = require('../consultas/produtosTransportados')
 const listaFiliaisCliente     = require('../consultas/listaFiliaisCliente') 
+const senhaCliente            = require('../controllers/senhaCliente') 
 
 /**
  * @swagger
@@ -87,6 +88,8 @@ const listaFiliaisCliente     = require('../consultas/listaFiliaisCliente')
  */
 router.post('/login'   , login  )
 router.post('/loginAD' , loginAD )
+
+router.post('/senhacliente' , validaToken, senhaCliente )
 
 router.post('/posicaocargaxls' , validaToken, posicaoCargaXLS)
 
