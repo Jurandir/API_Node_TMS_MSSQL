@@ -13,9 +13,11 @@ const postSCCD = async (req, res) => {
 
     try {
 
+        let s_sql = 'SQL Não Gerado. (eval)'
+
         let v_mobile = await sccd_mobile(req)
         let v_db     = await sccd_db(v_mobile)
-        let s_sql    = eval('`'+sqlFile+'`');
+        s_sql        = eval('`'+sqlFile+'`');
 
         let test = await existsSCCD(v_db.DOCUMENTO,v_db.OPERACAO,v_db.TIPOVEICULO,v_db.IMAGEM_ID) 
     

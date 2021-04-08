@@ -49,6 +49,8 @@ const firebaseToken           = require('../controllers/firebaseToken')
 const produtosTransportados   = require('../consultas/produtosTransportados')
 const listaFiliaisCliente     = require('../consultas/listaFiliaisCliente') 
 const senhaCliente            = require('../controllers/senhaCliente') 
+const checkImgSCCD            = require('../controllers/checkImgSCCD')
+const receiveDataDebugAPP      = require('../controllers/receiveDataDebugAPP')
 
 /**
  * @swagger
@@ -102,7 +104,9 @@ router.post('/listanfctrc'  , validaToken , listaNFctrc)
 
 router.use('/ctexml'        , validaToken, cteXML )
 
-router.get('/sccdfoto'      , getFotoID )
+router.get('/sccdfoto'       , getFotoID )
+router.post('/checkimgsccd'  , checkImgSCCD)
+router.post('/receiveDataDebugAPP'  , receiveDataDebugAPP)
 
 router.get('/novossccd'     , novosSCCD )
 router.post('/baixasccd'    , baixaSCCD )
