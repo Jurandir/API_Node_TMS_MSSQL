@@ -1,8 +1,9 @@
 const express      = require('express')  
-const bodyParser   = require("body-parser")  
+// const bodyParser   = require("body-parser")  
 const morgan       = require('morgan')
 const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUi    = require('swagger-ui-express')
+const moment       = require('moment')
 
 const rotas = require('./routes/rotas')  
 
@@ -68,8 +69,21 @@ const setupOptions = {
 // Extrair a documentação dos aruivos *.js
 const swaggerSpec = swaggerJSDoc(options)
 
-// Log
-app.use(morgan('short'))
+// Log 
+app.use(
+    morgan(function (tokens, req, res) {
+        return [
+        moment().format(),'-',
+        tokens['user-agent'](req, res),
+        tokens['remote-addr'](req, res),'-',
+        tokens.method(req, res),
+        tokens.url(req, res),
+        tokens.status(req, res),
+        tokens.res(req, res, 'content-length'), '-',
+        tokens['response-time'](req, res), 'ms'
+        ].join(' ')
+    })
+)
 
 app.use(function (req, res, next) {  
     res.header("Access-Control-Allow-Origin", "*")  
@@ -79,10 +93,12 @@ app.use(function (req, res, next) {
 }) 
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded( { extended: true } ))
+app.use(express.urlencoded({
+  extended: true
+}))
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(express.json({limit:'4mb'}))
 
 // Rotas
 app.use('/api', rotas )  
@@ -100,5 +116,5 @@ const port = process.env.PORT || '5000'
 const modo = process.env.NODE_ENV || 'Test'
 
 app.listen(port, function () {
-    console.log(`Servidor API - rodando na porta ${port} : Modo ${modo}`)
+    console.log(moment().format(),`Servidor API - rodando na porta ${port} : Modo ${modo}`)
 })

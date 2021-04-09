@@ -1,5 +1,6 @@
 const getUserAD = require('../services/getUserAD')
 const jwt = require('jsonwebtoken')
+const moment = require('moment')
 
 require("dotenv").config()
 
@@ -36,7 +37,8 @@ const loginAD = async (req, res) => {
               retorno.isErr      = false
               retorno.expiresIn  = expiration
               retorno.message  = 'Credenciais validas'  
-              console.log(`Login : (${user}) => ${Date()} - ${req.connection.remoteAddress}`)
+              console.log(moment().format(),`- Login : ${user} - ${req.connection.remoteAddress}`)
+
          }
          return retorno
       }

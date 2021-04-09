@@ -1,0 +1,203 @@
+{
+    "CartaFrete": {
+        "success": true,
+        "data": {
+            "cartaFrete": "SPO-56604",
+            "empresa": "SPO",
+            "codigo": "56604",
+            "placas": "POR4496 ESU5430",
+            "motorista": "FELIPE FENELON QUEIROZ DE BRITO",
+            "data": "2021-03-01T00:00:00.000Z",
+            "api": 73,
+            "sccd": 73,
+            "ids": 10
+        }
+    },
+    "Credencial": {
+        "success": true,
+        "data": {
+            "auth": true,
+            "matricula": "5814",
+            "login": "jurandir.junior",
+            "nome": "Jurandir Brito Ferreira Junior",
+            "grupos": [
+                "ATI",
+                "ATI-Tecnicos",
+                "CARGAS_LEGADO",
+                "CARGAS_MARITIMO",
+                "CARGAS_TESTE",
+                "CARGAS_TESTE_MAR",
+                "FG_INTERNETLIBERADA",
+                "GRP_TS",
+                "INTRANET_EXTERNO",
+                "MATRIZ",
+                "QLK_PONTES",
+                "TOTVS_REMOTO",
+                "tableau"
+            ],
+            "mail": "jurandir.junior@termaco.com.br",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbnBqIjoiMDAwMDAwMDAwMDAwMDAiLCJub21lIjoiSnVyYW5kaXIgQnJpdG8gRmVycmVpcmEgSnVuaW9yIiwibG9naW4iOiJqdXJhbmRpci5qdW5pb3IiLCJtYXRyaWN1bGEiOiI1ODE0IiwibWFpbCI6Imp1cmFuZGlyLmp1bmlvckB0ZXJtYWNvLmNvbS5iciIsImdydXBvcyI6WyJBVEkiLCJBVEktVGVjbmljb3MiLCJDQVJHQVNfTEVHQURPIiwiQ0FSR0FTX01BUklUSU1PIiwiQ0FSR0FTX1RFU1RFIiwiQ0FSR0FTX1RFU1RFX01BUiIsIkZHX0lOVEVSTkVUTElCRVJBREEiLCJHUlBfVFMiLCJJTlRSQU5FVF9FWFRFUk5PIiwiTUFUUklaIiwiUUxLX1BPTlRFUyIsIlRPVFZTX1JFTU9UTyIsInRhYmxlYXUiXSwiaWF0IjoxNjE3OTkyOTE5LCJleHAiOjE2MTgwNzkzMTl9.XWvIaZcl81Dl52-MK3OvBksGNzNheURRU60IjDdtnsE",
+            "expiresIn": "2021-04-10T18:28:39.618Z",
+            "isErr": false,
+            "isAxiosError": false
+        }
+    },
+    "DadosFrete": {
+        "success": true,
+        "data": {
+            "dadosFrete": {
+                "placas": "MMK8588 MJH0035",
+                "motorista": "VANDAIME DONISETE DA SILVA",
+                "operacao": "CARGA",
+                "tipoveiculo": "NORMAL",
+                "observacao": null,
+                "cartafrete": "SPO-56098"
+            }
+        }
+    },
+    "DadosVeiculo": {
+        "success": true,
+        "data": []
+    },
+    "User": {
+        "success": true,
+        "data": []
+    },
+    "ListaFotos": {
+        "success": true,
+        "data": [
+            {
+                "id": "31232",
+                "dados": {
+                    "cartaFrete": "MEO-6411",
+                    "empresa": "MEO",
+                    "codigo": "6411",
+                    "placas": "OCJ6242",
+                    "motorista": "JAILSON SANTOS SANTANA",
+                    "data": "2021-01-25T00:00:00.000Z",
+                    "operacao": "CARGA",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": null
+                },
+                "imagem": {
+                    "modificationTime": 1611946975000,
+                    "width": 2988,
+                    "uri": "file:///storage/emulated/0/DCIM/c8ce6c70-2fe5-4091-98e8-9834af7b1b69.jpg",
+                    "id": "31232",
+                    "albumId": "-2075821635",
+                    "height": 3984,
+                    "creationTime": 1611946975000,
+                    "filename": "c8ce6c70-2fe5-4091-98e8-9834af7b1b69.jpg",
+                    "mediaType": "photo",
+                    "duration": 0
+                },
+                "send": {
+                    "success": true,
+                    "date": "2021-01-29T19:03:08.751Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "31233",
+                "dados": {
+                    "cartaFrete": "SPO-56098",
+                    "empresa": "SPO",
+                    "codigo": "56098",
+                    "placas": "MMK8588 MJH0035",
+                    "motorista": "VANDAIME DONISETE DA SILVA",
+                    "data": "2021-01-28T00:00:00.000Z",
+                    "operacao": "DESCARGA",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": null
+                },
+                "imagem": {
+                    "modificationTime": 1611950643000,
+                    "width": 2988,
+                    "uri": "file:///storage/emulated/0/DCIM/cfc4e6d1-1110-4dcc-aced-2b11ed591914.jpg",
+                    "id": "31233",
+                    "albumId": "-2075821635",
+                    "height": 3984,
+                    "creationTime": 1611950643000,
+                    "filename": "cfc4e6d1-1110-4dcc-aced-2b11ed591914.jpg",
+                    "mediaType": "photo",
+                    "duration": 0
+                },
+                "send": {
+                    "success": true,
+                    "date": "2021-01-29T20:04:48.356Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "31234",
+                "dados": {
+                    "cartaFrete": "SPO-56098",
+                    "empresa": "SPO",
+                    "codigo": "56098",
+                    "placas": "MMK8588 MJH0035",
+                    "motorista": "VANDAIME DONISETE DA SILVA",
+                    "data": "2021-01-28T00:00:00.000Z",
+                    "operacao": "CARGA",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": null
+                },
+                "imagem": {
+                    "modificationTime": 1611952953000,
+                    "width": 2988,
+                    "uri": "file:///storage/emulated/0/DCIM/b80ba0a3-1a30-4946-90dd-f72c21b48505.jpg",
+                    "id": "31234",
+                    "albumId": "-2075821635",
+                    "height": 3984,
+                    "creationTime": 1611952953000,
+                    "filename": "b80ba0a3-1a30-4946-90dd-f72c21b48505.jpg",
+                    "mediaType": "photo",
+                    "duration": 0
+                },
+                "send": {
+                    "success": true,
+                    "date": "2021-01-29T20:42:49.165Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "31235",
+                "dados": {
+                    "cartaFrete": "SPO-56098",
+                    "empresa": "SPO",
+                    "codigo": "56098",
+                    "placas": "MMK8588 MJH0035",
+                    "motorista": "VANDAIME DONISETE DA SILVA",
+                    "data": "2021-01-28T00:00:00.000Z",
+                    "operacao": "CARGA",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": null
+                },
+                "imagem": {
+                    "modificationTime": 1611953176000,
+                    "width": 2448,
+                    "uri": "file:///storage/emulated/0/DCIM/5b6bcc04-0bbc-4800-89fa-d0c323eecd86.jpg",
+                    "id": "31235",
+                    "albumId": "-2075821635",
+                    "height": 3264,
+                    "creationTime": 1611953176000,
+                    "filename": "5b6bcc04-0bbc-4800-89fa-d0c323eecd86.jpg",
+                    "mediaType": "photo",
+                    "duration": 0
+                },
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            }
+        ]
+    },
+    "ListaFotosPlacas": {
+        "success": true,
+        "data": []
+    },
+    "Placas": {
+        "success": true,
+        "data": []
+    }
+}
