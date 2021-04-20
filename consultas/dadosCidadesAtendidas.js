@@ -1,4 +1,5 @@
 const { poolPromise } = require('../connection/dbTMS')
+const estadosAtendidos = require('../helpers/estadosAtendidos')
 
 async function dadosCidadesAtendidas( req, res ) {
 
@@ -24,6 +25,9 @@ async function dadosCidadesAtendidas( req, res ) {
         rows: 0
     }
 
+    let listaUF        = estadosAtendidos()
+    let estadosValidos = `AND '${ listaUF.join(',') }' like '%'+UF+'%'  `
+
     let s_select = `SELECT CODIGO CID_CODIGO,
                         UF,
                         NOME CID_NOME,
@@ -43,6 +47,7 @@ async function dadosCidadesAtendidas( req, res ) {
                                                 (TRE.DESTINO LIKE '%NAO%UTILIZAR%') OR 
                                                 (TRE.ORIGEM  LIKE '%NÃO%UTILIZAR%') OR
                                                 (TRE.ORIGEM  LIKE '%NAO%UTILIZAR%') ) )
+                        ${estadosValidos}
                         ${addSql}
                     ORDER BY UF,NOME`
         

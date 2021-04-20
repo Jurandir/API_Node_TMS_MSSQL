@@ -1,3 +1,8 @@
+npm i pm2-windows-service -g
+pm2-service-install <nome_do_serviço>
+https://www.npmjs.com/package/pm2-windows-service
+
+
 https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/
 
 # Fork mode

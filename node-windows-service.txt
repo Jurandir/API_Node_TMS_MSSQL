@@ -1,0 +1,39 @@
+* node-windows
+
+npm install node-windows --save
+
+-- install_service.js
+var Service = require('node-windows').Service;
+// Criando um novo objeto do Serviço
+var svc = new Service({
+//Nome do servico
+name:'Node_ApiTermaco',
+//Descricao que vai aparecer no Gerenciamento de serviço do Windows
+description: 'Serviço de teste Nerds HQ',
+//caminho absoluto do seu script
+script: 'C:\\tutorial\\app.js'
+});
+svc.on('install',function(){
+svc.start();
+});
+// instalando o servico
+svc.install();
+
+
+-- unistall_service.js
+var Service = require('node-windows').Service;
+// Criando um novo objeto do Serviço
+var svc = new Service({
+//Nome do servico
+name:'Node_ApiTermaco',
+//Descricao que vai aparecer no Gerenciamento de serviço do Windows
+description: 'Serviço de teste Nerds HQ',
+//caminho absoluto do seu script
+script: 'C:\\tutorial\\app.js'
+});
+svc.on('uninstall',function(){
+console.log('Uninstall complete.');
+});
+// Desistalar serviço.
+svc.uninstall();
+

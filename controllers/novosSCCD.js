@@ -1,14 +1,16 @@
 const sqlQuery     = require('../connection/sqlQuery')
 
 async function novosSCCD( req, res ) {
-
+    
+    // Pega de 20 em 20, as fotos registradas, testa se há dulicidade e organiza por IMAGEM_ID 
+    // para tentar manter a sequencia que as fotos foram tiradas
     var wsql = `
     SELECT TOP 20 * FROM SIC.dbo.SCCD_APP APP 
     WHERE APP.DT_SCCD IS NULL
     AND APP.ID IN (SELECT MIN(OK.ID) FROM SIC.dbo.SCCD_APP OK 
                                      WHERE OK.DOCUMENTO=APP.DOCUMENTO 
                                      GROUP BY OK.FILIAL_APP,OK.IMAGEM_ID )
-    ORDER BY APP.ID        
+    ORDER BY APP.DOCUMENTO,APP.IMAGEM_ID        
     `
 				
     try {
@@ -27,13 +29,3 @@ async function novosSCCD( req, res ) {
 }
 
 module.exports = novosSCCD
-
-
-/*
-
-select A.* from SCCD_APP A
-where A.DOCUMENTO='SPO-56940'
-AND ID = (SELECT MIN(ID) FROM SCCD_APP B WHERE B.IMAGEM_ID=A.IMAGEM_ID AND B.DOCUMENTO=A.DOCUMENTO) 
-ORDER BY A.ID 
-
-*/

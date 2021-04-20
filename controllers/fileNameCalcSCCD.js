@@ -8,7 +8,7 @@ async function fileNameCalcSCCD( req, res ) {
                     SELECT ROW_NUMBER() OVER (
                             PARTITION BY DOCUMENTO
                             ,OPERACAO
-                            ,FILIAL_APP ORDER BY ID ASC
+                            ,FILIAL_APP ORDER BY IMAGEM_ID ASC
                             ) AS FILE_SEQ
                         ,SUBSTRING(DOCUMENTO, 1, 3) FILIAL
                         ,SUBSTRING(DOCUMENTO, 1, 3) + SUBSTRING(DOCUMENTO, 5, 16) CARTAFRETE
