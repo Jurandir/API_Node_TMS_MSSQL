@@ -1,0 +1,780 @@
+{
+    "CartaFrete": {
+        "success": true,
+        "data": {
+            "cartaFrete": "SPO-1",
+            "empresa": "SPO",
+            "codigo": "1",
+            "placas": "AJR8080 AEG0446",
+            "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+            "data": "2004-09-01T00:00:00.000Z",
+            "api": 11,
+            "sccd": 1,
+            "ids": 11
+        }
+    },
+    "Credencial": {
+        "success": true,
+        "data": {
+            "auth": true,
+            "matricula": "5814",
+            "login": "jurandir.junior",
+            "nome": "Jurandir Brito Ferreira Junior",
+            "grupos": [
+                "ATI",
+                "ATI-Tecnicos",
+                "CARGAS_LEGADO",
+                "CARGAS_MARITIMO",
+                "CARGAS_TESTE",
+                "CARGAS_TESTE_MAR",
+                "FG_INTERNETLIBERADA",
+                "GRP_TS",
+                "INTRANET_EXTERNO",
+                "MATRIZ",
+                "QLK_PONTES",
+                "Senior_Teste",
+                "TOTVS_REMOTO",
+                "tableau"
+            ],
+            "mail": "jurandir.junior@termaco.com.br",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbnBqIjoiMDAwMDAwMDAwMDAwMDAiLCJub21lIjoiSnVyYW5kaXIgQnJpdG8gRmVycmVpcmEgSnVuaW9yIiwibG9naW4iOiJqdXJhbmRpci5qdW5pb3IiLCJtYXRyaWN1bGEiOiI1ODE0IiwibWFpbCI6Imp1cmFuZGlyLmp1bmlvckB0ZXJtYWNvLmNvbS5iciIsImdydXBvcyI6WyJBVEkiLCJBVEktVGVjbmljb3MiLCJDQVJHQVNfTEVHQURPIiwiQ0FSR0FTX01BUklUSU1PIiwiQ0FSR0FTX1RFU1RFIiwiQ0FSR0FTX1RFU1RFX01BUiIsIkZHX0lOVEVSTkVUTElCRVJBREEiLCJHUlBfVFMiLCJJTlRSQU5FVF9FWFRFUk5PIiwiTUFUUklaIiwiUUxLX1BPTlRFUyIsIlNlbmlvcl9UZXN0ZSIsIlRPVFZTX1JFTU9UTyIsInRhYmxlYXUiXSwiaWF0IjoxNjE5MTE3OTI2LCJleHAiOjE2MTkyMDQzMjZ9.rz69lmdjFUn8y-76vohS24AOGko69NRmu2fOWMbUQA0",
+            "expiresIn": "2021-04-23T18:58:46.689Z",
+            "isErr": false,
+            "isAxiosError": false
+        }
+    },
+    "DadosFrete": {
+        "success": true,
+        "data": {
+            "dadosFrete": {
+                "placas": "AJR8080 AEG0446",
+                "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                "operacao": "VAZIO",
+                "tipoveiculo": "COMPLEMANTAR",
+                "observacao": "Teste 02",
+                "cartafrete": "SPO-1"
+            }
+        }
+    },
+    "DadosVeiculo": {
+        "success": true,
+        "data": []
+    },
+    "User": {
+        "success": true,
+        "data": []
+    },
+    "ListaFotos": {
+        "success": true,
+        "data": [
+            {
+                "id": "394",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116757000,
+                    "uri": "file:///storage/emulated/0/DCIM/432461f9-0f1e-45dc-a1c2-f260456b455b.jpg",
+                    "filename": "432461f9-0f1e-45dc-a1c2-f260456b455b.jpg",
+                    "width": 3000,
+                    "id": "394",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "395",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116767000,
+                    "uri": "file:///storage/emulated/0/DCIM/23005dab-acb6-4d6c-9fa0-84e34b37ed43.jpg",
+                    "filename": "23005dab-acb6-4d6c-9fa0-84e34b37ed43.jpg",
+                    "width": 3000,
+                    "id": "395",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "396",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116776000,
+                    "uri": "file:///storage/emulated/0/DCIM/b32ffc7f-6cdb-4f09-9f42-9dd97392ea68.jpg",
+                    "filename": "b32ffc7f-6cdb-4f09-9f42-9dd97392ea68.jpg",
+                    "width": 3000,
+                    "id": "396",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "397",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116789000,
+                    "uri": "file:///storage/emulated/0/DCIM/b8f69758-b633-41fe-85f9-1a42200b7594.jpg",
+                    "filename": "b8f69758-b633-41fe-85f9-1a42200b7594.jpg",
+                    "width": 3000,
+                    "id": "397",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "398",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116803000,
+                    "uri": "file:///storage/emulated/0/DCIM/b4d5bccb-41a3-40ee-a0ff-736779944eeb.jpg",
+                    "filename": "b4d5bccb-41a3-40ee-a0ff-736779944eeb.jpg",
+                    "width": 3000,
+                    "id": "398",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "399",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116813000,
+                    "uri": "file:///storage/emulated/0/DCIM/1898a32e-0ed2-4c0e-9868-05dd5cf12ce5.jpg",
+                    "filename": "1898a32e-0ed2-4c0e-9868-05dd5cf12ce5.jpg",
+                    "width": 3000,
+                    "id": "399",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "400",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116828000,
+                    "uri": "file:///storage/emulated/0/DCIM/5bf0047f-1149-4d23-a0f5-1d51ca412bbd.jpg",
+                    "filename": "5bf0047f-1149-4d23-a0f5-1d51ca412bbd.jpg",
+                    "width": 3000,
+                    "id": "400",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "401",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116837000,
+                    "uri": "file:///storage/emulated/0/DCIM/faf89e5e-c65a-4062-b343-0ba163a0c9b4.jpg",
+                    "filename": "faf89e5e-c65a-4062-b343-0ba163a0c9b4.jpg",
+                    "width": 3000,
+                    "id": "401",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "402",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116849000,
+                    "uri": "file:///storage/emulated/0/DCIM/7c5a4336-426b-4b74-8f51-d168125775a5.jpg",
+                    "filename": "7c5a4336-426b-4b74-8f51-d168125775a5.jpg",
+                    "width": 3000,
+                    "id": "402",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "403",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 1,
+                    "sccd": 1,
+                    "ids": 1,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "NORMAL",
+                    "observacao": "Teste"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619116864000,
+                    "uri": "file:///storage/emulated/0/DCIM/17c8747a-335c-42a0-adc9-969b191bff89.jpg",
+                    "filename": "17c8747a-335c-42a0-adc9-969b191bff89.jpg",
+                    "width": 3000,
+                    "id": "403",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 4000,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": true,
+                    "date": "2021-04-22T18:42:10.270Z",
+                    "message": "OK"
+                }
+            },
+            {
+                "id": "404",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619117949000,
+                    "uri": "file:///storage/emulated/0/DCIM/fc73fc90-9a7c-464f-9aa5-d662eb1a5ca8.jpg",
+                    "filename": "fc73fc90-9a7c-464f-9aa5-d662eb1a5ca8.jpg",
+                    "width": 720,
+                    "id": "404",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            },
+            {
+                "id": "405",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619117958000,
+                    "uri": "file:///storage/emulated/0/DCIM/5a26c436-7e8f-4627-a4f9-6e5c1fef4b0d.jpg",
+                    "filename": "5a26c436-7e8f-4627-a4f9-6e5c1fef4b0d.jpg",
+                    "width": 720,
+                    "id": "405",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            },
+            {
+                "id": "406",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619117969000,
+                    "uri": "file:///storage/emulated/0/DCIM/5a1d6887-b82d-48ab-bf9a-9250cf653aec.jpg",
+                    "filename": "5a1d6887-b82d-48ab-bf9a-9250cf653aec.jpg",
+                    "width": 720,
+                    "id": "406",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            },
+            {
+                "id": "407",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619117978000,
+                    "uri": "file:///storage/emulated/0/DCIM/cf641013-efeb-4163-9bfd-4fb7a2592975.jpg",
+                    "filename": "cf641013-efeb-4163-9bfd-4fb7a2592975.jpg",
+                    "width": 720,
+                    "id": "407",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            },
+            {
+                "id": "408",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619117988000,
+                    "uri": "file:///storage/emulated/0/DCIM/266fe263-bad5-4cb0-a9e9-54603fe83a31.jpg",
+                    "filename": "266fe263-bad5-4cb0-a9e9-54603fe83a31.jpg",
+                    "width": 720,
+                    "id": "408",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            },
+            {
+                "id": "409",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619117995000,
+                    "uri": "file:///storage/emulated/0/DCIM/73a586b3-4277-40de-8642-5a3745cf19c4.jpg",
+                    "filename": "73a586b3-4277-40de-8642-5a3745cf19c4.jpg",
+                    "width": 720,
+                    "id": "409",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            },
+            {
+                "id": "410",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619118004000,
+                    "uri": "file:///storage/emulated/0/DCIM/de80cf4a-638e-4845-8627-0e0b858c2e83.jpg",
+                    "filename": "de80cf4a-638e-4845-8627-0e0b858c2e83.jpg",
+                    "width": 720,
+                    "id": "410",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            },
+            {
+                "id": "411",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619118013000,
+                    "uri": "file:///storage/emulated/0/DCIM/7f132d67-9183-4688-8262-5faa16a2aff9.jpg",
+                    "filename": "7f132d67-9183-4688-8262-5faa16a2aff9.jpg",
+                    "width": 720,
+                    "id": "411",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            },
+            {
+                "id": "412",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619118046000,
+                    "uri": "file:///storage/emulated/0/DCIM/2b12412f-17b9-4e9e-a7d2-e30cd1b41c31.jpg",
+                    "filename": "2b12412f-17b9-4e9e-a7d2-e30cd1b41c31.jpg",
+                    "width": 720,
+                    "id": "412",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            },
+            {
+                "id": "413",
+                "dados": {
+                    "cartaFrete": "SPO-1",
+                    "empresa": "SPO",
+                    "codigo": "1",
+                    "placas": "AJR8080 AEG0446",
+                    "motorista": "CELSO EUCLIDES ALVES DOS SANTOS",
+                    "data": "2004-09-01T00:00:00.000Z",
+                    "api": 11,
+                    "sccd": 1,
+                    "ids": 11,
+                    "operacao": "VAZIO",
+                    "tipoVeiculo": "COMPLEMANTAR",
+                    "observacao": "Teste 02"
+                },
+                "imagem": {
+                    "mediaType": "photo",
+                    "modificationTime": 1619118058000,
+                    "uri": "file:///storage/emulated/0/DCIM/d1becef5-e00d-47e9-8fc7-4fa42aa7b69c.jpg",
+                    "filename": "d1becef5-e00d-47e9-8fc7-4fa42aa7b69c.jpg",
+                    "width": 720,
+                    "id": "413",
+                    "creationTime": 0,
+                    "albumId": "-2075821635",
+                    "height": 1280,
+                    "duration": 0
+                },
+                "origem": "CartaFrete",
+                "send": {
+                    "success": false,
+                    "date": null,
+                    "message": ""
+                }
+            }
+        ]
+    },
+    "ListaFotosPlacas": {
+        "success": true,
+        "data": []
+    },
+    "Placas": {
+        "success": true,
+        "data": []
+    }
+}
