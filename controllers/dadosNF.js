@@ -31,7 +31,16 @@ async function dadosNF( req, res ) {
                     DAE.VENCIMENTO         as DAE_VENCIMENTO,
                     DAE.DATABAIXA          as DAE_BAIXA,
                     DAE.VALOR              as DAE_VALOR,
-                    CONCAT(DAE.EMP_CODIGO,DAE.CODIGO) as DAE_IMPRESSO
+                    CONCAT(DAE.EMP_CODIGO,DAE.CODIGO) as DAE_IMPRESSO,
+					( CASE 
+					  WHEN SUBSTRING( CNH.CLI_CGCCPF_REMET  ,1 ,8 ) = '${raiz}' THEN 'REMETENTE' 
+				      WHEN SUBSTRING( CNH.CLI_CGCCPF_DEST   ,1 ,8 ) = '${raiz}' THEN 'DESTINATÁRIO'
+				      WHEN SUBSTRING( CNH.CLI_CGCCPF_PAG    ,1 ,8 ) = '${raiz}' THEN 'PAGADOR'
+				      WHEN SUBSTRING( CNH.CLI_CGCCPF_TOMADOR,1 ,8 ) = '${raiz}' THEN 'TOMADOR'
+				      WHEN SUBSTRING( CNH.CLI_CGCCPF_RECEB  ,1 ,8 ) = '${raiz}' THEN 'RECEBEDOR'
+				      WHEN SUBSTRING( CNH.CLI_CGCCPF_RDS    ,1 ,8 ) = '${raiz}' THEN 'REDESPACHANTE'
+					  ELSE 'OUTROS'
+				    END) TIPO_CLIENTE
                 FROM NFR 
                 JOIN CNH      ON CNH.EMP_CODIGO = NFR.EMP_CODIGO AND CNH.SERIE = NFR.CNH_SERIE AND CNH.CTRC = NFR.CNH_CTRC
                 LEFT JOIN CLI REME ON REME.CGCCPF    = CNH.CLI_CGCCPF_REMET
@@ -46,7 +55,18 @@ async function dadosNF( req, res ) {
                        OR SUBSTRING( CNH.CLI_CGCCPF_TOMADOR,1 ,8 ) = '${raiz}'
                        OR SUBSTRING( CNH.CLI_CGCCPF_CNS    ,1 ,8 ) = '${raiz}'
                        OR SUBSTRING( CNH.CLI_CGCCPF_EXPED  ,1 ,8 ) = '${raiz}'
-                       OR SUBSTRING( CNH.CLI_CGCCPF_RDS    ,1 ,8 ) = '${raiz}' ) `
+                       OR SUBSTRING( CNH.CLI_CGCCPF_RDS    ,1 ,8 ) = '${raiz}' ) 
+                ORDER BY ( 
+                       CASE 
+                           WHEN SUBSTRING( CNH.CLI_CGCCPF_REMET  ,1 ,8 ) = '${raiz}' THEN 0 
+                           WHEN SUBSTRING( CNH.CLI_CGCCPF_DEST   ,1 ,8 ) = '${raiz}' THEN 1
+                           WHEN SUBSTRING( CNH.CLI_CGCCPF_PAG    ,1 ,8 ) = '${raiz}' THEN 2
+                           WHEN SUBSTRING( CNH.CLI_CGCCPF_TOMADOR,1 ,8 ) = '${raiz}' THEN 3
+                           WHEN SUBSTRING( CNH.CLI_CGCCPF_RECEB  ,1 ,8 ) = '${raiz}' THEN 4
+                           WHEN SUBSTRING( CNH.CLI_CGCCPF_RDS    ,1 ,8 ) = '${raiz}' THEN 5 
+                            ELSE 99 
+                        END)                       
+                       `
 				
     try {
         data = await sqlQuery(wsql)
