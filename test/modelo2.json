@@ -1,0 +1,74 @@
+[
+    {
+        "numero": "Integer",
+        "dataEmissao": "DateTime",
+        "prevEntrega": "DateTime",
+        "tipoPesoM3": "String",
+        "pesoM3": "Float",
+        "valorMercadoria": "Float",
+        "valorFrete": "Float",
+        "chave": "String",
+        "origemPrestacao": {
+            "nome": "String",
+            "uf": "String",
+            "ibge": "Integer"
+        },
+        "notaFiscal": {
+            "numero": "Integer",
+            "serie": "Integer",
+            "dataEmissao": "DateTime",
+            "valor": "Float",
+            "chaveNFe": "String"
+        },
+        "unidadeDestino": {
+            "sigla": "String",
+            "nome": "String",
+            "endereco": "String",
+            "numero": "Integer",
+            "bairro": "String",
+            "cidade": {
+                "ibge": "Integer",
+                "nome": "String",
+                "uf": "String"
+            }
+        },
+        "ocorrencias": [
+            {
+                "codigoInterno": "Integer",
+                "codigoProceda": "String",
+                "descricaoOcorrencia": "String",
+                "dataRegistro": "String"
+            }
+        ],
+        "destinoPrestacao": {
+            "nome": "String",
+            "uf": "String",
+            "ibge": "Integer"
+        },
+        "localEntrega": {
+            "endereco": "String",
+            "numero": "String",
+            "bairro": "String",
+            "cidade": {
+                "nome": "String",
+                "uf": "String",
+                "ibge": "Integer"
+            }
+        },
+        "comprovantes": [
+            "Imagem StrBase64"
+        ],
+        "mapa": {
+            "codigo": "String",
+            "data": "DateTime",
+            "tipo": "String",
+            "veiculo": "String",
+            "motorista": "String",
+            "entrega": "DateTime"
+        },
+        "status": {
+            "codigo": "String",
+            "descricao": "String"
+        }
+    }
+]

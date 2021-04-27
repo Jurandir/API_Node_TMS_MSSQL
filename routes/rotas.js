@@ -96,7 +96,7 @@ router.post('/senhacliente' , validaToken, senhaCliente )
 
 router.post('/posicaocargaxls' , validaToken, posicaoCargaXLS)
 
-router.post('/posicaocarga' , validaToken ,posicaoCarga)
+router.post('/posicaocarga' , validaToken , posicaoCarga)
 router.post('/dadosctrc'    , validaToken , dadosCTRC)
 router.get('/documentoctrc' , validaToken , documentoCTRC)
 router.post('/dadosnf'      , validaToken , dadosNF)
