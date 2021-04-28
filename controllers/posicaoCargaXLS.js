@@ -4,6 +4,8 @@ const crypto       = require('crypto')
 const fs           = require('fs')
 const { Console } = require('console')
 
+const QTDE_LINHAS_XLS = 600
+
 async function posicaoCargaXLS( req, res ) {
     let userId_Token = `${req.userId}`
     let wraiz = userId_Token.substr(0,8)
@@ -81,7 +83,8 @@ async function posicaoCargaXLS( req, res ) {
             dataini, datafim,
             user: userId_Token,
             download: DadosOuXlsx=='D' ? undefined : url,
-            data: DadosOuXlsx=='D' ? dados : undefined
+            data: DadosOuXlsx=='D' ? dados : undefined,
+            maxLines : QTDE_LINHAS_XLS
         }).status(200) 
   
     } catch (err) { 
@@ -105,7 +108,7 @@ async function posicaoCargaXLS( req, res ) {
 
     async function dadosPesquisa(wraiz,dataini,datafim) {
         let wsql = `
-                SELECT TOP 300 
+                SELECT TOP ${QTDE_LINHAS_XLS} 
                 cnh.pedido AS PEDIDO
                 ,nfr.nf AS NF
                 ,nfr.serie AS SERIENF
