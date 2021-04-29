@@ -24,18 +24,19 @@ async function dadosFiliais(req, res) {
         rows: 0
     }
 
-    let s_select = `SELECT  EMP.CODIGO,EMP.CGC CNPJ,EMP.NOME,CID.UF,CID.NOME CIDADE,
-                            EMP.BAIRRO,EMP.ENDERECO,EMP.NUMERO,EMP.CEP, EMP.FONE,EMP.EMAIL,
-                            EMP.CID_CODIGO, EMP.LATITUDE,EMP.LONGITUDE  
+    let s_select = `SELECT  EMP.CODIGO,EMP.CGC CNPJ,REPLACE(EMP.NOME,'MATRIZ','FORTALEZA') NOME,CID.UF,CID.NOME CIDADE,
+                        EMP.BAIRRO,EMP.ENDERECO,EMP.NUMERO,EMP.CEP, EMP.FONE,EMP.EMAIL,
+                        EMP.CID_CODIGO, EMP.LATITUDE,EMP.LONGITUDE  
                     FROM EMP
                     JOIN CID ON CID.CODIGO = EMP.CID_CODIGO
-                    WHERE EMP.LATITUDE IS NOT NULL 
-                      AND NOT ( EMP.NOME LIKE '%AEREO%'   )  
-                      AND NOT ( EMP.NOME LIKE '%SERVIÇOS%')  
-                      AND NOT ( EMP.NOME LIKE '%SERVICOS%')  
-                      AND NOT ( EMP.NOME LIKE '%BACKUP%'  ) 
-                      AND NOT ( EMP.NOME LIKE '%MINUTA%'  ) 
-                      AND NOT ( EMP.NOME LIKE '%BACKUP%'  )
+                    WHERE EMP.CODIGO NOT IN ('ICE')
+                    AND EMP.LATITUDE IS NOT NULL 
+                    AND NOT ( EMP.NOME LIKE '%AEREO%'   )  
+                    AND NOT ( EMP.NOME LIKE '%SERVIÇOS%')  
+                    AND NOT ( EMP.NOME LIKE '%SERVICOS%')  
+                    AND NOT ( EMP.NOME LIKE '%BACKUP%'  ) 
+                    AND NOT ( EMP.NOME LIKE '%MINUTA%'  ) 
+                    AND NOT ( EMP.NOME LIKE '%BACKUP%'  )
                       ${addSql}
                     ORDER BY CID.UF,CID.NOME `
 
