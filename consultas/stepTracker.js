@@ -52,7 +52,7 @@ async function stepTracker( req, res ) {
                 ? `NFR.DATA`
                 : `CNH.DATA`
         
-    let s_select = `SELECT
+    let s_select = `SELECT DISTINCT 
                    '${s_tipo}' TIPO,
                     ${s_documento} DOCUMENTO,
                     ${s_data},  

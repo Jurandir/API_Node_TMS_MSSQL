@@ -1,11 +1,17 @@
 {
-    "sucesso": false,
-    "message": "Serviço indisponivel no momento, tente mais tarde !!!",
-    "emails": [
-        "naomi@villageportodegalinhas.com.br",
-        "contasapagar@villageportodegalinhas.com.br",
-        "faturamento@villageportodegalinhas.com.br",
-        "naomi@villageportodegalinhas.com.br"
-    ],
-    "sendTo": "naomi@villageportodegalinhas.com.br"
+    "success": true,
+    "message": "Sucesso. OK.",
+    "info": {
+        "DATACTRC": "2021-03-02T00:00:00.000Z",
+        "DATAMNF": "2021-03-04T00:00:00.000Z",
+        "CHEGADAMNF": "2021-03-08T06:00:00.000Z",
+        "CODIGOMEG": 3864,
+        "DATAMEG": "2021-03-11T00:00:00.000Z",
+        "TIPOENTREGA": "R",
+        "INICIODESCARGA": "2021-03-08T10:30:00.000Z",
+        "FINALDESCARGA": "2021-03-08T21:16:00.000Z",
+        "DATAENTREGA": "2021-03-11T00:00:00.000Z"
+    },
+    "status": "Mercadoria entregue por Redespacho em 11/03/2021",
+    "codigo": "008"
 }

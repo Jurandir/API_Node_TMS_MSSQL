@@ -40,8 +40,10 @@ async function posicaoCargaSTATUS( req, res ) {
         retorno.info = data[0]
         retorno.success = ok
         retorno.message = 'Sucesso. OK.'
-        retorno.status  = status(retorno.info)
 
+        let xST = status(retorno.info)
+        retorno.status  = xST.STATUS
+        retorno.codigo  = xST.COD
   
         let { Erro } = data
         if (Erro) { 
@@ -59,38 +61,48 @@ async function posicaoCargaSTATUS( req, res ) {
     
     function status (dados) {
         let STATUS = ''
+        let COD = '000'
         if(dados.DATACTRC && !dados.DATAMNF &&  !dados.CHEGADAMNF  && !dados.CODIGOMEG && !dados.DATAMEG){
             STATUS = `Mercadoria aguardando Embarque na Origem desde ${ format_data_atc( dados.DATACTRC ) }`
+            COD    = '001'
         
         }else if(dados.DATACTRC && dados.DATAMNF &&  !dados.CHEGADAMNF  && !dados.CODIGOMEG && !dados.DATAMEG){
             STATUS = `Mercadoria em Transito desde ${ format_data_atc( dados.DATAEMBARQUE ) }`
+            COD    = '002'
         
         }else if(dados.DATACTRC && dados.DATAMNF &&  dados.CHEGADAMNF  && !dados.INICIODESCARGA && !dados.FINALDESCARGA && !dados.CODIGOMEG && !dados.DATAMEG){
             STATUS = `Veiculo no Patio desde ${ format_data_atc(dados.CHEGADAMNF) } (Mercadoria Aguardando Descarga)`;
+            COD    = '003'
         
         }else if(dados.DATACTRC && dados.DATAMNF &&  dados.CHEGADAMNF  && dados.INICIODESCARGA && !dados.FINALDESCARGA && !dados.CODIGOMEG && !dados.DATAMEG){
             STATUS = `Mercadoria em deposito destino desde ${ format_data_atc(dados.INICIODESCARGA) } (Descarregando)`
+            COD    = '004'
         
         }else if(dados.DATACTRC && dados.DATAMNF &&  dados.CHEGADAMNF  && dados.INICIODESCARGA && dados.FINALDESCARGA && !dados.CODIGOMEG && !dados.DATAMEG){
             STATUS = `Mercadoria em deposito destino desde ${ format_data_atc(dados.FINALDESCARGA) }`
+            COD    = '005'
         
         }else if(dados.CODIGOMEG && dados.DATAMEG && dados.TIPOENTREGA=="R" && !dados.DATAENTREGA){
             STATUS = `Mercadoria saiu para entrega por Redespacho em ${ format_data_atc(dados.DATAMEG) }`
+            COD    = '006'
         
         }else if(dados.CODIGOMEG && dados.DATAMEG && !dados.DATAENTREGA){
             STATUS = `Mercadoria saiu para Entrega em ${ format_data_atc(dados.DATAMEG) } `
+            COD    = '007'
         
         }else if(dados.DATACTRC && dados.DATAMNF && dados.CHEGADAMNF  && dados.CODIGOMEG && dados.DATAMEG && dados.TIPOENTREGA=="R" && dados.DATAENTREGA){
             STATUS = `Mercadoria entregue por Redespacho em ${ format_data_atc(dados.DATAENTREGA) }`
+            COD    = '008'
         
         }else if(dados.DATACTRC && dados.DATAMNF && dados.DATAMEG && dados.DATAENTREGA){
             STATUS = `Mercadoria Entregue em ${ format_data_atc(dados.DATAENTREGA) }`
+            COD    = '009'
         
         }else{
         
             STATUS = "Sem Status"
         }	
-        return STATUS
+        return {STATUS,COD}
     }
 
     function format_data_atc (dtParam) {
