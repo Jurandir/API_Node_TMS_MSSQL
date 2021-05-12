@@ -2,7 +2,6 @@ const sqlQuery     = require('../connection/sqlQuery')
 const json2xlsx    = require('json2xls')
 const crypto       = require('crypto')
 const fs           = require('fs')
-const { Console } = require('console')
 
 const QTDE_LINHAS_XLS = 600
 

@@ -16,11 +16,11 @@ async function listaNFctrc( req, res ) {
 
     var wsql = `SELECT DISTINCT 
                     CONCAT (NFR.EMP_CODIGO,'-',NFR.CNH_SERIE,'-',NFR.CNH_CTRC) AS DOCUMENTO,
-                    NFR.DATA, NFR.NF, NFR.VALOR, NFR.VOLUME, NFR.CHAVENFE, NFR.CLI_CGCCPF_REMET AS EMITENTE_NFE
-                FROM NFR
+                    NFR.DATA, CNH.DATAENTREGA, NFR.NF, NFR.VALOR, NFR.VOLUME, NFR.CHAVENFE, NFR.CLI_CGCCPF_REMET AS EMITENTE_NFE
+                FROM CARGASSQL.dbo.NFR
+				JOIN CARGASSQL.dbo.CNH ON NFR.EMP_CODIGO=CNH.EMP_CODIGO AND NFR.CNH_SERIE=CNH.SERIE AND NFR.CNH_CTRC=CNH.CTRC
                 WHERE 
-                EMP_CODIGO='${empresa}' AND CNH_SERIE='${serie}' AND CNH_CTRC=${numero}
-                `				
+                NFR.EMP_CODIGO='${empresa}' AND NFR.CNH_SERIE='${serie}' AND NFR.CNH_CTRC=${numero} `				
     try {
 				
         data = await sqlQuery(wsql)

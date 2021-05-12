@@ -43,6 +43,7 @@ const listaDAE                = require('../consultas/listaDAE')
 const senhaClienteEmail       = require('../consultas/senhaClienteEmail')
 const posicaoCargaXLS         = require('../controllers/posicaoCargaXLS')
 const posicaoCargaSTATUS      = require('../controllers/posicaoCargaSTATUS')
+const listDadosCTRC           = require('../controllers/listDadosCTRC')
 
 const getFotoID               = require('../controllers/getFotoID')
 const firebaseToken           = require('../controllers/firebaseToken')
@@ -95,6 +96,7 @@ router.post('/loginAD' , loginAD )
 router.post('/senhacliente' , validaToken, senhaCliente )
 
 router.post('/posicaocargaxls' , validaToken, posicaoCargaXLS)
+router.get('/listDadosCTRC'    , validaToken, listDadosCTRC  )
 
 router.post('/posicaocarga' , validaToken , posicaoCarga)
 router.post('/dadosctrc'    , validaToken , dadosCTRC)
