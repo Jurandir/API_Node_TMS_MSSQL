@@ -20,6 +20,7 @@ async function documentoCTRC( req, res ) {
     var wsql = `SELECT 
                     CNH.DATA,
                     CONCAT(CNH.EMP_CODIGO,'-',CNH.SERIE,'-',CNH.CTRC) as CONHECIMENTO,
+					CNH.TIPOCTRC           as CTRC_TIPO,
                     REME.NOME              as REMETENTE,
                     DEST.NOME              as DESTINATARIO,
                     CNH.NF,

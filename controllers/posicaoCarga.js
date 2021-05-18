@@ -16,6 +16,7 @@ async function posicaoCarga( req, res ) {
                     CNH.DATA,
 					CNH.DATAENTREGA,
                     CONCAT(CNH.EMP_CODIGO,'-',CNH.SERIE,'-',CNH.CTRC) as CONHECIMENTO,
+					CNH.TIPOCTRC           as CTRC_TIPO,
                     REME.NOME              as REMETENTE,
                     DEST.NOME              as DESTINATARIO,
                     CNH.NF,

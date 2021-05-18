@@ -61,6 +61,7 @@ async function posicaoCargaAPP( req, res ) {
 
     let sql_base =`SELECT 
                         CNH.DATA,
+						CNH.TIPOCTRC as CTRC_TIPO,
                         CNH.CLI_CGCCPF_REMET CNPJ_REMETENTE,
                         CNH.CLI_CGCCPF_DEST CNPJ_DESTINATARIO,
                         REME.NOME REMETENTE,

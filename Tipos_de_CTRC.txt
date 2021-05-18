@@ -1,0 +1,17 @@
+TIPOCTRC
+NULL - Normal
+0    - Normal
+1    - Normal
+100  - Reentrega
+101  - Reentrega
+200  - Devolução
+201  - Devolução
+300  - Complemento
+301  - Complemento
+400  - Correção
+500  - Retorno
+501  - Retorno
+600  - CT-e Complemento
+700  - Anulação de Valores
+800  - Substituição de Valores
+801  - CT-e Substituído

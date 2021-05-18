@@ -19,6 +19,8 @@ async function apiCliente( req, res ) {
 
 
   retorno.numero           = 0
+  retorno.filial           = ''
+  retorno.serie            = 'E'
   retorno.dataEmissao      = null 
   retorno.prevEntrega      = null
   retorno.tipoPesoM3       = null
@@ -88,10 +90,14 @@ async function set_nf() {
         console.log(`Nota fiscal: (${wnf}-${wnfserie}) - CNPJ (${wcnpj}), não encontrada !!! - `,data,Erro)
         wsqlerr = Erro 
         retorno.numero              = 0
+        retorno.filial              = ''
+        retorno.serie               = 'E'      
         retorno.notaFiscal.numero   = wnf
         retorno.notaFiscal.serie    = wnfserie
    } else {
       //------------------------------------
+        retorno.filial          = data[0].CNH_EMPRESA
+        retorno.serie           = data[0].CNH_SERIE
         retorno.numero          = data[0].CNH_CTRC
         retorno.dataEmissao     = data[0].DATA
         retorno.valorMercadoria = data[0].VALOR
@@ -158,6 +164,8 @@ async function set_cnh() {
           } 
 
           //------------------------------------
+          retorno.filial           = data[0].EMP_CODIGO
+          retorno.serie            = data[0].SERIE 
           retorno.numero           = data[0].CTRC
           retorno.dataEmissao      = data[0].DATA 
           retorno.prevEntrega      = data[0].PREVENTREGA 

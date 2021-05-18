@@ -134,7 +134,8 @@ async function listDadosCTRC( req, res ) {
 
     let s_select = sql_base
 
-    // console.log('SQL:',s_select)
+	console.log('PARAMS:',dt_inicial,dt_final,DadosOuXlsx,ctrc,pagina_nro,pagina_tam)
+    // console.log('(listDadosCTRC)  API => SQL:',s_select)
         
     try {  
         const pool   = await poolPromise  
