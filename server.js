@@ -6,6 +6,7 @@ const swaggerUi    = require('swagger-ui-express')
 const moment       = require('moment')
 
 const rotas = require('./routes/rotas')  
+const test  = require('./routes/test')  
 
 const app    = express()  
 const multer = require('multer')
@@ -102,6 +103,10 @@ app.use(express.json({limit:'4mb'}))
 
 // Rotas
 app.use('/api', rotas )  
+
+// Rotas Testes
+app.use('/test', test )  
+
 
 // Servidor de documentação ( SWAGGER )
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec,setupOptions))

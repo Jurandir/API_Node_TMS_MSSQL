@@ -7,3 +7,10 @@ EASYDOCS_SOAP_URL=
 AD_URL=
 AD_BASE_DN=
 AD_DOMINIO=
+
+
+
+
+Acesso as Fotos:
+http://localhost:5000/sccd/uploads/2b12412f-17b9-4e9e-a7d2-e30cd1b41c31.jpg
+

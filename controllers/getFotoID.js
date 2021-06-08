@@ -1,4 +1,5 @@
 const sqlQuery     = require('../connection/sqlQuery')
+const baseURL      = 'http://192.168.0.45:5000'
 
 async function getFotoID( req, res ) {
     let { id, documento } = req.query
@@ -42,6 +43,7 @@ async function getFotoID( req, res ) {
             let dados = data.map((i)=>{
                 par_id = i.ID
                 i.DOWNLOAD = req.protocol + '://' + req.get('host') + `/api/sccdfoto?id=${par_id}`
+                i.URL = `${baseURL}/sccd/uploads/${i.ARQUIVO}`
                 return i
             })
 
