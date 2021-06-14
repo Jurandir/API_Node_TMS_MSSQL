@@ -41,7 +41,7 @@ async function stepTracker( req, res ) {
     }
 
     s_where = (s_tipo=='NF') 
-                ? `NFR.CLI_CGCCPF_REMET='${cnpj}' AND NFR.NF=${i_numero}` 
+                ? `(CNH.CLI_CGCCPF_REMET='${cnpj}' OR CNH.CLI_CGCCPF_DEST='${cnpj}' OR CNH.CLI_CGCCPF_PAG='${cnpj}') AND NFR.NF=${i_numero}` 
                 : `CNH.EMP_CODIGO='${s_emp}' AND CNH.SERIE = '${s_serie}' AND CNH.CTRC = '${s_ctrc}'`
 
     s_documento = (s_tipo=='NF') 
@@ -88,7 +88,7 @@ async function stepTracker( req, res ) {
                 
                 resposta.success = false
                 resposta.message = `ERRO: ${err}`
-                throw new Error(`DB ERRO - ${Erro}`)
+                throw new Error(`DB ERRO - ${err}`)
 
             } else {  
                 let dados = []

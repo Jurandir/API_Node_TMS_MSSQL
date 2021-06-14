@@ -52,7 +52,9 @@ const listaFiliaisCliente     = require('../consultas/listaFiliaisCliente')
 const senhaCliente            = require('../controllers/senhaCliente') 
 const checkImgSCCD            = require('../controllers/checkImgSCCD')
 const receiveDataDebugAPP     = require('../controllers/receiveDataDebugAPP')
-const fileNameCalcSCCD       = require('../controllers/fileNameCalcSCCD')
+const fileNameCalcSCCD        = require('../controllers/fileNameCalcSCCD')
+const downloadAgileProcess    = require('../controllers/downloadAgileProcess')
+
 
 /**
  * @swagger
@@ -116,6 +118,9 @@ router.post('/baixasccd'       , baixaSCCD )
 router.post('/listasccdalb'    , listaSCCD_ALB )
 router.post('/sccdsuccess'     , SCCDsuccess )
 router.get('/fileNameCalcSCCD' , fileNameCalcSCCD)
+
+// API ConfirmaFacil
+router.get('/downloadAgileProcess' , downloadAgileProcess)
 
 // APP Portfolio
 router.use('/senhaclienteemail'      , senhaClienteEmail )
