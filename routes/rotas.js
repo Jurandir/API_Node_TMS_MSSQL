@@ -55,6 +55,9 @@ const receiveDataDebugAPP     = require('../controllers/receiveDataDebugAPP')
 const fileNameCalcSCCD        = require('../controllers/fileNameCalcSCCD')
 const downloadAgileProcess    = require('../controllers/downloadAgileProcess')
 
+const apiPosicao = require('../consultas/apiPosicao')
+
+
 
 /**
  * @swagger
@@ -152,6 +155,8 @@ router.get('/listafiliaiscliente'    , listaFiliaisCliente)
  *         description: Logout realizado com sucesso
  */
 router.get('/logout'                , logout )
+
+router.post('/apiPosicao'            ,validaToken, apiPosicao)
 
 router.use('/apicliente'             , validaToken, apiCliente )
 router.use('/apitracking'            , validaToken, apiTracking )

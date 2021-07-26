@@ -1,11 +1,15 @@
 const axios         = require('axios')
 
-const loadAPI = async (method,endpoint,server,params) => {
+const loadAPI = async (method,endpoint,server,params,token) => {
 
     const config = {
         headers: { "Content-Type": 'application/json' }
     }
     let url = server + endpoint
+
+    if(token){
+        config.headers.authorization = `Bearer ${token}`
+    }
 
     try {       
         if (method=='POST') {

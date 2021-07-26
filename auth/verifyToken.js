@@ -3,8 +3,9 @@ const jwt = require('jsonwebtoken')
 const verifyToken = (req, res, next) => {
     let bearer, token
     try {
-        bearer = req.headers.authorization.split(" ")[1]
-        token  = bearer.replace('"','').replace('"','')
+        bearer    = req.headers.authorization.split(" ")[1]
+        token     = bearer.replace('"','').replace('"','')
+        req.token = token
     } catch (err) {
         res.status(401).json({ auth: false, message: 'Headers Authorization - Não OK.', err: err })
 		return 0
