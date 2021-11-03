@@ -9,7 +9,7 @@ const getImageAgileProcess = async (doc) => {
     let codeAgile = doc.substring(0,3)+'-'+doc.substring(3,4)+'-'+doc.substring(4,20)
     let params = agileBody(codeAgile)
 
-    console.log('codeAgile 1:',codeAgile,params,params.filters.logically_deleted)
+    // console.log('codeAgile 1:',codeAgile,params,params.filters.logically_deleted)
     let ret    = await loadAPI(method,endpoint,server,params)
 
     // console.log('ret.json_response:',ret.dados.json_response)

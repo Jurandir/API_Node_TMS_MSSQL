@@ -31,6 +31,15 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage })
 
+function forceGC() {
+   if (global.gc) {
+      global.gc();
+   } else {
+      console.warn('(Garbage Collector) não habilitado! Execute seu programa com `node --expose-gc server.js`.');
+   }
+}
+
+forceGC()
 
 app.use(express.static('public'))
 app.use('/downloads',express.static('public'))
